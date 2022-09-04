@@ -48,14 +48,14 @@
 Курс *Архитектур процессорных систем* включает в себя цикл из 4 лабораторных работ, в течение которых используя язык описания аппаратуры **Verilog HDL** на основе **FPGA** (ПЛИС, программируемая логическая интегральная схема), с нуля, последовательно, создается программируемое устройство – процессор. [Подробнее](Labs/README.md) о лабораторных работах.
 
 Список работ направления подготовки КТ [в квадратных скобках указаны номера лекций, в которых поднимаются соответствующие темы]:
-1. [Verilog](./1.%20Verilog.%20FPGA/README.md) (Язык Verilog HDL) – [Лекция 2]
-2. [Adder](./2.%20Adder/README.md) (Сумматор) – [Лекция 3]
-3. [ALU](./3.%20Arithmetic-logic%20unit/README.md) (Арифметико-логическое устройство) – [Лекция 3]
-4. [TB](./4.%20Testbenches/README.md) (Тестовое окружение)
-5. [RF](./5.%20Register%20file%20and%20memory/README.md) (Регистровый файл и память) – [Лекция 4]
-6. [PPD](./6.%20Primitive%20programmable%20device/README.md) (Простейшее программируемое устройство) – [Лекция 4]
-7. [PU](./7.%20Peripheral%20units/README.md) (Периферийные устройства) – [Лекция 15]
-8. [Programming](./8.%20Programming/README.md) (Программирование)
+1. [Verilog](Labs/1.%20Verilog.%20FPGA/README.md) (Язык Verilog HDL) – [Лекция 2]
+2. [Adder](Labs/2.%20Adder/README.md) (Сумматор) – [Лекция 3]
+3. [ALU](Labs/3.%20Arithmetic-logic%20unit/README.md) (Арифметико-логическое устройство) – [Лекция 3]
+4. [TB](Labs/4.%20Testbenches/README.md) (Тестовое окружение)
+5. [RF](Labs/5.%20Register%20file%20and%20memory/README.md) (Регистровый файл и память) – [Лекция 4]
+6. [PPD](Labs/6.%20Primitive%20programmable%20device/README.md) (Простейшее программируемое устройство) – [Лекция 4]
+7. [PU](Labs/7.%20Peripheral%20units/README.md) (Периферийные устройства) – [Лекция 15]
+8. [Programming](Labs/8.%20Programming/README.md) (Программирование)
 
 Полезное дополнение к лабораторным:
 - [Как установить Vivado](Other/Install%20Vivado.md)
