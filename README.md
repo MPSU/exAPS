@@ -57,16 +57,16 @@
 
 Список работ направления подготовки ИВТ [в квадратных скобках указаны номера лекций, в которых поднимаются соответствующие темы]:
 Ссылки на подробные методические материалы по каждой работе (*в производстве*):
-1. [Adder](./01.%20Verilog.%20Adder/README.md) (Сумматор) – [Лекция 2-3]
-2. [ALU](./02.%20Arithmetic-logic%20unit/README.md) (Арифметико-логическое устройство) – [Лекция 3]
-3. [RF](./03.%20Register%20file%20and%20memory/README.md) (Регистровый файл и память) – [Лекция 5]
-4. [PPD](./04.%20Primitive%20programmable%20device/README.md) (Простейшее программируемое устройство) – [Лекция 5]
-5. [MD](./05.%20Main%20decoder/README.md) (Основной дешифратор команд) – [Лекция 8]
-6. [DP](./06.%20Datapath/README.md) (Тракт данных) – [Лекции 6-8]
-7. [LSU](./07.%20Load-store%20unit/README.md) (Устройство загрузки и сохранения) – [Лекция 19]
-8. [IS](./08.%20Interrupt%20subsystem/README.md) (Подсистема прерывания) – [Лекция 14]
-9. [PU](./09.%20Peripheral%20units/README.md) (Периферийные устройства) – [Лекция 20]
-10. [Programming](./10.%20Programming/README.md) (Программирование на C)
+1. [Adder](Labs/01.%20Verilog.%20Adder/README.md) (Сумматор) – [Лекция 2-3]
+2. [ALU](Labs/02.%20Arithmetic-logic%20unit/README.md) (Арифметико-логическое устройство) – [Лекция 3]
+3. [RF](Labs/03.%20Register%20file%20and%20memory/README.md) (Регистровый файл и память) – [Лекция 5]
+4. [PPD](Labs/04.%20Primitive%20programmable%20device/README.md) (Простейшее программируемое устройство) – [Лекция 5]
+5. [MD](Labs/05.%20Main%20decoder/README.md) (Основной дешифратор команд) – [Лекция 8]
+6. [DP](Labs/06.%20Datapath/README.md) (Тракт данных) – [Лекции 6-8]
+7. [LSU](Labs/07.%20Load-store%20unit/README.md) (Устройство загрузки и сохранения) – [Лекция 19]
+8. [IS](Labs/08.%20Interrupt%20subsystem/README.md) (Подсистема прерывания) – [Лекция 14]
+9. [PU](Labs/09.%20Peripheral%20units/README.md) (Периферийные устройства) – [Лекция 20]
+10. [Programming](Labs/10.%20Programming/README.md) (Программирование на C)
 
 Полезное дополнение к лабораторным:
 - [Как установить Vivado](Other/Install%20Vivado.md)
