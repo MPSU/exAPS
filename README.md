@@ -70,6 +70,9 @@
 
 Полезное дополнение к лабораторным:
 - [Как установить Vivado](Other/Install%20Vivado.md)
+- [Сценарий тренажера Vivado](Other/Vivado-trainer.md)
+- [Что такое язык описания аппаратуры HDL](Other/What%20is%20HDL.md)
+- [Конструкции языка Verilog](Other/Verilog%20syntax.md)
 
 
 ## Дополнительные материалы
