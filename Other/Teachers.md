@@ -52,7 +52,7 @@
 -->
 ### Силантьев Александр Михайлович
 
-![](../../technical/other/pic/silantiev.jpg)
+![](../../technical/Other/Pic/silantiev.jpg)
 
 Старший преподаватель Института МПСУ, инженер-электроник в НИИ ВСиСУ, руководитель группы
 
@@ -66,7 +66,7 @@
 
 ### Хисамов Василь Тагирович
 
-![](../../technical/other/pic/hisamov.jpg)
+![](../../technical/Other/Pic/hisamov.jpg)
 
 Старший преподаватель Института МПСУ, инженер-электроник в НИИ ВСиСУ
 
@@ -81,7 +81,7 @@
 
 ### Солодовников Андрей Павлович
 
-![](../../technical/other/pic/solodovnikov.jpg)
+![](../../technical/Other/Pic/solodovnikov.jpg)
 
 Аспирант НИУ МИЭТ, инженер-электроник в НИИ ВСиСУ
 
@@ -119,7 +119,7 @@
 -->
 ### Барков Евгений Сергеевич
 
-![](../../technical/other/pic/barkov.jpg)
+![](../../technical/Other/Pic/barkov.jpg)
 
 Магистрант НИУ МИЭТ, инженер-электроник в НИИ ВСиСУ
 
@@ -143,7 +143,7 @@
 -->
 ### Рыжкова Дарья Васильевна
 
-![](../../technical/other/pic/rygkova.jpg)
+![](../../technical/Other/Pic/rygkova.jpg)
 
 Магистрант НИУ МИЭТ, инженер-электроник в НИИ ВСиСУ
 
@@ -168,7 +168,7 @@
 
 ### Орлов Александр Николаевич
 
-![](../../technical/other/pic/primakov.jpg)
+![](../../technical/Other/Pic/primakov.jpg)
 
 Старший преподаватель, инженер-электроник в НИИ ВСиСУ
 
