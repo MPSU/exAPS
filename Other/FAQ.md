@@ -12,6 +12,7 @@
 2.1 [concurrent assignment to a non-net is not permitted](#concurrent-assignment-to-a-non-net-is-not-permitted)  
 2.2 [procedural assignment to a non-register test is not permitted, left-hand side should be reg/integer/time/genvar](#procedural-assignment-to-a-non-register-test-is-not-permitted-left-hand-side-should-be-reg)  
 2.3 ['имя сигнала' is not a type](#имя-сигнала-is-not-a-type)  
+2.4 [cannot find port on this module](#cannot-find-port-on-this-module)  
 
 ## Ошибки связанные с САПР Vivado
 
@@ -123,3 +124,26 @@ endmodule
 ```
 
 ---
+
+### cannot find port on this module
+
+Имя порта, указанного при подключении модуля (после точки) не соответствует ни одному имени сигналов подключаемого модуля
+
+Пример
+
+```Verilog
+module adder(input a, input b, output c);
+  assign c = a ^ b;
+endmodule 
+
+module testbench();
+reg A, B;
+wire C;
+adder DUT(
+  .A(A),  // <- здесь будет ошибка,
+          // т.к. в модуле adder нет порта 'A'
+  .b(B),
+  .c(C)
+);
+endmodule
+```
