@@ -83,11 +83,31 @@
 
 Запрещено выполнять непрерывное присваивание (`assign`) к объектам, не являющимися цепями. Скорее всего, вы пытались выполнить `assign b = a;`, где `b` является регистром.
 
+```Verilog
+module alu(input a, input b,
+  input [3:0] alu_op,
+  output reg flag,
+  output reg result
+);
+
+assign flag = alu_op[3] ? (a > b) : 1'b0; // ошибка
+endmodule
+```
+
 ---
 
 ### procedural assignment to a non-register test is not permitted left-hand side should be reg
 
 Запрещено использовать процедурное присваивание (присваивание в блоке `always` или `initial`) объектам, не являющимися регистрами. Скорее всего, вы пытались выполнить `b = a;` или `b <= a;` блоке `always`/`initial`, где `b` является проводом.
+
+```Verilog
+module adder(input a, input b, output c);
+always @(*) begin
+  c = a ^ b;  // ошибка, процедурное присваивание
+              // к проводам запрещено
+end
+endmodule
+```
 
 ---
 
@@ -95,3 +115,11 @@
 
 Скорее всего, компилятор не распознал присваивание, поскольку оно было записано с ошибками. Вне блоков `always` и `initial` можно выполнять только непрерывное присваивание (через `assign`).
 
+```Verilog
+module adder(input a, input b, output c);
+c = a ^ b;  // ошибка, для непрерывного присваивания
+            // необходимо ключевое слово assign
+endmodule
+```
+
+---
