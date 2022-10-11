@@ -2,7 +2,7 @@
 
 [[СОДЕРЖАНИЕ]](../README.md)
 
-Ссылки на подробные методические материалы по каждой работе (*в производстве*):
+Ссылки на подробные методические материалы по каждой работе:
 1. [Verilog](./1.%20Verilog.%20FPGA/README.md)
 2. [Adder](./2.%20Adder/README.md)
 3. [ALU](./3.%20Arithmetic-logic%20unit/README.md) (Arithmetic Logic Unit)
