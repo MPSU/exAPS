@@ -101,6 +101,7 @@
 - [Конструкции языка Verilog](Other/Verilog%20syntax.md)
 - [Тестовое окружение](Other/Testbench.md)
 - [Как добавить файл с содержимым памяти в проект](Other/How%20to%20add%20a%20mem-file.md)
+- [RV32I](Other/RV32I.md)
 
 
 ## Дополнительные материалы
