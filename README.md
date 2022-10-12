@@ -1,12 +1,8 @@
 > LAST UPDATE:
 >
-> [Лабораторная работа 2](Labs/2.%20Register%20file%20and%20memory/README.md) "Регистровый файл и память. Примитивное программируемое устройство"
+> [Лабораторная работа 3](Labs/3.%20Main%20decoder/README.md) "Основной дешифратор команд"
 >
-> [RV32I](Other/RV32I.md) - Стандартный набор целочисленных инструкций RISC-V
->
-> [Индивидуальные задания](Tests/Problems%20RISC-V.md) для программирования на языке ассемблера RISC-V
->
-> В настоящей статье появился раздел [#Контроль знаний](#контроль-знаний) и [#Оглавление](#)
+> В настоящей статье появился раздел [#Полезные ресурсы и материалы в Интернете](#полезные-ресурсы-и-материалы-в-интернете)
 
 # Путеводитель АПС для ИВТ 
 
@@ -16,6 +12,7 @@
 - [#Лекции](#лекции)
 - [#Лабораторные работы](#лабораторные-работы)
 - [#Дополнительные материалы](#дополнительные-материалы)
+- [#Полезные ресурсы и материалы в Интернете](#полезные-ресурсы-и-материалы-в-интернете)
 - [`ОБЛАКО`](https://1drv.ms/u/s!AlYsTGjsjfIfhP4GhdRLPQzK60vqGw?e=qKQz3L)
 - [#Контроль знаний](#контроль-знаний)
 - [#Обратная связь и преподаватели](#обратная-связь-и-преподаватели)
@@ -110,6 +107,24 @@
 
 - [Список основных определений](Other/Basic%20definitions.md)
 - [Хочу под ПЛИС](Other/About%20FPGA.md)
+
+
+## Полезные ресурсы и материалы в Интернете
+
+- Про программируемые логические интегральные схемы (ПЛИС) и Verilog
+  - [fpga-systems.ru](https://fpga-systems.ru) – FPGA-Systems – это живое, постоянно обновляемое и растущее сообщество.
+  - [FPGA-Awesome-List](https://github.com/FPGA-Systems/fpga-awesome-list) – 
+  - [opencores.org](https://opencores.org/projects) – 
+  - [Problem sets Verilog syntax](https://hdlbits.01xz.net/wiki/Problem_sets) – 
+- Про архитектуру RISC-V
+  - [Официальный сайт RISC-V International](https://riscv.org) – 
+  - [RISC-V-Awesome-List](https://github.com/NickolayTernovoy/risc-v_awesome_list) – 
+  - [Записки CPU designer'a](https://t.me/cpu_design) – 
+- Про Git
+  - [Pro Git](https://git-scm.com/book/ru/v2) –
+  - [Шпаргалка по Git](https://training.github.com/downloads/ru/github-git-cheat-sheet/) –
+  - [Чёрт побери, Git!?!](https://dangitgit.com/ru) – 
+  - [Тренажер Git](https://learngitbranching.js.org/?locale=ru_RU) – 
 
 
 ## Облако ☁️
