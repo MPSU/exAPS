@@ -1,5 +1,7 @@
 > LAST UPDATE:
 >
+> [Лабораторная работа 6](Labs/6.%20Datapath/README.md) "Тракт данных"
+>
 > [Лабораторная работа 5](Labs/5.%20Main%20decoder/README.md) "Основной дешифратор команд"
 >
 > [Список типичных ошибок при работе с Vivado и Verilog](https://github.com/MPSU/APS/blob/technical/Other/FAQ.md)
