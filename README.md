@@ -1,5 +1,7 @@
 > LAST UPDATE:
 >
+> [Лабораторная работа 6](Labs/06.%20Datapath/README.md) "Тракт данных"
+>
 > [Лабораторная работа 5](Labs/05.%20Main%20decoder/README.md) "Основной дешифратор команд"
 >
 > [Список типичных ошибок при работе с Vivado и Verilog](https://github.com/MPSU/APS/blob/technical/Other/FAQ.md)
@@ -33,23 +35,23 @@
 
 **[Основы]**
 
-1. [Вводная](Lectures/01.%20Introduce.md)
-2. [Основные концепции и инструменты](Lectures/02.%20Instruments.md)
+1. [Вводная](Papers/01.%20Introduce.md)
+2. [Основные концепции и инструменты](Papers/02.%20Instruments.md)
 
 **[Цифровая схемотехника]**
 
-3. [Цифровая арифметика. Арифметико-логическое устройство](Lectures/03.%20Digital%20arithmetics.md)
-4. [Операционные устройства](Lectures/04.%20Operations%20units.md)
-5. [Последовательностная логика. Память](Lectures/05.%20Sequencial%20logic.md)
+3. [Цифровая арифметика. Арифметико-логическое устройство](Papers/03.%20Digital%20arithmetics.md)
+4. [Операционные устройства](Papers/04.%20Operations%20units.md)
+5. [Последовательностная логика. Память](Papers/05.%20Sequencial%20logic.md)
 
 **[Архитектура и микроархитектура]**
 
-6. [Архитектура RISC-V](Lectures/06.%20RISC-V%20architecture.md)
-7. [Программирование RISC-V](Lectures/07.%20RISC-V%20programming.md)
-8. [Однотактный процессор](Lectures/08.%20Singlecycle%20processor.md)
-9. [Многотактный процессор. Устройство с микропрограммным управлением](Lectures/09.%20Multicycle%20processor.md)
-10. [Конвейерный процессор](Lectures/10.%20Pipeline%20processor.md)
-11. [Конфликты конвейера](Lectures/11.%20Pipeline%20hazards.md)
+6. [Архитектура RISC-V](Papers/06.%20RISC-V%20architecture.md)
+7. [Программирование RISC-V](Papers/07.%20RISC-V%20programming.md)
+8. [Однотактный процессор](Papers/08.%20Singlecycle%20processor.md)
+9. [Многотактный процессор. Устройство с микропрограммным управлением](Papers/09.%20Multicycle%20processor.md)
+10. [Конвейерный процессор](Papers/10.%20Pipeline%20processor.md)
+11. [Конфликты конвейера](Papers/11.%20Pipeline%20hazards.md)
 12. Методы повышения производительности
 13. Виды и классификация архитектур
 
