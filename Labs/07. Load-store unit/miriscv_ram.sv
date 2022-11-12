@@ -37,14 +37,14 @@ module miriscv_ram
 
 
   //Instruction port
-  assign instr_rdata_o = mem[(instr_addr_i / 4) % RAM_SIZE];
+  assign instr_rdata_o = mem[(instr_addr_i % RAM_SIZE) / 4];
 
   always@(posedge clk_i) begin
     if(!rst_n_i) begin
       data_rdata_o  <= 32'b0;
     end
     else if(data_req_i) begin
-      data_rdata_o <= mem[(data_addr_i / 4) % RAM_SIZE];
+      data_rdata_o <= mem[(data_addr_i % RAM_SIZE) / 4];;
 
       if(data_we_i && data_be_i[0])
         mem [data_addr_i[31:2]] [7:0]  <= data_wdata_i[7:0];
