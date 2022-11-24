@@ -14,14 +14,17 @@ _bss_init_loop:
   addi  t0, t0, 4
   j     _bss_init_loop
 
-# Настройка вектора (mtvec) и маски (mie) прерываний
+# Настройка вектора (mtvec) и маски (mie) прерываний, а также указателя на стек
+# прерываний (mscratch).
 # (У групп, не реализовывавших контроллер прерываний инструкции csrw будут
 #  интерпретированы как illegal instruction — это нормально для данного примера)
 _irq_config:
   la    t0, _int_handler
   li    t1, -1 # -1 (все биты равны 1) означает, что разрешены все прерывания
+  la    t2, _interrupt_stack_ptr
   csrw  mtvec, t0
   csrw  mie, t1
+  csrw  mscratch, t2
 
 # Вызов функции main
 _main_call:
