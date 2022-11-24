@@ -45,7 +45,7 @@ int main()
       "add x29, x29, %1 \n"
       "lw x31, 0(x29)\n"
       :
-      : "r"(array_to_sort), "r"(array_size));
+      : "r"(array_to_sort), "r"(array_size * sizeof(int32_t)));
   return 0;
 }
 
