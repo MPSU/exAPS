@@ -199,7 +199,7 @@ _bss_init_loop:
 # (У групп, не реализовывавших контроллер прерываний инструкции csrw будут
 #  интерпретированы как illegal instruction — это нормально для данного примера)
 _irq_config:
-  la    t0, __int_handler
+  la    t0, _int_handler
   li    t1, -1 # -1 (все биты равны 1) означает, что разрешены все прерывания
   csrw  mtvec, t0
   csrw  mie, t1
@@ -241,7 +241,7 @@ _endless_loop:
 # файл.
 # Документ:
 #  https://github.com/riscv-non-isa/riscv-eabi-spec/blob/master/EABI.adoc
-__int_handler:
+_int_handler:
   # Данная операция меняет местами регистры sp и mscratch.
   # В итоге указатель на стек прерываний оказывается в регистре sp, а вершина
   # программного стека оказывается в регистре mscratch.
