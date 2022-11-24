@@ -22,11 +22,11 @@ all: clean princeton
 
 harvard: $(OUTPUT).elf $(OUTPUT)_disasm.S size
 # $< означает "первая зависимость"
-	${OBJCOPY} -O verilog -j .data -j .bss $< $(OUTPUT)_data.mem
-	${OBJCOPY} -O verilog -j .text $< $(OUTPUT)_instr.mem
+	${OBJCOPY} -O verilog --verilog-data-width=4 --reverse-bytes=4 -j .data -j .bss $< $(OUTPUT)_data.mem
+	${OBJCOPY} -O verilog --verilog-data-width=4 --reverse-bytes=4 -j .text $< $(OUTPUT)_instr.mem
 
 princeton: $(OUTPUT).elf $(OUTPUT)_disasm.S size
-	${OBJCOPY} -O verilog $< $(OUTPUT).mem
+	${OBJCOPY} -O verilog --verilog-data-width=4 --reverse-bytes=4 --remove-section=.comment $< $(OUTPUT).mem
 
 $(OUTPUT).elf: $(OBJS)
 # $^ Означает "все зависимости".
