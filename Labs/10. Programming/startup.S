@@ -120,8 +120,8 @@ _int_handler:
   # сохраним его в регистр a0, и будем восстанавливаться из него.
   mv    a0,sp
 
-  lw    t1,132(a0)
-  addi  sp,sp,144
+  lw    t1,72(a0)
+  addi  sp,sp,80
   csrw  mscratch,sp
   csrw  mepc,t1
   lw    ra,4(a0)
