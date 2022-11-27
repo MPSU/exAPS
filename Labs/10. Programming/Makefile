@@ -1,4 +1,4 @@
-CROSS_COMPILE := /c/sysgcc/risc-v/bin/riscv64-unknown-elf-
+CROSS_COMPILE := /c/riscv64/bin/riscv64-unknown-elf-
 
 CC      =   $(CROSS_COMPILE)gcc
 OBJDUMP =   $(CROSS_COMPILE)objdump
