@@ -104,7 +104,7 @@
 - [Список типичных ошибок при работе с Vivado и Verilog](https://github.com/MPSU/APS/blob/technical/Other/FAQ.md)
 - [Тестовое окружение](Other/Testbench.md)
 - [Как добавить файл с содержимым памяти в проект](Other/How%20to%20add%20a%20mem-file.md)
-- [RV32I](Other/RV32I.md)
+- [RV32I](Other/rv32i.md)
 
 
 ## Дополнительные материалы
