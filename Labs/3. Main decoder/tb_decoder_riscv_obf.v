@@ -5,7 +5,7 @@
 module tb_decoder_riscv_obf();
 
   parameter evNMTIYam = 4;
-  parameter na2NeG76MVkvp = 100; // per one opcode
+  parameter na2NeG76MVkvp = 10000; // per one opcode
 
   reg   [31:0]               UmWx5ulXQ5IP;
   wire  [1:0]                I2r97V7muunE;
@@ -188,9 +188,13 @@ module tb_decoder_riscv_obf();
         endcase
       end
 
-      `MISC_MEM_OPCODE,
+      `MISC_MEM_OPCODE: begin
+        kQPPGtSqrrg0 = VFNI1TeJWM5X;
+        if(|amn5) sD7vxFgtY7jG = 1'b1;
+      end
       `SYSTEM_OPCODE: begin
         kQPPGtSqrrg0 = VFNI1TeJWM5X;
+        if(|UmWx5ulXQ5IP[31:7]) sD7vxFgtY7jG = 1'b1;
       end
 
       default: sD7vxFgtY7jG = 1'b1;
