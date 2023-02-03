@@ -8,7 +8,7 @@ parameter TEST_VALUES     = 10000;
 parameter TIME_OPERATION  = 100;
 
 
-wire [5:0]               operator_i;
+wire [4:0]               operator_i;
 wire [31:0]              operand_a_i;
 wire [31:0]              operand_b_i;
 
