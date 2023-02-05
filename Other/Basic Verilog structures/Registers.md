@@ -116,7 +116,7 @@ modulе rеg_ехаmрlе(
 
 Итоговая схема регистра со сбросом и сигналом разрешения записи:
 
-![connected_canvas](../../../technical/Labs/Pic/reg_connected_canvas.drawio.png)
+![connected_canvas_with_controls.drawio](../../../technical/Labs/Pic/reg_connected_canvas_with_controls.drawio.png)
 
 Помимо прочего есть еще одно важное правило, которое необходимо знать при описании регистра:
 
