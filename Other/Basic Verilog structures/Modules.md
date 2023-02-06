@@ -197,5 +197,9 @@ module top(
   
 endmodule
 ```
+___
+## Проверь себя
 
+Как по-вашему описать нижеприведенную схему на языке Verilog?
 
+![](../../../technical/Labs/Pic/module_10.png)
