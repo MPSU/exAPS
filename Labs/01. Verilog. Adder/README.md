@@ -8,7 +8,7 @@
 
 ## Допуск к лабораторной работе
 
-Изучить [описание модулей на языке Verilog](../../Other/Basic%20Verilog%20structures/Modeles.md).
+Изучить [описание модулей на языке Verilog](../../Other/Basic%20Verilog%20structures/Modules.md).
 
 ## Ход работы
 
