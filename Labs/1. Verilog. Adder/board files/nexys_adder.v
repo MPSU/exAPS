@@ -6,7 +6,9 @@ module nexys_adder(
     input BTND,
     input  [15:0] SW,
     output [15:0] LED,
+
     output CA, CB, CC, CD, CE, CF, CG, DP,
+
     output [7:0] AN
     );
 
@@ -21,7 +23,9 @@ localparam pwm = 1000;
 reg [9:0] counter;
 reg [3:0] semseg;
 reg [7:0] ANreg;
+
 reg CAr, CBr, CCr, CDr, CEr, CFr, CGr, DPr;
+
 reg [15:0] LEDr;
 
 fulladder32 DUT
@@ -42,6 +46,7 @@ assign LED[15:0] = LEDr[15:0];
 
 assign AN[7:0] = ANreg[7:0];
 assign {CA, CB, CC, CD, CE, CF, CG, DP} = {CAr, CBr, CCr, CDr, CEr, CFr, CGr, DPr};
+
 
 initial ANreg[7:0] = 8'b11111110;
 
@@ -99,6 +104,7 @@ always @(posedge CLK100) begin
                 semseg <= (A / 'h10) % 5'h10;
                 DPr <= 1'b1;
             end
+
         endcase
         case (semseg)
             4'h0: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0000001;
