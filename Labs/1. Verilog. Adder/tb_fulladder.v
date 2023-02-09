@@ -37,7 +37,7 @@ parameter TEST_VALUES = 3000;
                 running_line = line_dump[i*104+:103];
                 #TIME_OPERATION;
                 Sum = A + B + Pin;
-                if( {Pout, S} != Sum ) begin
+                if( ({Pout, S} !== Sum) ) begin
                     $display("ERROR! %h + %h = ", A, B, "%h", {Pout, S}, " result_dump: %h", Sum);
                     err_count = err_count + 1'b1;
                 end
