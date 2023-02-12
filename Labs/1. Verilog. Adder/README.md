@@ -247,7 +247,7 @@ endmodule
 
 ```systemverilog
 module fulladder4(
-    input [3:0] А,    
+    input [3:0] А,
     input [3:0] В,
     input       Ріn,
     output[3:0] S,
