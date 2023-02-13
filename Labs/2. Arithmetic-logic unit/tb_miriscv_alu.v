@@ -55,7 +55,7 @@ initial
 
     $display("Number of errors: %d", err_count);
     
-    $stop;
+    $finish();
   end
   
 always @(*) begin

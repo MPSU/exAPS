@@ -44,7 +44,7 @@ parameter TEST_VALUES = 3000;
             end
         $display("Number of errors: %d", err_count);
         if( !err_count )  $display("SUCCESS!!!");
-        $stop();
+        $finish();
     end
 
 reg [104*3000:0] line_dump = {
