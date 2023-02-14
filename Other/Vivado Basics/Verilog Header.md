@@ -2,18 +2,18 @@
 
  Директива `ˋinclude` позволяет вставлять код из одного файла, в код другого, подобно `#include` на языке `C`. Но при объявлении данной директивы до подключения файла ваш модуль окажется в папке `Syntax Error Files` иерархии вашего проекта.
 
-![Syntax Error](../../technical/Labs/Pic/Verilog_Header1.png)
+![Syntax Error](../../../technical/Labs/Pic/Verilog_Header1.png)
 
 Файл в проект добавляется точно так же, как при создании Verilog-файла, только вместо `Create File` нужно нажать `Add Files`, затем перейти к его расположению, выбрать его и нажать `OK` и `Finish`.
 
 После обновления иерархии вашего проекта, этот файл будет располагаться в папке `Non-module Files`.
 
-![Non-module](../../technical/Labs/Pic/Verilog_Header2.png)
+![Non-module](../../../technical/Labs/Pic/Verilog_Header2.png)
 
 Следующим шагом нужно нажать по этому файлу `ПКМ`, выделив его, убедившись, что в окне ниже выбран именно он, необходимо сменить его тип на `Verilog Header`.
 
-![Header](../../technical/Labs/Pic/Verilog_Header3.png)
+![Header](../../../technical/Labs/Pic/Verilog_Header3.png)
 
 После этого нужно убедиться, что наш файл появился в иерархии проекта в папке `Verilog Header`, а наш файл с модулем больше не лежит в папке `Syntax Error Files`.
 
-![Header](../../technical/Labs/Pic/Verilog_Header4.png)
+![Header](../../../technical/Labs/Pic/Verilog_Header4.png)
