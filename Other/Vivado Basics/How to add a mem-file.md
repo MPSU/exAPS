@@ -1,6 +1,6 @@
 # Как добавить файл с содержимым памяти в проект
 
-[\[Список лабораторных\]](../Labs/README.md) [\[СОДЕРЖАНИЕ\]](../README.md)
+[\[Список лабораторных\]](../../Labs/README.md) [\[СОДЕРЖАНИЕ\]](../../README.md)
 
 Представим ситуацию. Сел, значит, ты делать процессор на ПЛИС, делал-делал, и наконец сделал, прошил его в ПЛИС, но как запустить на нем программу?
 
@@ -22,16 +22,16 @@ initial $readmemh("my_program.txt", RAM);
 
 Файл в проект добавляется точно так же, как при создании Verilog-файла.
 
-![](../../technical/Other/Pic/how_to_mem_1.png)
+![](../../../technical/Other/Pic/how_to_mem_1.png)
 
 Дальше надо добавить файл с содержимым памяти. Обрати внимание, чтобы его можно было выбрать, нужно поставить в фильтрах `All Files`, как на картинке снизу.
 
-![](../../technical/Other/Pic/how_to_mem_2.png)
+![](../../../technical/Other/Pic/how_to_mem_2.png)
 
 После добавления файла в проект он отобразится в окне `Sources`, в папке `Text`. Чтобы поменять тип файла на нужный, необходимо выделить этот файл, нажав на него, после чего в окне `Source File Properties`, во вкладке `Properties` найти свойство `FILE_TYPE` и заменить его на `Memory Initialization Files`. Описанное отмечено на картинке далее.
 
-![](../../technical/Other/Pic/how_to_mem_3.png)
+![](../../../technical/Other/Pic/how_to_mem_3.png)
 
 Если после изменений файл переместился в папку `Memory Initialization Files` в окне `Sources`, значит все сделано правильно!
 
-![](../../technical/Other/Pic/how_to_mem_4.png)
+![](../../../technical/Other/Pic/how_to_mem_4.png)
