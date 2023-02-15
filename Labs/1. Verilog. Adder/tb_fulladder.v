@@ -40,12 +40,11 @@ parameter TEST_VALUES = 8;
                 if( (Pout !== Pout_dump) || (S !== S_dump) ) begin
                     $display("ERROR! Pin = %b; (a)%b + (b)%b = ", Pin, A, B, "(Pout)%b (S)%b;", Pout, S, " Pout_dump: %b, S_dump: %b", Pout_dump, S_dump);
                     err_count = err_count + 1'b1;
-                    $stop();
                 end
             end
         $display("Number of errors: %d", err_count);
         if( !err_count )  $display("SUCCESS!!!");
-        $stop();
+        $finish();
     end
         
 reg [5*8-1:0] line_dump = {
