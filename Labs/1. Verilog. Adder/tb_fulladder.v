@@ -43,7 +43,7 @@ parameter TEST_VALUES = 8;
                 end
             end
         $display("Number of errors: %d", err_count);
-        if( !err_count )  $display("SUCCESS!!!");
+        if( !err_count )  $display("fulladder SUCCESS!!!");
         $finish();
     end
         
