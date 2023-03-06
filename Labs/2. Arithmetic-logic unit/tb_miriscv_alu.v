@@ -41,7 +41,7 @@ reg [102:0] running_line;
 
 initial
   begin
-    $display( "\nStart test: \n\n Please click on the button 'Run All'\n"); $stop();
+    $display( "\nStart test: \n\n========================\nНАЖМИ НА КНОПКУ 'Run All'\n========================\n"); $stop();
     for ( i = 0; i < TEST_VALUES; i = i + 1 )
       begin
         running_line = line_dump[i*103+:103];
