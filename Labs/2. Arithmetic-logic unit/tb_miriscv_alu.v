@@ -41,13 +41,13 @@ reg [102:0] running_line;
 
 initial
   begin
-    $display( "\nStart test: \n\n Please click on the button 'Run All'\n");
+    $display( "\nStart test: \n\n========================\nНАЖМИ НА КНОПКУ 'Run All'\n========================\n"); $stop();
     for ( i = 0; i < TEST_VALUES; i = i + 1 )
       begin
         running_line = line_dump[i*103+:103];
         #TIME_OPERATION;
         if( (result_dump !== result_o) || (comparison_result_dump !== comparison_result_o) ) begin
-          $display("ERROR Operator: %s", operator_type, " operand_A: %h", operand_a_i, " operand_B: %h", operand_b_i, " result_o: %h", result_o, " result_dump: %h", result_dump, " comparison_result_o: %h", comparison_result_o, " comparison_result_dump: %h", comparison_result_dump);
+          $display("ERROR Operator: %s", operator_type, " operand_A: %h", operand_a_i, " operand_B: %h", operand_b_i, " your_Result: %h", result_o, " Result_dump: %h", result_dump, " your_Flag: %h", comparison_result_o, " Flag_dump: %h", comparison_result_dump);
           err_count = err_count + 1'b1;
         end
       end
