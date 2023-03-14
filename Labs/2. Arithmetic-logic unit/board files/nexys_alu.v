@@ -25,7 +25,7 @@ reg CAr, CBr, CCr, CDr, CEr, CFr, CGr;
 reg [15:0] LEDr;
 reg minus;
 
-alu_riscv_net DUT
+alu_riscv DUT
 (
   .ALUOp  (operator_i),
   .A      (operand_a_i),
