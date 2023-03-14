@@ -1,4 +1,5 @@
 `timescale 1ns / 1ps
+`include "defines_riscv.v"
 
 module nexys_alu(
     input CLK100,
@@ -22,8 +23,9 @@ reg [3:0] semseg;
 reg [7:0] ANreg;
 reg CAr, CBr, CCr, CDr, CEr, CFr, CGr;
 reg [15:0] LEDr;
+reg minus;
 
-alu_riscv DUT
+alu_riscv_net DUT
 (
   .ALUOp  (operator_i),
   .A      (operand_a_i),
@@ -34,8 +36,8 @@ alu_riscv DUT
 );
 
 assign operator_i  = SW[4:0];
-assign operand_b_i = {27'b0,SW[10:6]};
-assign operand_a_i = {27'b0,SW[15:11]};
+assign operand_b_i = {{28{SW[10]}},SW[9:6]};
+assign operand_a_i = {{28{SW[15]}},SW[14:11]};
 
 assign LED[15:0] = LEDr[15:0];
 
@@ -67,18 +69,19 @@ always @(posedge CLK100) begin
             ANreg[0] <= !(SW[5] && (ANreg[6:0] == 7'b1111111));
         end
         case (1'b0)
-            ANreg[0]: semseg <= (result_o          ) % 4'd10;
-            ANreg[1]: semseg <= (result_o / 'd10   ) % 4'd10;
-            ANreg[2]: semseg <= (result_o / 'd100  ) % 4'd10;
-            ANreg[3]: semseg <= (result_o / 'd1000 ) % 4'd10;
-            ANreg[4]: semseg <= (operand_b_i       ) % 4'd10;
-            ANreg[5]: semseg <= (operand_b_i / 'd10) % 4'd10;
-            ANreg[6]: semseg <= (operand_a_i       ) % 4'd10;
-            ANreg[7]: semseg <= (operand_a_i / 'd10) % 4'd10;
+            ANreg[0]: semseg <= result_o[31] ? ( ~result_o + 1          ) % 4'd10: (result_o         ) % 4'd10;
+            ANreg[1]: semseg <= result_o[31] ? ((~result_o + 1) / 'd10  ) % 4'd10: (result_o / 'd10  ) % 4'd10;
+            ANreg[2]: semseg <= result_o[31] ? ((~result_o + 1) / 'd100 ) % 4'd10: (result_o / 'd100 ) % 4'd10;
+            ANreg[3]: semseg <= result_o[31] ? ((~result_o + 1) / 'd1000) % 4'd10: (result_o / 'd1000) % 4'd10;
+            ANreg[4]: semseg <= operand_b_i[31] ? ( ~operand_b_i + 1        ) % 4'd10: (operand_b_i       ) % 4'd10;
+            ANreg[5]: semseg <= operand_b_i[31] ? ((~operand_b_i + 1) / 'd10) % 4'd10: (operand_b_i / 'd10) % 4'd10;
+            ANreg[6]: semseg <= operand_a_i[31] ? ( ~operand_a_i + 1        ) % 4'd10: (operand_a_i       ) % 4'd10;
+            ANreg[7]: semseg <= operand_a_i[31] ? ((~operand_a_i + 1) / 'd10) % 4'd10: (operand_a_i / 'd10) % 4'd10;
         endcase
+        minus <= (operator_i == `ALU_ADD || operator_i == `ALU_SUB || operator_i == `ALU_SLTS || operator_i == `ALU_SRA || operator_i == `ALU_LTS || operator_i == `ALU_GES);
         case (semseg)
-            4'd0: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0000001;
-            4'd1: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b1001111;
+            4'd0: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= (((!ANreg[5] & operand_b_i[31]) || (!ANreg[7] & operand_a_i[31]) || (!ANreg[3] & result_o[31])) && minus) ? 7'b1111110: 7'b0000001;
+            4'd1: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= (((!ANreg[5] & operand_b_i[31]) || (!ANreg[7] & operand_a_i[31]) || (!ANreg[3] & result_o[31])) && minus) ? 7'b1001110: 7'b1001111;
             4'd2: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0010010;
             4'd3: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0000110;
             4'd4: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b1001100;
