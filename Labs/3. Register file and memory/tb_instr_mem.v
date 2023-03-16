@@ -32,7 +32,7 @@ parameter TIME_OPERATION  = 100;
                 err_count = err_count + 1;
             end
         end    
-        if( !err_count )  $display("SUCCESS!!!");
+        if( !err_count )  $display("\n instr_mem SUCCESS!!!\n");
         $finish();
     end
     

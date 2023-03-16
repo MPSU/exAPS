@@ -61,7 +61,7 @@ parameter TIME_OPERATION  = 50;
                 err_count = err_count + 1;
             end
         end
-        if( !err_count )  $display("SUCCESS!!!");
+        if( !err_count )  $display("\n data_mem SUCCESS!!!\n");
         $finish();
     end
 endmodule
