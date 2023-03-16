@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module tb_data_mem8();
+module tb_data_mem();
 
 parameter ADDR_SIZE = 1021;
 parameter TIME_OPERATION  = 50;
@@ -11,12 +11,12 @@ parameter TIME_OPERATION  = 50;
     wire        WE;
     wire [31:0] RD;
 
-    data_mem1024_8 DUT (
-    .CLK(CLK),
-    .A (A),
-    .WD(WD),
-    .WE(WE),
-    .RD(RD)
+    data_mem DUT (
+    .clk        (CLK),
+    .addr       (A),
+    .write_data (WD),
+    .we         (WE),
+    .read_data  (RD)
     );
     
     reg        clk;
