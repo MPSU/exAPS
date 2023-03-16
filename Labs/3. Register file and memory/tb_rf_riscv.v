@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module tb_reg_file();
+module tb_rf_riscv();
 
     wire        CLK;
     wire [4:0]  A1;
@@ -15,7 +15,7 @@ module tb_reg_file();
     wire [31:0] RD2ref;
     
     rf_riscv DUT(
-        .CLK(CLK),
+        .clk(CLK),
         .A1 (A1 ),
         .A2 (A2 ),
         .A3 (A3 ),

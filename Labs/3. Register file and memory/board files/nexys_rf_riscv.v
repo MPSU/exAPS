@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module nexys_reg_file(
+module nexys_rf_riscv(
     input CLK100,
     input resetn,
     input BTND, BTNU, BTNL, BTNR, BTNC, 
@@ -29,9 +29,9 @@ reg [4:0] a3;
 reg [31:0] rd1;
 reg [31:0] rd2;
 
-register_file DUT
+rf_riscv DUT
 (
-  .CLK   (CLK100),
+  .clk   (CLK100),
   .A1    (a1),
   .A2    (a2),
   .A3    (a3),

@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module tb_instr_mem8();
+module tb_instr_mem();
 
 parameter ADDR_SIZE = 1021;
 parameter TIME_OPERATION  = 100;
@@ -14,9 +14,9 @@ parameter TIME_OPERATION  = 100;
     .RD(RDref)
     );
     
-    instr_mem1024_8 DUT (
-    .A(A),
-    .RD(RD)
+    instr_mem DUT (
+    .addr(A),
+    .read_data(RD)
     );
     
     integer i, err_count = 0;
