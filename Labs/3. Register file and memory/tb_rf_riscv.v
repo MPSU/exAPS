@@ -62,6 +62,15 @@ module tb_rf_riscv();
     
     initial begin
       $display( "\nStart test: \n\n========================\nНАЖМИ НА КНОПКУ 'Run All'\n========================\n"); $stop();
+      @(posedge clk);
+      WEr <= 'b0;
+      a1  <= 'b0;
+      @(posedge clk);
+      if( RD1 !== 'b0 ) begin 
+        $display("\n\nError of data with address 0: RD1 = %h\n\n", RD1); $stop();
+        err_count = err_count + 1;
+      end
+      @(posedge clk);
       //------initial
       clk  <= 'b0;
       a1   <= 'b0;
@@ -85,7 +94,10 @@ module tb_rf_riscv();
       WEr <= 'b0;
       a1  <= 'b0;
       @(posedge clk);
-      if( RD1 !== 'b0 ) $stop("\n\nError of data with address 0\n\n");
+      if( RD1 !== 'b0 )begin
+        $display("\n\nError of data with address 0\n\n"); $stop();
+        err_count = err_count + 1;
+      end
       @(posedge clk);
       for( i = 1; i < address_length; i = i + 1) begin
         @(posedge clk);
