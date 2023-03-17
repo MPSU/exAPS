@@ -61,7 +61,7 @@ module tb_rf_riscv();
     always #CLK_SEMI_PERIOD clk = ~clk;
     
     initial begin
-      $display( "Start test: \n\n Please click on the button 'Run All'");
+      $display( "\nStart test: \n\n========================\nНАЖМИ НА КНОПКУ 'Run All'\n========================\n"); $stop();
       //------initial
       clk  <= 'b0;
       a1   <= 'b0;
