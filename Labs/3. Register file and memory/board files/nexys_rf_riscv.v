@@ -36,7 +36,7 @@ rf_riscv DUT
   .A2    (a2),
   .A3    (a3),
   .WD3   (WD3),
-  .WE3   (WE),
+  .WE    (WE),
   
   .RD1   (RD1),
   .RD2   (RD2)
