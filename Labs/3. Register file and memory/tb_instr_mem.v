@@ -24,7 +24,7 @@ parameter TIME_OPERATION  = 100;
     assign A = i;
     
     initial begin
-        $display( "Start test: \n\n Please click on the button 'Run All'");
+        $display( "\nStart test: \n\n========================\nНАЖМИ НА КНОПКУ 'Run All'\n========================\n"); $stop();
         for (i = 0; i < ADDR_SIZE; i = i + 1) begin
             #TIME_OPERATION;
             if ( RD !== RDref) begin
@@ -32,7 +32,7 @@ parameter TIME_OPERATION  = 100;
                 err_count = err_count + 1;
             end
         end    
-        if( !err_count )  $display("SUCCESS!!!");
+        if( !err_count )  $display("\n instr_mem SUCCESS!!!\n");
         $finish();
     end
     

@@ -61,6 +61,7 @@ module tb_rf_riscv();
     always #CLK_SEMI_PERIOD clk = ~clk;
     
     initial begin
+      $display( "\nStart test: \n\n========================\nНАЖМИ НА КНОПКУ 'Run All'\n========================\n"); $stop();
       //------initial
       clk  <= 'b0;
       a1   <= 'b0;
@@ -110,8 +111,8 @@ module tb_rf_riscv();
             err_count = err_count + 1;
         end
       end
-    $display("\n\n\nTEST SUCCESS!!!\n\n");
-    $finish();
+      if( !err_count )  $display("\n rf_riscv SUCCESS!!!\n");
+      $finish();
     end
 endmodule
 
