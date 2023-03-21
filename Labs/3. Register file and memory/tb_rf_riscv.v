@@ -58,7 +58,12 @@ module tb_rf_riscv();
     parameter address_length = 32;
 
     initial clk <= 0;
-    always #CLK_SEMI_PERIOD clk = ~clk;
+    always begin
+        #CLK_SEMI_PERIOD clk = ~clk;
+        if (err_count >= 10) begin
+            $display("\n\nТест остановлен по количеству ошибок = %d\n\n", err_count); $stop();
+        end
+    end
     
     initial begin
       $display( "\nStart test: \n\n========================\nНАЖМИ НА КНОПКУ 'Run All'\n========================\n"); $stop();
@@ -67,7 +72,7 @@ module tb_rf_riscv();
       a1  <= 'b0;
       @(posedge clk);
       if( RD1 !== 'b0 ) begin 
-        $display("\n\nError of data with address 0: RD1 = %h\n\n", RD1); $stop();
+        $display("Error of data with address 0: RD1 = %h  time = %0t", RD1,$time,);
         err_count = err_count + 1;
       end
       @(posedge clk);
@@ -95,7 +100,7 @@ module tb_rf_riscv();
       a1  <= 'b0;
       @(posedge clk);
       if( RD1 !== 'b0 )begin
-        $display("\n\nError of data with address 0\n\n"); $stop();
+        $display("Error of data with address 0: RD1 = %h  time = %0t", RD1,$time);
         err_count = err_count + 1;
       end
       @(posedge clk);
@@ -113,17 +118,16 @@ module tb_rf_riscv();
         a2  <= address_length - (i + 1);
         @(posedge clk);
         if(RD1ref !== RD1) begin 
-            $display("\n\nincorrect data %h at address %h, correct data %h\n", RD1, a1, RD1ref);
-            $stop();
+            $display("incorrect data %h at address %h, correct data %h  time = %0t", RD1, a1, RD1ref, $time);
             err_count = err_count + 1;
         end
         if(RD2ref !== RD2) begin 
-            $display("\n\nincorrect data %h at address %h, correct data %h\n", RD2, a2, RD2ref);
-            $stop();
+            $display("incorrect data %h at address %h, correct data %h   time = %0t", RD2, a2, RD2ref,$time);
             err_count = err_count + 1;
         end
       end
       if( !err_count )  $display("\n rf_riscv SUCCESS!!!\n");
+      else $display("\nТест провален\n");
       $finish();
     end
 endmodule
