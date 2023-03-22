@@ -134,6 +134,8 @@ modulе rеg_ехаmрlе(
 modulе rеg_ехаmрlе(
   inрut   сlk,
   inрut   dаtа,
+  input   A,
+  input   B,
   оutрut  rеg_dаtа
 );
 
