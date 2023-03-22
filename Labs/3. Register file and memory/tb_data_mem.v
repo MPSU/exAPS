@@ -53,15 +53,16 @@ parameter TIME_OPERATION  = 50;
             WEr = $urandom % 2;
             #TIME_OPERATION;
             if (WEr && RD !== WDr) begin
-                $display("The data %h is not recorded at address %h. RD = %h, WE = %h", WD, A, RD, WE);
+                $display("Данные %h не записаны по адресу %h. По этому адресу лежит %h, WE = %h", WD, A, RD, WE);
                 err_count = err_count + 1;
             end
             if (!WEr && RD !== RDa) begin
-                $display("The data %h is not saved at address %h. RD = %h, WE = %h", RDa, A, RD, WE);
+                $display("Данные %h перезаписаны по адресу %h данными RD = %h, хотя WE = %h", RDa, A, RD, WE);
                 err_count = err_count + 1;
             end
         end
         if( !err_count )  $display("\n data_mem SUCCESS!!!\n");
+        else $display("\nТест завершен с ошибками\n");
         $finish();
     end
 endmodule
