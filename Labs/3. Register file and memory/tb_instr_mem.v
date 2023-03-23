@@ -28,11 +28,12 @@ parameter TIME_OPERATION  = 100;
         for (i = 0; i < ADDR_SIZE; i = i + 1) begin
             #TIME_OPERATION;
             if ( RD !== RDref) begin
-                $display("ERROR! Addr = %d", A, " %h != %h", RD, RDref);
+                $display("По адресу %d получены данные %h, а должно быть %h", A, RD, RDref);
                 err_count = err_count + 1;
             end
         end    
         if( !err_count )  $display("\n instr_mem SUCCESS!!!\n");
+        else $display("\nТест завершен с ошибками\n");
         $finish();
     end
     
