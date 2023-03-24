@@ -68,6 +68,12 @@ module tb_rf_riscv();
     initial begin
     $timeformat (-9, 2, "ns");
       $display( "\nStart test: \n\n========================\nНАЖМИ НА КНОПКУ 'Run All'\n========================\n"); $stop();
+      a1 = 'b1;
+      @(posedge clk);
+      if (RD1ref !== RD1) begin
+        $display("В памяти обнаружены данные %h. Память должна быть пустой", RD1);
+        err_count = err_count + 1;
+      end
       @(posedge clk);
       DUT.RAM[32] = 32'd1;
       if(DUT.RAM[32]=== 32'd1) begin
