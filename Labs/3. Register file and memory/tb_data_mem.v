@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module tb_data_mem8();
+module tb_data_mem();
 
 parameter ADDR_SIZE = 1021;
 parameter TIME_OPERATION  = 50;
@@ -23,6 +23,7 @@ parameter TIME_OPERATION  = 50;
     reg [31:0] WDr;
     reg        WEr;
     reg [31:0] RDa;
+    reg [31:0] x;
     
     integer i, err_count = 0;
     
@@ -39,6 +40,11 @@ parameter TIME_OPERATION  = 50;
 
     initial begin
         $display( "\nStart test: \n\n========================\nНАЖМИ НА КНОПКУ 'Run All'\n========================\n"); $stop();
+        i = 1; #10;
+        if (RD !== x) begin
+            $display("Память не должна быть инициализирована функцией $readmemh");
+            err_count = err_count + 1;
+        end
         for (i = 0; i < ADDR_SIZE; i = i + 1) begin
             @(posedge clk);
             WEr = 1;
