@@ -71,7 +71,7 @@ module tb_rf_riscv();
       a1 = 'b1;
       @(posedge clk);
       if (RD1ref !== RD1) begin
-        $display("В памяти обнаружены данные %h. Память должна быть пустой", RD1);
+        $display("Память не должна быть инициализирована функцией $readmemh");
         err_count = err_count + 1;
       end
       @(posedge clk);

@@ -42,7 +42,7 @@ parameter TIME_OPERATION  = 50;
         $display( "\nStart test: \n\n========================\nНАЖМИ НА КНОПКУ 'Run All'\n========================\n"); $stop();
         i = 1; #10;
         if (RD !== x) begin
-            $display("В памяти обнаружены данные %h. Память должна быть пустой", RD);
+            $display("Память не должна быть инициализирована функцией $readmemh");
             err_count = err_count + 1;
         end
         for (i = 0; i < ADDR_SIZE; i = i + 1) begin
