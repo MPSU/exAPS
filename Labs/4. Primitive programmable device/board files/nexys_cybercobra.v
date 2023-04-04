@@ -11,7 +11,7 @@ module nexus_CYBERcobra(
     
     CYBERcobra dut(
     .clk_i(CLK100),
-    .rst_i(resetn),
+    .rst_i(!resetn),
     .sw_i({7'b0,splash,SW[7:0]}),
     .out_o(out)
     );

@@ -11,7 +11,7 @@ module nexus_CYBERcobra_dz(
     
     CYBERcobra dut(
     .clk_i(BTND == 1),
-    .rst_i(resetn),
+    .rst_i(!resetn),
     .sw_i(SW[15:0]),
     .out_o(out)
     );
