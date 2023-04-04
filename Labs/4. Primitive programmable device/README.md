@@ -10,7 +10,7 @@
 
 1. Описание модулей, их создание внутри других модулей и оператор непрерывного присваивания `assign`([Modules.md](../../Other/Basic%20Verilog%20structures/Modules.md)).
 2. Описание мультиплексоров: с помощью `тернарного оператора`, блоков `case` и `if/else`. Знать особенности использования этих блоков и особенности синтеза комбинационной логики внутри блока `always` ([Multiplexors.md](../../Other/Basic%20Verilog%20structures/Multiplexors.md)).
-3. Описание регистров ([Registers.md]((../../Other/Basic%20Verilog%20structures/Registers.md))).
+3. Описание регистров ([Registers.md](../../Other/Basic%20Verilog%20structures/Registers.md)).
 4. Оператор конкатенации ([Concatenation.md](../../Other/Basic%20Verilog%20structures/Concatenation.md)).
 5. Отладку проекта по временной диаграмме ([Debug_manual.md](../../Other/Vivado%20Basics/Debug_manual.md)).
 
