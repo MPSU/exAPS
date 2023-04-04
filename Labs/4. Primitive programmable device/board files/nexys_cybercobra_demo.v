@@ -1,18 +1,18 @@
 `timescale 1ns / 1ps
 
-module nexus_CYBERcobra_dz(
+module nexus_CYBERcobra(
     input CLK100,
     input resetn,
     input BTND,
-    input  [15:0] SW,
+    input [15:0] SW,
     output CA, CB, CC, CD, CE, CF, CG, 
     output [7:0] AN
     );
     
     CYBERcobra dut(
-    .clk_i(BTND == 1),
-    .rst_i(resetn),
-    .sw_i(SW[15:0]),
+    .clk_i(CLK100),
+    .rst_i(!resetn),
+    .sw_i({7'b0,splash,SW[7:0]}),
     .out_o(out)
     );
 
@@ -22,19 +22,25 @@ reg [3:0] semseg;
 reg [7:0] ANreg;
 reg CAr, CBr, CCr, CDr, CEr, CFr, CGr;
 reg [3:0] btn;
+reg [10:0] btn_reg;
+wire splash;
 wire [31:0] out;
 
 assign AN[7:0] = ANreg[7:0];
 assign {CA, CB, CC, CD, CE, CF, CG} = {CAr, CBr, CCr, CDr, CEr, CFr, CGr};
-
+assign splash = ((btn == 4'b1111) ^ btn_reg[10]) && (btn == 4'b1111);
 
 always @(posedge CLK100) begin
     if (!resetn) begin
         counter <= 'b0;
         ANreg[7:0] <= 8'b11111111;
         {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b1111111;
-    end
+        btn <= 4'b0;
+        btn_reg <= 0;
+    end 
     else begin
+        btn <= (btn << 1'b1) + BTND;
+        btn_reg <= (btn_reg << 1'b1) + (btn == 4'b1111);
         if (counter < pwm) counter = counter + 'b1;
         else begin
             counter = 'b0;
@@ -58,23 +64,12 @@ always @(posedge CLK100) begin
             ANreg[7]: semseg <= out[31:28];
         endcase
         case (semseg)
-            4'h0: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0000001;
-            4'h1: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b1001111;
-            4'h2: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0010010;
-            4'h3: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0000110;
-            4'h4: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b1001100;
-            4'h5: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0100100;
-            4'h6: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0100000;
-            4'h7: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0001111;
-            4'h8: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0000000;
-            4'h9: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0000100;
-            4'hA: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0001000;
-            4'hB: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b1100000;
-            4'hC: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0110001;
-            4'hD: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b1000010;
-            4'hE: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0110000;
-            4'hF: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0111000;
-            default: {CAr,CBr,CCr,CDr, CEr, CFr, CGr} <= 7'b0111111;
+            4'h1: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b1110001; //L
+            4'h3: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0110110; //?
+            4'h8: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0000001; //O
+            4'hA: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b0001000; //A
+            4'hC: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b1001000; //H
+         default: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b1111111; //
         endcase
      end
   end

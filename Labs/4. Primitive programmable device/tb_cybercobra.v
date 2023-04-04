@@ -18,19 +18,16 @@ module tb_CYBERcobra();
     always #5 clk = ~clk;
     
     initial begin 
-    rstn = 1'b0;
+    rstn = 1'b1;
    
     #10;
-    rstn = 1'b1;
-    INr = 15'b0;
-    #200;
-    INr = 15'b100001000;
-    #260;
-    INr = 15'b0;
-    #100;
-//    INr = 15'b100000001;
-//    #20000;
-//    $stop;
+    rstn = 1'b0;
+    INr = 15'b100001000; //значение, до которого считает счетчик
+    //#260;
+    //INr = 15'b0;
+    #10000;
+    $display("\n ТЕСТ ОКОНЧЕН \n Смотри внутренние сигналы кобры на времянке \n");
+    $finish;
     end
     
 endmodule
