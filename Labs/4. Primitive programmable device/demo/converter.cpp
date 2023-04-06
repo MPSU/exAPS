@@ -2,7 +2,6 @@
 #include <iostream>
 #include <cstring>
 #include <string>
-#include <vector>
 #include <algorithm>
 
 void print_help(const std::string program_name)
@@ -10,16 +9,17 @@ void print_help(const std::string program_name)
   using namespace std;
   cout << "Usage: " << program_name << " [input file] [output file]\n\n";
   cout << "Convert CYBERcobra program file into $readmemh acceptable file.\n";
-  cout << "CYBERcobra program file may contain comments (//) and whitespaces.\n";
+  cout << "CYBERcobra program file may contain only comments (starting with \"//\"),\n";
+  cout << "whitespaces and binary digits '0' or '1'.\n";
   cout << "This program will erase this parts from every line and then convert\n";
   cout << "32-bits binary strings into 4 little endian 8-bit strings in hex-format.\n\n";
   cout << "If output file omitted, the <input_file_base>_converted.<input_file_ext>\n";
   cout << "will be produced.\n\n";
   cout << "If input file omitted, program.txt will be used.\n\n";
   cout << "Example:\n\n";
-  cout << program_name << " — open \"program.txt\" and produce \"program_converted.txt\"\n";
-  cout << program_name << " test.txt — open \"test.txt\" and produce \"test_converted.txt\"\n";
-  cout << program_name << " test.txt myname.dat — open \"test.txt\" and produce \"myname.dat\"\n";
+  cout << program_name << "  open \"program.txt\" and produce \"program_converted.txt\"\n";
+  cout << program_name << " test.txt  open \"test.txt\" and produce \"test_converted.txt\"\n";
+  cout << program_name << " test.txt myname.dat  open \"test.txt\" and produce \"myname.dat\"\n";
 
 }
 
@@ -89,8 +89,10 @@ int main(int argc, char ** argv)
     return -1;
   }
   string str;
+  size_t line_counter = 0;
   while (getline(ifs, str))
   {
+    line_counter++;
     // trim line from comments and whitespaces, skip empty lines after trimming
     auto comment_pos = str.find("//");
     if(comment_pos != string::npos)
@@ -104,18 +106,28 @@ int main(int argc, char ** argv)
     }
     if(str.size()!=32)
     {
-      cerr << "String length is not equal 32 after trimming comments and whitespaces" << endl;
+      cerr << "line " << line_counter << " length is not equal 32 after trimming comments and whitespaces" << endl;
       return -2;
     }
     // split 32-bits binary line into 4 little-endian hex lines and write them into file
     for (size_t i = 0; i < 4; i++)
     {
-      // for every 8-bit part of 32-bit line get int representation
-      int cur_byte = std::stoi(str.substr(8*(3-i), 8), nullptr, 2);
-      char cur_byte_str[3];
+      // For every 8-bit part of 32-bit line get int representation.
+      // If illegal character found, throw error.
+      size_t valid_char_num;
+      string byte_substr = str.substr(8*(3-i), 8);
+      int cur_byte = std::stoi(byte_substr, &valid_char_num, 2);
+      if(valid_char_num != 8)
+      {
+        cerr << "Illegal character '" << byte_substr.at(valid_char_num) <<
+            "' found in line " << line_counter << ": \"" << str << "\"\n";
+        cerr << "Should be only '0' or '1'." << endl;
+        return -3;
+      }
+      char hex_byte_str[3];
       // convert int representation into hex string
-      snprintf(cur_byte_str, 3, "%02x", cur_byte);
-      ofs << cur_byte_str << "\n";
+      snprintf(hex_byte_str, 3, "%02x", cur_byte);
+      ofs << hex_byte_str << "\n";
     }
   }
   ifs.close();
