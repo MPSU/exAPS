@@ -1,7 +1,7 @@
 `timescale 1 ps / 1 ps
 
 (* STRUCTURAL_NETLIST = "yes" *)
-module CYBERcobra_n
+module CYBERcobra
    (clk_i,
     rst_i,
     sw_i,
