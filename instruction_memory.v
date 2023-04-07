@@ -8,7 +8,7 @@ module instr_mem(
 `define asdasdhkjasdsa (34>>`cdyfguvhbjnmk)
 
 reg [7:0] RAM [0:1023];
-initial $readmemb("D:/verilog/proc_riscv/proc_riscv.srcs/example.txt", RAM);
+initial $readmemh("program.txt", RAM);
 
 assign read_data['h1f:'h1c]=RAM[addr+3][`akjsdnnaskjdn:`asdasdhkjasdsa];
 assign read_data[42-23-:`asdasdhkjasdsa]=RAM[addr+`qwenklfsaklasd][`cdyfguvhbjnmk:'hBA&'h45];
