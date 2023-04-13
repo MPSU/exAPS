@@ -41,7 +41,7 @@ parameter TIME_OPERATION  = 50;
     initial begin
         $display( "\nStart test: \n\n========================\nНАЖМИ НА КНОПКУ 'Run All'\n========================\n"); $stop();
         i = 1; #10;
-        if (RD !== x) begin
+        if (RD !== 32'hx) begin
             $display("Память не должна быть инициализирована функцией $readmemh");
             err_count = err_count + 1;
         end
