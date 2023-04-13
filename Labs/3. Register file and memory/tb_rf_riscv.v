@@ -70,7 +70,7 @@ module tb_rf_riscv();
       $display( "\nStart test: \n\n========================\nНАЖМИ НА КНОПКУ 'Run All'\n========================\n"); $stop();
       a1 = 'b1;
       @(posedge clk);
-      if (RD1ref !== RD1) begin
+        if (32'hx !== RD1) begin
         $display("Память не должна быть инициализирована функцией $readmemh");
         err_count = err_count + 1;
       end
