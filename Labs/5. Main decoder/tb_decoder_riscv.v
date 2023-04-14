@@ -131,34 +131,34 @@ module tb_decoder_riscv();
   integer error;
 
   initial begin
-    $timeformat(-9, 2, " ns");
+    $timeformat(-9, 2, " ns", 3);
     error = 0;
   end
 
   initial begin
-    $display( "\nStart test: \n\n========================\n����� �� ������ 'Run All'\n========================\n"); $stop();
+    $display( "\nStart test: \n\n========================\nНАЖМИ КНОПКУ 'Run All'\n========================\n"); $stop();
     
-    for (V=0; V<cycle/10; V=V+1) begin  //illegal �� 11 � ����� opcode
+    for (V=0; V<cycle/10; V=V+1) begin  // illegal по 11 в конце opcode
         instr[1:0]  = $random;
         instr[6:2]  = {1'b0,V[1:0],2'b0};
         instr[31:7] = 'b0;
         #delay;
     end
-    for (V=0; V<cycle; V=V+1) begin  //illegal �� OP_OPCODE funct7
+    for (V=0; V<cycle; V=V+1) begin  // illegal по OP_OPCODE funct7
         instr[11:0]  = {5'b0,`OP_OPCODE,2'b11};
         instr[14:12] = V;
         instr[24:15] = $random;
         instr[31:25] = 2**($random % 7);
         #delay;
     end
-    for (V=0; V<cycle; V=V+1) begin  //illegal �� SYSTEM_OPCODE
+    for (V=0; V<cycle; V=V+1) begin  // illegal по SYSTEM_OPCODE
         instr[19:0]  = {13'b0,`SYSTEM_OPCODE,2'b11};
         instr[21:20] = 2**($random % 2);
         instr[31:22] = 'b0;
         #delay;
     end
-    
-    for (X=0; X<2**5-1; X=X+1) begin 
+
+    for (X=0; X<2**5-1; X=X+1) begin
       for (V=0; V<cycle; V=V+1) begin
         instr[1:0]  = 2'b11;
         instr[6:2]  = X;
