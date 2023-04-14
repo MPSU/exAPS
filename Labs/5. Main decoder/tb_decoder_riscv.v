@@ -76,8 +76,7 @@ module tb_decoder_riscv();
 
       `JAL_OPCODE,`JALR_OPCODE,
       `AUIPC_OPCODE, 
-      `OP_IMM_OPCODE, `OP_OPCODE,
-      `BRANCH_OPCODE: 
+      `OP_IMM_OPCODE, `OP_OPCODE:
       begin
         a_sel_miss      = ref.ex_op_a_sel_o ^ a_sel;
         b_sel_miss      = ref.ex_op_b_sel_o ^ b_sel;
@@ -87,6 +86,22 @@ module tb_decoder_riscv();
         //mem_size_miss   = ref.mem_size_o ^ mem_size;
         gpr_we_a_miss   = ref.gpr_we_a_o ^ gpr_we_a;
         wb_src_sel_miss = ref.wb_src_sel_o ^ wb_src_sel;
+        illegal_miss    = ref.illegal_instr_o ^ illegal_instr;
+        branch_miss     = ref.branch_o ^ branch;
+        jal_miss        = ref.jal_o ^ jal;
+        jalr_miss       = ref.jalr_o ^ jalr;
+      end
+      
+      `BRANCH_OPCODE: 
+      begin
+        a_sel_miss      = ref.ex_op_a_sel_o ^ a_sel;
+        b_sel_miss      = ref.ex_op_b_sel_o ^ b_sel;
+        alu_op_miss     = ref.alu_op_o ^ alu_op;
+        mem_req_miss    = ref.mem_req_o ^ mem_req;
+        mem_we_miss     = ref.mem_we_o ^ mem_we;
+        //mem_size_miss   = ref.mem_size_o ^ mem_size;
+        gpr_we_a_miss   = ref.gpr_we_a_o ^ gpr_we_a;
+        //wb_src_sel_miss = ref.wb_src_sel_o ^ wb_src_sel;
         illegal_miss    = ref.illegal_instr_o ^ illegal_instr;
         branch_miss     = ref.branch_o ^ branch;
         jal_miss        = ref.jal_o ^ jal;
@@ -117,7 +132,7 @@ module tb_decoder_riscv();
         mem_we_miss     = ref.mem_we_o ^ mem_we;
         //mem_size_miss   = ref.mem_size_o ^ mem_size;
         gpr_we_a_miss   = ref.gpr_we_a_o ^ gpr_we_a;
-        wb_src_sel_miss = ref.wb_src_sel_o ^ wb_src_sel;
+        //wb_src_sel_miss = ref.wb_src_sel_o ^ wb_src_sel;
         illegal_miss    = ref.illegal_instr_o ^ illegal_instr;
         branch_miss     = ref.branch_o ^ branch;
         jal_miss        = ref.jal_o ^ jal;
