@@ -34,6 +34,9 @@ module tb_decoder_riscv();
   reg                        jal_miss;
   reg                        jalr_miss;
 
+  reg   [8*9:1]              opcode_type;
+  string                     instr_type;
+
   decoder_riscv dut (
     .fetched_instr_i  (instr),
     .ex_op_a_sel_o    (a_sel),
@@ -50,93 +53,121 @@ module tb_decoder_riscv();
     .jalr_o           (jalr)
   );
   
-  decoder_riscv_ref ref(.fetched_instr_i  (instr));
+  decoder_riscv_ref grm(
+    .fetched_instr_i(instr)
+  );
 
   wire [4:0] opcode;
   assign opcode = instr[6:2];
 
+  always @(*) begin
+    case (opcode)
+      `LUI_OPCODE, `AUIPC_OPCODE, `JAL_OPCODE:
+        instr_type = $sformatf("%020b %05b %07b", instr[31:12], instr[11:7], instr[6:0]);
+      `JALR_OPCODE, `LOAD_OPCODE, `OP_IMM_OPCODE, `SYSTEM_OPCODE:
+        instr_type = $sformatf("%012b %05b %03b %05b %07b", instr[31:20], instr[19:15], instr[14:12], instr[11:7], instr[6:0]);
+      `BRANCH_OPCODE,`STORE_OPCODE,`OP_OPCODE:
+        instr_type = $sformatf("%07b %05b %05b %03b %05b %07b", instr[31:25], instr[24:20], instr[19:15], instr[14:12], instr[11:7], instr[6:0]);
+      `MISC_MEM_OPCODE: 
+        instr_type = $sformatf("%017b %03b %05b %07b", instr[31:15], instr[14:12], instr[11:7], instr[6:0]);
+      default: 
+        instr_type = $sformatf("%032b", instr);
+    endcase
+  end
 
   always @(*) begin
-    casez (opcode)
+    a_sel_miss      = 'b0;
+    b_sel_miss      = 'b0;
+    alu_op_miss     = 'b0;
+    mem_req_miss    = 'b0;
+    mem_we_miss     = 'b0;
+    mem_size_miss   = 'b0;
+    gpr_we_a_miss   = 'b0;
+    wb_src_sel_miss = 'b0;
+    illegal_miss    = 'b0;
+    branch_miss     = 'b0;
+    jal_miss        = 'b0;
+    jalr_miss       = 'b0;
+    case (opcode)
       `LOAD_OPCODE,`STORE_OPCODE:
       begin
-        a_sel_miss      = ref.ex_op_a_sel_o ^ a_sel;
-        b_sel_miss      = ref.ex_op_b_sel_o ^ b_sel;
-        alu_op_miss     = ref.alu_op_o ^ alu_op;
-        mem_req_miss    = ref.mem_req_o ^ mem_req;
-        mem_we_miss     = ref.mem_we_o ^ mem_we;
-        mem_size_miss   = ref.mem_size_o ^ mem_size;
-        gpr_we_a_miss   = ref.gpr_we_a_o ^ gpr_we_a;
-        wb_src_sel_miss = ref.wb_src_sel_o ^ wb_src_sel;
-        illegal_miss    = ref.illegal_instr_o ^ illegal_instr;
-        branch_miss     = ref.branch_o ^ branch;
-        jal_miss        = ref.jal_o ^ jal;
-        jalr_miss       = ref.jalr_o ^ jalr;
+        a_sel_miss      = grm.ex_op_a_sel_o ^ a_sel;
+        b_sel_miss      = grm.ex_op_b_sel_o ^ b_sel;
+        alu_op_miss     = grm.alu_op_o ^ alu_op;
+        mem_req_miss    = grm.mem_req_o ^ mem_req;
+        mem_we_miss     = grm.mem_we_o ^ mem_we;
+        mem_size_miss   = grm.mem_size_o ^ mem_size;
+        gpr_we_a_miss   = grm.gpr_we_a_o ^ gpr_we_a;
+        wb_src_sel_miss = grm.wb_src_sel_o ^ wb_src_sel;
+        illegal_miss    = grm.illegal_instr_o ^ illegal_instr;
+        branch_miss     = grm.branch_o ^ branch;
+        jal_miss        = grm.jal_o ^ jal;
+        jalr_miss       = grm.jalr_o ^ jalr;
       end
 
       `JAL_OPCODE,`JALR_OPCODE,
       `AUIPC_OPCODE, 
       `OP_IMM_OPCODE, `OP_OPCODE:
       begin
-        a_sel_miss      = ref.ex_op_a_sel_o ^ a_sel;
-        b_sel_miss      = ref.ex_op_b_sel_o ^ b_sel;
-        alu_op_miss     = ref.alu_op_o ^ alu_op;
-        mem_req_miss    = ref.mem_req_o ^ mem_req;
-        mem_we_miss     = ref.mem_we_o ^ mem_we;
-        //mem_size_miss   = ref.mem_size_o ^ mem_size;
-        gpr_we_a_miss   = ref.gpr_we_a_o ^ gpr_we_a;
-        wb_src_sel_miss = ref.wb_src_sel_o ^ wb_src_sel;
-        illegal_miss    = ref.illegal_instr_o ^ illegal_instr;
-        branch_miss     = ref.branch_o ^ branch;
-        jal_miss        = ref.jal_o ^ jal;
-        jalr_miss       = ref.jalr_o ^ jalr;
+        a_sel_miss      = grm.ex_op_a_sel_o ^ a_sel;
+        b_sel_miss      = grm.ex_op_b_sel_o ^ b_sel;
+        alu_op_miss     = grm.alu_op_o ^ alu_op;
+        mem_req_miss    = grm.mem_req_o ^ mem_req;
+        mem_we_miss     = grm.mem_we_o ^ mem_we;
+        //mem_size_miss   = grm.mem_size_o ^ mem_size;
+        gpr_we_a_miss   = grm.gpr_we_a_o ^ gpr_we_a;
+        wb_src_sel_miss = grm.wb_src_sel_o ^ wb_src_sel;
+        illegal_miss    = grm.illegal_instr_o ^ illegal_instr;
+        branch_miss     = grm.branch_o ^ branch;
+        jal_miss        = grm.jal_o ^ jal;
+        jalr_miss       = grm.jalr_o ^ jalr;
       end
       
       `BRANCH_OPCODE: 
       begin
-        a_sel_miss      = ref.ex_op_a_sel_o ^ a_sel;
-        b_sel_miss      = ref.ex_op_b_sel_o ^ b_sel;
-        alu_op_miss     = ref.alu_op_o ^ alu_op;
-        mem_req_miss    = ref.mem_req_o ^ mem_req;
-        mem_we_miss     = ref.mem_we_o ^ mem_we;
-        //mem_size_miss   = ref.mem_size_o ^ mem_size;
-        gpr_we_a_miss   = ref.gpr_we_a_o ^ gpr_we_a;
-        //wb_src_sel_miss = ref.wb_src_sel_o ^ wb_src_sel;
-        illegal_miss    = ref.illegal_instr_o ^ illegal_instr;
-        branch_miss     = ref.branch_o ^ branch;
-        jal_miss        = ref.jal_o ^ jal;
-        jalr_miss       = ref.jalr_o ^ jalr;
+        a_sel_miss      = grm.ex_op_a_sel_o ^ a_sel;
+        b_sel_miss      = grm.ex_op_b_sel_o ^ b_sel;
+        alu_op_miss     = grm.alu_op_o ^ alu_op;
+        mem_req_miss    = grm.mem_req_o ^ mem_req;
+        mem_we_miss     = grm.mem_we_o ^ mem_we;
+        //mem_size_miss   = grm.mem_size_o ^ mem_size;
+        gpr_we_a_miss   = grm.gpr_we_a_o ^ gpr_we_a;
+        //wb_src_sel_miss = grm.wb_src_sel_o ^ wb_src_sel;
+        illegal_miss    = grm.illegal_instr_o ^ illegal_instr;
+        branch_miss     = grm.branch_o ^ branch;
+        jal_miss        = grm.jal_o ^ jal;
+        jalr_miss       = grm.jalr_o ^ jalr;
       end
 
       `LUI_OPCODE: begin
-        a_sel_miss      = ref.ex_op_a_sel_o ^ a_sel;
-        b_sel_miss      = ref.ex_op_b_sel_o ^ b_sel;
+        a_sel_miss      = grm.ex_op_a_sel_o ^ a_sel;
+        b_sel_miss      = grm.ex_op_b_sel_o ^ b_sel;
         alu_op_miss     = (alu_op != `ALU_ADD)&(alu_op != `ALU_XOR)&(alu_op != `ALU_OR);
-        mem_req_miss    = ref.mem_req_o ^ mem_req;
-        mem_we_miss     = ref.mem_we_o ^ mem_we;
-        //mem_size_miss   = ref.mem_size_o ^ mem_size;
-        gpr_we_a_miss   = ref.gpr_we_a_o ^ gpr_we_a;
-        wb_src_sel_miss = ref.wb_src_sel_o ^ wb_src_sel;
-        illegal_miss    = ref.illegal_instr_o ^ illegal_instr;
-        branch_miss     = ref.branch_o ^ branch;
-        jal_miss        = ref.jal_o ^ jal;
-        jalr_miss       = ref.jalr_o ^ jalr;
+        mem_req_miss    = grm.mem_req_o ^ mem_req;
+        mem_we_miss     = grm.mem_we_o ^ mem_we;
+        //mem_size_miss   = grm.mem_size_o ^ mem_size;
+        gpr_we_a_miss   = grm.gpr_we_a_o ^ gpr_we_a;
+        wb_src_sel_miss = grm.wb_src_sel_o ^ wb_src_sel;
+        illegal_miss    = grm.illegal_instr_o ^ illegal_instr;
+        branch_miss     = grm.branch_o ^ branch;
+        jal_miss        = grm.jal_o ^ jal;
+        jalr_miss       = grm.jalr_o ^ jalr;
       end
       
       default:      //`MISC_MEM_OPCODE,`SYSTEM_OPCODE and other
       begin
-        //a_sel_miss      = ref.ex_op_a_sel_o ^ a_sel;
-        //b_sel_miss      = ref.ex_op_b_sel_o ^ b_sel;
-        //alu_op_miss     = ref.alu_op_o ^ alu_op;
-        mem_req_miss    = ref.mem_req_o ^ mem_req;
-        mem_we_miss     = ref.mem_we_o ^ mem_we;
-        //mem_size_miss   = ref.mem_size_o ^ mem_size;
-        gpr_we_a_miss   = ref.gpr_we_a_o ^ gpr_we_a;
-        //wb_src_sel_miss = ref.wb_src_sel_o ^ wb_src_sel;
-        illegal_miss    = ref.illegal_instr_o ^ illegal_instr;
-        branch_miss     = ref.branch_o ^ branch;
-        jal_miss        = ref.jal_o ^ jal;
-        jalr_miss       = ref.jalr_o ^ jalr;
+        //a_sel_miss      = grm.ex_op_a_sel_o ^ a_sel;
+        //b_sel_miss      = grm.ex_op_b_sel_o ^ b_sel;
+        //alu_op_miss     = grm.alu_op_o ^ alu_op;
+        mem_req_miss    = grm.mem_req_o ^ mem_req;
+        mem_we_miss     = grm.mem_we_o ^ mem_we;
+        //mem_size_miss   = grm.mem_size_o ^ mem_size;
+        gpr_we_a_miss   = grm.gpr_we_a_o ^ gpr_we_a;
+        //wb_src_sel_miss = grm.wb_src_sel_o ^ wb_src_sel;
+        illegal_miss    = grm.illegal_instr_o ^ illegal_instr;
+        branch_miss     = grm.branch_o ^ branch;
+        jal_miss        = grm.jal_o ^ jal;
+        jalr_miss       = grm.jalr_o ^ jalr;
       end
     endcase
   end
@@ -195,54 +226,54 @@ module tb_decoder_riscv();
 
   always begin
     @(instr);
-    #1;
+    #2;
     if (illegal_miss)begin
-      $display("Output 'illegal_instr_o' is incorrect, instruction: %x, time: %t", instr, $time);
+      $display("Output 'illegal_instr_o' is incorrect, \tinstruction: %s %s, time: %t", instr_type, opcode_type, $time);
       error = error + 1'b1;
       end
-    if (~illegal_miss) begin
+    if (~illegal_miss & ~illegal_instr) begin
       if (a_sel_miss)begin
-        $display ("Output 'ex_op_a_sel_o' is incorrect, instruction: %x, time: %t", instr, $time);
+        $display ("Output 'ex_op_a_sel_o' is incorrect, \tinstruction: %s %s, time: %t", instr_type, opcode_type, $time);
         error = error + 1'b1;
         end
       if (b_sel_miss)begin
-        $display ("Output 'ex_op_b_sel_o' is incorrect, instruction: %x, time: %t", instr, $time);
+        $display ("Output 'ex_op_b_sel_o' is incorrect, \tinstruction: %s %s, time: %t", instr_type, opcode_type, $time);
         error = error + 1'b1;
         end
       if (alu_op_miss)begin
-        $display ("Output 'alu_op_o' is incorrect, instruction: %x, time: %t", instr, $time);
+        $display ("Output 'alu_op_o' is incorrect, \t\tinstruction: %s %s, time: %t", instr_type, opcode_type, $time);
         error = error + 1'b1;
         end
       if (mem_we_miss)begin
-        $display ("Output 'mem_we_o' is incorrect, instruction: %x, time: %t", instr, $time);
+        $display ("Output 'mem_we_o' is incorrect, \t\tinstruction: %s %s, time: %t", instr_type, opcode_type, $time);
         error = error + 1'b1;
         end
       if (mem_size_miss)begin
-        $display ("Output 'mem_size_o' is incorrect, instruction: %x, time: %t", instr, $time);
+        $display ("Output 'mem_size_o' is incorrect, \t\tinstruction: %s %s, time: %t", instr_type, opcode_type, $time);
         error = error + 1'b1;
         end
       if (mem_req_miss)begin
-        $display ("Output 'mem_req_o' is incorrect, instruction: %x, time: %t", instr, $time);
+        $display ("Output 'mem_req_o' is incorrect, \t\tinstruction: %s %s, time: %t", instr_type, opcode_type, $time);
         error = error + 1'b1;
         end
       if (wb_src_sel_miss)begin
-        $display ("Output 'wb_src_sel_o' is incorrect, instruction: %x, time: %t", instr, $time);
+        $display ("Output 'wb_src_sel_o' is incorrect, \tinstruction: %s %s, time: %t", instr_type, opcode_type, $time);
         error = error + 1'b1;
         end
       if (gpr_we_a_miss)begin
-        $display ("Output 'gpr_we_a_o' is incorrect, instruction: %x, time: %t", instr, $time);
+        $display ("Output 'gpr_we_a_o' is incorrect, \t\tinstruction: %s %s, time: %t", instr_type, opcode_type, $time);
         error = error + 1'b1;
         end
       if (branch_miss)begin
-        $display ("Output 'branch_o' is incorrect, instruction: %x, time: %t", instr, $time);
+        $display ("Output 'branch_o' is incorrect, \t\tinstruction: %s %s, time: %t", instr_type, opcode_type, $time);
         error = error + 1'b1;
         end
       if (jal_miss)begin
-        $display ("Output 'jal_o' is incorrect, instruction: %x, time: %t", instr, $time);
+        $display ("Output 'jal_o' is incorrect, \t\t\tinstruction: %s %s, time: %t", instr_type, opcode_type, $time);
         error = error + 1'b1;
         end
       if (jalr_miss)begin
-        $display ("Output 'jalr_o' is incorrect, instruction: %x, time: %t", instr, $time);
+        $display ("Output 'jalr_o' is incorrect, \t\t\tinstruction: %s %s, time: %t", instr_type, opcode_type, $time);
         error = error + 1'b1;
         end
     end
@@ -250,7 +281,7 @@ module tb_decoder_riscv();
     if ((a_sel != `OP_A_RS1) &
         (a_sel != `OP_A_CURR_PC) &
         (a_sel != `OP_A_ZERO)) begin
-      $display ("Output 'ex_op_a_sel_o' must always have a legal value, instruction: %x, time: %t", instr, $time);
+      $display ("Output 'ex_op_a_sel_o' must always have a legal value, instruction: %s %s, time: %t", instr_type, opcode_type, $time);
       error = error + 1;
     end
     if ((b_sel != `OP_B_RS2) &
@@ -258,7 +289,7 @@ module tb_decoder_riscv();
         (b_sel != `OP_B_IMM_U) &
         (b_sel != `OP_B_IMM_S) &
         (b_sel != `OP_B_INCR)) begin
-      $display ("Output 'ex_op_b_sel_o' must always have a legal value, instruction: %x, time: %t", instr, $time);
+      $display ("Output 'ex_op_b_sel_o' must always have a legal value, instruction: %s %s, time: %t", instr_type, opcode_type, $time);
       error = error + 1;
     end
     if ((alu_op != `ALU_ADD)  & (alu_op != `ALU_SUB) &
@@ -269,7 +300,7 @@ module tb_decoder_riscv();
         (alu_op != `ALU_GES)  & (alu_op != `ALU_GEU) &
         (alu_op != `ALU_EQ)   & (alu_op != `ALU_NE)  &
         (alu_op != `ALU_SLTS) & (alu_op != `ALU_SLTU)) begin
-      $display ("Output 'alu_op_o' must always have a legal value, instruction: %x, time: %t", instr, $time);
+      $display ("Output 'alu_op_o' must always have a legal value, instruction: %s %s, time: %t", instr_type, opcode_type, $time);
       error = error + 1;
     end
     if ((mem_size != `LDST_B) &
@@ -277,14 +308,96 @@ module tb_decoder_riscv();
         (mem_size != `LDST_W) &
         (mem_size != `LDST_BU) &
         (mem_size != `LDST_HU)) begin
-      $display ("Output 'mem_size_o' must always have a legal value, instruction: %x, time: %t", instr, $time);
+      $display ("Output 'mem_size_o' must always have a legal value, instruction: %s %s, time: %t", instr_type, opcode_type, $time);
       error = error + 1;
     end
     if ((wb_src_sel != `WB_EX_RESULT) &
         (wb_src_sel != `WB_LSU_DATA)) begin
-      $display ("Output 'wb_src_sel_o' must always have a legal value, instruction: %x, time: %t", instr, $time);
+      $display ("Output 'wb_src_sel_o' must always have a legal value, instruction: %s %s, time: %t", instr_type, opcode_type, $time);
       error = error + 1;
     end
+  end
+  
+  always begin
+    @(instr);
+    #1;
+    if(&instr[1:0])
+        case(opcode)
+        `LUI_OPCODE: begin
+            opcode_type = "(LUI)";
+        end
+        `AUIPC_OPCODE: begin
+            opcode_type = "(AUIPC)";
+        end
+        `JAL_OPCODE: begin
+            opcode_type = "(JAL)";
+        end
+        `JALR_OPCODE: begin
+            opcode_type = "(JALR)";
+        end
+        `BRANCH_OPCODE: begin
+        
+            case(instr[14:12])
+              3'b000: opcode_type = "(BEQ)";
+              3'b001: opcode_type = "(BNE)";
+              3'b100: opcode_type = "(BLT)";
+              3'b101: opcode_type = "(BGE)";
+              3'b110: opcode_type = "(BLTU)";
+              3'b111: opcode_type = "(BGEU)";
+            endcase
+        end
+        `LOAD_OPCODE: begin
+            case(instr[14:12])
+              3'b000: opcode_type = "(LB)";
+              3'b001: opcode_type = "(LH)";
+              3'b010: opcode_type = "(LW)";
+              3'b100: opcode_type = "(LBU)";
+              3'b101: opcode_type = "(LHU)";
+            endcase
+        end
+        `STORE_OPCODE: begin
+            case(instr[14:12])
+              3'b000: opcode_type = "(SB)";
+              3'b001: opcode_type = "(SH)";
+              3'b010: opcode_type = "(SW)";
+            endcase
+        end
+        `OP_IMM_OPCODE: begin
+            case({2'b0,instr[14:12]})
+              `ALU_ADD  : opcode_type = "(ADDI)";
+              `ALU_XOR  : opcode_type = "(XORI(";
+              `ALU_OR   : opcode_type = "(ORI)";
+              `ALU_AND  : opcode_type = "(ANDI)";
+              `ALU_SRL  : opcode_type = instr[30]? "(SRAI)": "(SRLI)";
+              `ALU_SLL  : opcode_type = "(SLLI)";
+              `ALU_SLTS : opcode_type = "(SLTI)";
+              `ALU_SLTU : opcode_type = "(SLTIU)";
+              default   : opcode_type = "(NOP_I)";
+            endcase
+        end
+        `OP_OPCODE: begin
+            case({instr[31:30],instr[14:12]})
+              `ALU_ADD  : opcode_type = "(ADD)";
+              `ALU_SUB  : opcode_type = "(SUB)";
+              `ALU_XOR  : opcode_type = "(XOR)";
+              `ALU_OR   : opcode_type = "(OR)";
+              `ALU_AND  : opcode_type = "(AND)";
+              `ALU_SRA  : opcode_type = "(SRA)";
+              `ALU_SRL  : opcode_type = "(SRL)";
+              `ALU_SLL  : opcode_type = "(SLL)";
+              `ALU_SLTU : opcode_type = "(SLTU)";
+              default   : opcode_type = "(NOP)";
+            endcase
+        end
+        `MISC_MEM_OPCODE: begin
+            opcode_type = "(FENCE)";
+        end
+        `SYSTEM_OPCODE: begin
+            opcode_type = instr[20]? "(EBREAK)": "(ECALL)";
+        end
+        default: opcode_type = "illegalOP";
+        endcase
+    else opcode_type = "NOT OP_11";
   end
 
 endmodule
