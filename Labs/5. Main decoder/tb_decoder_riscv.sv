@@ -395,7 +395,7 @@ module tb_decoder_riscv();
         end
         default: opcode_type = "(illegal_OP)";
         endcase
-    else opcode_type = "NOT OP_11";
+    else opcode_type = "(illegal_OP)";
   end
 
 endmodule
