@@ -1,11 +1,11 @@
 `timescale 1ns / 1ps
 
-module tb_riscv_dp();
+module tb_riscv_unit();
 
     reg clk;
     reg rst;
 
-    riscv_dp_top top(
+    riscv_unit unit(
     .clk_i(clk),
     .rst_i(rst)
     );
@@ -19,9 +19,6 @@ module tb_riscv_dp();
         #500;
         $display("\n ТЕСТ ОКОНЧЕН \n Смотри внутренние сигналы тракта данных на времянке \n");
         $finish;
-    end
-    initial begin
-
     end
 
 endmodule
