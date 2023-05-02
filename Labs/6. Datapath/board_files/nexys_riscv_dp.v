@@ -8,7 +8,7 @@ module nexus_riscv_unit(
     output [7:0] AN
     );
     
-    riscv_dp_top top(
+    riscv_unit unit(
     .clk_i(btn),
     .rst_i(!resetn)
     );
