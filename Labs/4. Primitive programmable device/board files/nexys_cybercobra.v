@@ -10,7 +10,7 @@ module nexus_CYBERcobra_dz(
     );
     
     CYBERcobra dut(
-    .clk_i(BTND == 1),
+    .clk_i(btn),
     .rst_i(!resetn),
     .sw_i(SW[15:0]),
     .out_o(out)
@@ -21,7 +21,7 @@ reg [9:0] counter;
 reg [3:0] semseg;
 reg [7:0] ANreg;
 reg CAr, CBr, CCr, CDr, CEr, CFr, CGr;
-reg [3:0] btn;
+reg btn;
 wire [31:0] out;
 
 assign AN[7:0] = ANreg[7:0];
@@ -33,8 +33,10 @@ always @(posedge CLK100) begin
         counter <= 'b0;
         ANreg[7:0] <= 8'b11111111;
         {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b1111111;
+        btn <= CLK100;
     end
     else begin
+        btn <= BTND;
         if (counter < pwm) counter = counter + 'b1;
         else begin
             counter = 'b0;
