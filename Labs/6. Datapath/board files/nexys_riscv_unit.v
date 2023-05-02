@@ -17,8 +17,8 @@ module nexus_riscv_unit(
   wire [31:0] instr;
   reg   btn;
   
-  assign instr_addr = top.instr_addr;
-  assign instr = top.instr;
+  assign instr_addr = unit.instr_addr;
+  assign instr = unit.instr;
 
   localparam pwm = 1000;
   reg [9:0] counter;
