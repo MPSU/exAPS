@@ -33,7 +33,7 @@ always @(posedge CLK100) begin
         counter <= 'b0;
         ANreg[7:0] <= 8'b11111111;
         {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= 7'b1111111;
-        btn <= CLK100;
+        btn <= BTND;
     end
     else begin
         btn <= BTND;
