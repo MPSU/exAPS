@@ -196,9 +196,8 @@ module tb_decoder_riscv();
         #delay;
     end
     for (V=0; V<cycle; V=V+1) begin  // illegal по SYSTEM_OPCODE
-        instr[19:0]  = {13'b0,`SYSTEM_OPCODE,2'b11};
-        instr[21:20] = 2**($random % 2);
-        instr[31:22] = 'b0;
+        instr[6:0]  = {`SYSTEM_OPCODE,2'b11};
+        instr[31:7] = 2**($random % 25);
         #delay;
     end
 
