@@ -42,7 +42,9 @@
 
 <details>
   <summary>Эта же схема, в которой общие сигналы заменены ссылками для улучшения читаемости</summary>
+  
   ![Схема процессорной системы](../../../technical/Labs/Pic/riscv_periph_uarch_linked.drawio.png)
+  
 </details>
 
 ### Активация выбранного устройства
