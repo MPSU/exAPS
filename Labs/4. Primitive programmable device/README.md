@@ -234,7 +234,7 @@
 1. 10 вычислительных инструкций `0 0 01 ALUop RA1 RA2 xxxx xxxx WA`
 2. Инструкция загрузки константы `0 0 00 const WA`
 3. Инструкция загрузки из внешних устройств `0 0 10 xxx xxxx xxxx xxxx xxxx xxxx WA`
-4. Безусловный переход `1 0 xx xxx xxxx xxxx xxxx const xxxx xxxx`
+4. Безусловный переход `1 0 xx xxx xxxx xxxx xxxx const xxxxx`
 5. 6 инструкций условного перехода `0 1 xx ALUop RA1 RA2 const x xxxx`
 
 При кодировании инструкций используются следующие поля:
