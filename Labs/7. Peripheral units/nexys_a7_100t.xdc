@@ -53,22 +53,22 @@ set_property -dict {PACKAGE_PIN V11 IOSTANDARD LVCMOS33} [get_ports {LED[15]}]
 #set_property -dict {PACKAGE_PIN N16 IOSTANDARD LVCMOS33} [get_ports LED17_R]
 
 ##7 segment display
-set_property -dict {PACKAGE_PIN T10 IOSTANDARD LVCMOS33} [get_ports hex_led[6]] #CA
-set_property -dict {PACKAGE_PIN R10 IOSTANDARD LVCMOS33} [get_ports hex_led[5]] #CB
-set_property -dict {PACKAGE_PIN K16 IOSTANDARD LVCMOS33} [get_ports hex_led[4]] #CC
-set_property -dict {PACKAGE_PIN K13 IOSTANDARD LVCMOS33} [get_ports hex_led[3]] #CD
-set_property -dict {PACKAGE_PIN P15 IOSTANDARD LVCMOS33} [get_ports hex_led[2]] #CE
-set_property -dict {PACKAGE_PIN T11 IOSTANDARD LVCMOS33} [get_ports hex_led[1]] #CF
-set_property -dict {PACKAGE_PIN L18 IOSTANDARD LVCMOS33} [get_ports hex_led[0]] #CG
+set_property -dict {PACKAGE_PIN T10 IOSTANDARD LVCMOS33} [get_ports hex_led[6]]
+set_property -dict {PACKAGE_PIN R10 IOSTANDARD LVCMOS33} [get_ports hex_led[5]]
+set_property -dict {PACKAGE_PIN K16 IOSTANDARD LVCMOS33} [get_ports hex_led[4]]
+set_property -dict {PACKAGE_PIN K13 IOSTANDARD LVCMOS33} [get_ports hex_led[3]]
+set_property -dict {PACKAGE_PIN P15 IOSTANDARD LVCMOS33} [get_ports hex_led[2]]
+set_property -dict {PACKAGE_PIN T11 IOSTANDARD LVCMOS33} [get_ports hex_led[1]]
+set_property -dict {PACKAGE_PIN L18 IOSTANDARD LVCMOS33} [get_ports hex_led[0]]
 #set_property -dict { PACKAGE_PIN H15   IOSTANDARD LVCMOS33 } [get_ports { DP }]; #IO_L19N_T3_A21_VREF_15 Sch=dp
-set_property -dict {PACKAGE_PIN J17 IOSTANDARD LVCMOS33} [get_ports {hex_sel[0]}] #AN[0]
+set_property -dict {PACKAGE_PIN J17 IOSTANDARD LVCMOS33} [get_ports {hex_sel[0]}]
 set_property -dict {PACKAGE_PIN J18 IOSTANDARD LVCMOS33} [get_ports {hex_sel[1]}]
 set_property -dict {PACKAGE_PIN T9 IOSTANDARD LVCMOS33} [get_ports  {hex_sel[2]}]
 set_property -dict {PACKAGE_PIN J14 IOSTANDARD LVCMOS33} [get_ports {hex_sel[3]}]
 set_property -dict {PACKAGE_PIN P14 IOSTANDARD LVCMOS33} [get_ports {hex_sel[4]}]
 set_property -dict {PACKAGE_PIN T14 IOSTANDARD LVCMOS33} [get_ports {hex_sel[5]}]
 set_property -dict {PACKAGE_PIN K2 IOSTANDARD LVCMOS33} [get_ports  {hex_sel[6]}]
-set_property -dict {PACKAGE_PIN U13 IOSTANDARD LVCMOS33} [get_ports {hex_sel[7]}] #AN[7]
+set_property -dict {PACKAGE_PIN U13 IOSTANDARD LVCMOS33} [get_ports {hex_sel[7]}]
 
 ##Buttons
 set_property -dict {PACKAGE_PIN C12 IOSTANDARD LVCMOS33} [get_ports resetn]
