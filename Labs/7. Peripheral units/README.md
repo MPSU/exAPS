@@ -94,7 +94,7 @@ endmodule
 
 ```verilog
 wire sysclk, clk10;
-clk_div#(4) divider(.clk_i(clk_i),.aresetn_i(rstn_i),.div_i(10),.clk_o(clk10));
+clk_div#(4) divider(.clk_i(clk_i),.aresetn_i(resetn),.div_i(10),.clk_o(clk10));
 BUFG clk (.O(sysclk),.I(clk10));
 ```
 3. После вставки данных строк в начало описания модуля `riscv_unit` вы получите тактовый сигнал `sysclk` с частотой в 10 МГц. Все ваши внутренние модули (`riscv_core`, `data_mem` и `контроллеры периферии`) должны работать от этого сигнала.
