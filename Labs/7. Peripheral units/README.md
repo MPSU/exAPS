@@ -68,14 +68,14 @@ module riscv_unit(
   input resetn,
   
   // Входы и выходы периферии
-  input        sw_i,    // Переключатели
-  output       led_o,   // Светодиоды
+  input [15:0] sw_i,    // Переключатели
+  output[15:0] led_o,   // Светодиоды
   input        kclk,    // Тактирующий сигнал клавиатуры
   input        kdata,   // Сигнал данных клавиатуры
   output [6:0] hex_led, // Вывод семисегментных индикаторов
   output [7:0] hex_sel, // Селектор семисегментных индикаторов
   input        rx_i,    // Линия приема по UART
-  output       rx_o     // Линия передачи по UART
+  output       tx_o     // Линия передачи по UART
 );
 //...
 endmodule
