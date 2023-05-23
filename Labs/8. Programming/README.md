@@ -365,7 +365,7 @@ Disassembly of section .data:
 void main(int argc, char** argv)
 {
   uint32_t* is_ready_ptr = reinterpret_cast<uint32_t*>(SUPER_COLLIDER_BASE_ADDR + SUPER_COLLIDER_IS_ALIVE_OFFSET);
-  uint32_t* start_ptr  = reinterpret_cast<uint32_t*>(SUPER_COLLIDER_BASE_ADDR + SUPER_COLLIDER_EXPLOSION_START_OFFSET);
+  uint32_t* start_ptr  = reinterpret_cast<uint32_t*>(SUPER_COLLIDER_BASE_ADDR + SUPER_COLLIDER_START_OFFSET);
   while(1){               // В бесконечном цикле
     while (*is_ready_ptr) // Ждем пока супер-коллайдер не сообщит о готовности
                           // путем выставления 1 в статусном регистре по нулевому адресу
