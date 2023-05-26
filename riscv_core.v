@@ -1,4 +1,4 @@
-`timescale 1 ps / 1 ps
+`timescale 1 ns / 1 ps
 
 (* STRUCTURAL_NETLIST = "yes" *)
 module riscv_core
@@ -25,81 +25,20 @@ module riscv_core
 
   wire \<const0> ;
   wire \<const1> ;
+  wire [31:0]A;
+  wire [31:0]B;
   wire [31:0]RD1;
   wire [31:0]RD_i;
   wire [31:0]WD_o;
   wire WE_o;
   wire [1:0]a_sel;
-  wire alu_i_10_n_0;
-  wire alu_i_11_n_0;
-  wire alu_i_12_n_0;
-  wire alu_i_13_n_0;
-  wire alu_i_14_n_0;
-  wire alu_i_15_n_0;
-  wire alu_i_16_n_0;
-  wire alu_i_17_n_0;
-  wire alu_i_18_n_0;
-  wire alu_i_19_n_0;
-  wire alu_i_1_n_0;
-  wire alu_i_20_n_0;
-  wire alu_i_21_n_0;
-  wire alu_i_22_n_0;
-  wire alu_i_23_n_0;
-  wire alu_i_24_n_0;
-  wire alu_i_25_n_0;
-  wire alu_i_26_n_0;
-  wire alu_i_27_n_0;
-  wire alu_i_28_n_0;
-  wire alu_i_29_n_0;
-  wire alu_i_2_n_0;
-  wire alu_i_30_n_0;
-  wire alu_i_31_n_0;
-  wire alu_i_32_n_0;
-  wire alu_i_33_n_0;
-  wire alu_i_34_n_0;
-  wire alu_i_35_n_0;
-  wire alu_i_36_n_0;
-  wire alu_i_37_n_0;
-  wire alu_i_38_n_0;
-  wire alu_i_39_n_0;
-  wire alu_i_3_n_0;
-  wire alu_i_40_n_0;
-  wire alu_i_41_n_0;
-  wire alu_i_42_n_0;
-  wire alu_i_43_n_0;
-  wire alu_i_44_n_0;
-  wire alu_i_45_n_0;
-  wire alu_i_46_n_0;
-  wire alu_i_47_n_0;
-  wire alu_i_48_n_0;
-  wire alu_i_49_n_0;
-  wire alu_i_4_n_0;
-  wire alu_i_50_n_0;
-  wire alu_i_51_n_0;
-  wire alu_i_52_n_0;
-  wire alu_i_53_n_0;
-  wire alu_i_54_n_0;
-  wire alu_i_55_n_0;
-  wire alu_i_56_n_0;
-  wire alu_i_57_n_0;
-  wire alu_i_58_n_0;
-  wire alu_i_59_n_0;
-  wire alu_i_5_n_0;
-  wire alu_i_60_n_0;
-  wire alu_i_61_n_0;
-  wire alu_i_62_n_0;
-  wire alu_i_63_n_0;
-  wire alu_i_64_n_0;
-  wire alu_i_6_n_0;
-  wire alu_i_7_n_0;
-  wire alu_i_8_n_0;
-  wire alu_i_9_n_0;
   wire [4:0]aluop;
   wire [2:0]b_sel;
+  wire branch;
   wire clk_i;
   wire [31:0]data_addr_o;
   wire flag;
-  wire [31:0]in;
+  wire [30:0]in;
   wire [31:0]instr_addr_o;
   wire [31:0]instr_i;
   wire jal;
@@ -201,38 +140,7 @@ module riscv_core
   wire \pc_reg[7]_i_1_n_5 ;
   wire \pc_reg[7]_i_1_n_6 ;
   wire \pc_reg[7]_i_1_n_7 ;
-  wire rf_i_10_n_0;
-  wire rf_i_11_n_0;
-  wire rf_i_12_n_0;
-  wire rf_i_13_n_0;
-  wire rf_i_14_n_0;
-  wire rf_i_15_n_0;
-  wire rf_i_16_n_0;
-  wire rf_i_17_n_0;
-  wire rf_i_18_n_0;
-  wire rf_i_19_n_0;
-  wire rf_i_1_n_0;
-  wire rf_i_20_n_0;
-  wire rf_i_21_n_0;
-  wire rf_i_22_n_0;
-  wire rf_i_23_n_0;
-  wire rf_i_24_n_0;
-  wire rf_i_25_n_0;
-  wire rf_i_26_n_0;
-  wire rf_i_27_n_0;
-  wire rf_i_28_n_0;
-  wire rf_i_29_n_0;
-  wire rf_i_2_n_0;
-  wire rf_i_30_n_0;
-  wire rf_i_31_n_0;
-  wire rf_i_32_n_0;
-  wire rf_i_3_n_0;
-  wire rf_i_4_n_0;
-  wire rf_i_5_n_0;
-  wire rf_i_6_n_0;
-  wire rf_i_7_n_0;
-  wire rf_i_8_n_0;
-  wire rf_i_9_n_0;
+  wire [31:0]rf0;
   wire rst_i;
   wire [2:0]size_o;
   wire wb_src;
@@ -242,10 +150,12 @@ module riscv_core
        (.G(\<const0> ));
   VCC VCC
        (.P(\<const1> ));
+  (* STRUCTURAL_NETLIST = "yes" *) 
+
   alu_riscv alu
-       (.A({alu_i_1_n_0,alu_i_2_n_0,alu_i_3_n_0,alu_i_4_n_0,alu_i_5_n_0,alu_i_6_n_0,alu_i_7_n_0,alu_i_8_n_0,alu_i_9_n_0,alu_i_10_n_0,alu_i_11_n_0,alu_i_12_n_0,alu_i_13_n_0,alu_i_14_n_0,alu_i_15_n_0,alu_i_16_n_0,alu_i_17_n_0,alu_i_18_n_0,alu_i_19_n_0,alu_i_20_n_0,alu_i_21_n_0,alu_i_22_n_0,alu_i_23_n_0,alu_i_24_n_0,alu_i_25_n_0,alu_i_26_n_0,alu_i_27_n_0,alu_i_28_n_0,alu_i_29_n_0,alu_i_30_n_0,alu_i_31_n_0,alu_i_32_n_0}),
+       (.A(A),
         .ALUOp(aluop),
-        .B({alu_i_33_n_0,alu_i_34_n_0,alu_i_35_n_0,alu_i_36_n_0,alu_i_37_n_0,alu_i_38_n_0,alu_i_39_n_0,alu_i_40_n_0,alu_i_41_n_0,alu_i_42_n_0,alu_i_43_n_0,alu_i_44_n_0,alu_i_45_n_0,alu_i_46_n_0,alu_i_47_n_0,alu_i_48_n_0,alu_i_49_n_0,alu_i_50_n_0,alu_i_51_n_0,alu_i_52_n_0,alu_i_53_n_0,alu_i_54_n_0,alu_i_55_n_0,alu_i_56_n_0,alu_i_57_n_0,alu_i_58_n_0,alu_i_59_n_0,alu_i_60_n_0,alu_i_61_n_0,alu_i_62_n_0,alu_i_63_n_0,alu_i_64_n_0}),
+        .B(B),
         .Flag(flag),
         .Result(data_addr_o));
   LUT4 #(
@@ -255,7 +165,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[31]),
         .I3(a_sel[1]),
-        .O(alu_i_1_n_0));
+        .O(A[31]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_10
@@ -263,7 +173,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[22]),
         .I3(a_sel[1]),
-        .O(alu_i_10_n_0));
+        .O(A[22]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_11
@@ -271,7 +181,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[21]),
         .I3(a_sel[1]),
-        .O(alu_i_11_n_0));
+        .O(A[21]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_12
@@ -279,7 +189,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[20]),
         .I3(a_sel[1]),
-        .O(alu_i_12_n_0));
+        .O(A[20]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_13
@@ -287,7 +197,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[19]),
         .I3(a_sel[1]),
-        .O(alu_i_13_n_0));
+        .O(A[19]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_14
@@ -295,7 +205,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[18]),
         .I3(a_sel[1]),
-        .O(alu_i_14_n_0));
+        .O(A[18]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_15
@@ -303,7 +213,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[17]),
         .I3(a_sel[1]),
-        .O(alu_i_15_n_0));
+        .O(A[17]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_16
@@ -311,7 +221,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[16]),
         .I3(a_sel[1]),
-        .O(alu_i_16_n_0));
+        .O(A[16]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_17
@@ -319,7 +229,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[15]),
         .I3(a_sel[1]),
-        .O(alu_i_17_n_0));
+        .O(A[15]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_18
@@ -327,7 +237,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[14]),
         .I3(a_sel[1]),
-        .O(alu_i_18_n_0));
+        .O(A[14]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_19
@@ -335,7 +245,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[13]),
         .I3(a_sel[1]),
-        .O(alu_i_19_n_0));
+        .O(A[13]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_2
@@ -343,7 +253,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[30]),
         .I3(a_sel[1]),
-        .O(alu_i_2_n_0));
+        .O(A[30]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_20
@@ -351,7 +261,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[12]),
         .I3(a_sel[1]),
-        .O(alu_i_20_n_0));
+        .O(A[12]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_21
@@ -359,7 +269,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[11]),
         .I3(a_sel[1]),
-        .O(alu_i_21_n_0));
+        .O(A[11]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_22
@@ -367,7 +277,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[10]),
         .I3(a_sel[1]),
-        .O(alu_i_22_n_0));
+        .O(A[10]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_23
@@ -375,7 +285,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[9]),
         .I3(a_sel[1]),
-        .O(alu_i_23_n_0));
+        .O(A[9]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_24
@@ -383,7 +293,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[8]),
         .I3(a_sel[1]),
-        .O(alu_i_24_n_0));
+        .O(A[8]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_25
@@ -391,7 +301,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[7]),
         .I3(a_sel[1]),
-        .O(alu_i_25_n_0));
+        .O(A[7]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_26
@@ -399,7 +309,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[6]),
         .I3(a_sel[1]),
-        .O(alu_i_26_n_0));
+        .O(A[6]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_27
@@ -407,7 +317,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[5]),
         .I3(a_sel[1]),
-        .O(alu_i_27_n_0));
+        .O(A[5]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_28
@@ -415,7 +325,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[4]),
         .I3(a_sel[1]),
-        .O(alu_i_28_n_0));
+        .O(A[4]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_29
@@ -423,7 +333,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[3]),
         .I3(a_sel[1]),
-        .O(alu_i_29_n_0));
+        .O(A[3]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_3
@@ -431,7 +341,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[29]),
         .I3(a_sel[1]),
-        .O(alu_i_3_n_0));
+        .O(A[29]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_30
@@ -439,7 +349,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[2]),
         .I3(a_sel[1]),
-        .O(alu_i_30_n_0));
+        .O(A[2]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_31
@@ -447,7 +357,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[1]),
         .I3(a_sel[1]),
-        .O(alu_i_31_n_0));
+        .O(A[1]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_32
@@ -455,7 +365,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[0]),
         .I3(a_sel[1]),
-        .O(alu_i_32_n_0));
+        .O(A[0]));
   LUT5 #(
     .INIT(32'h0000F0E2)) 
     alu_i_33
@@ -464,7 +374,7 @@ module riscv_core
         .I2(instr_i[31]),
         .I3(b_sel[0]),
         .I4(b_sel[2]),
-        .O(alu_i_33_n_0));
+        .O(B[31]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_34
@@ -474,7 +384,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_34_n_0));
+        .O(B[30]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_35
@@ -484,7 +394,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_35_n_0));
+        .O(B[29]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_36
@@ -494,7 +404,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_36_n_0));
+        .O(B[28]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_37
@@ -504,7 +414,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_37_n_0));
+        .O(B[27]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_38
@@ -514,7 +424,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_38_n_0));
+        .O(B[26]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_39
@@ -524,7 +434,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_39_n_0));
+        .O(B[25]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_4
@@ -532,7 +442,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[28]),
         .I3(a_sel[1]),
-        .O(alu_i_4_n_0));
+        .O(A[28]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_40
@@ -542,7 +452,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_40_n_0));
+        .O(B[24]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_41
@@ -552,7 +462,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_41_n_0));
+        .O(B[23]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_42
@@ -562,7 +472,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_42_n_0));
+        .O(B[22]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_43
@@ -572,7 +482,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_43_n_0));
+        .O(B[21]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_44
@@ -582,7 +492,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_44_n_0));
+        .O(B[20]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_45
@@ -592,7 +502,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_45_n_0));
+        .O(B[19]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_46
@@ -602,7 +512,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_46_n_0));
+        .O(B[18]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_47
@@ -612,7 +522,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_47_n_0));
+        .O(B[17]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_48
@@ -622,7 +532,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_48_n_0));
+        .O(B[16]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_49
@@ -632,7 +542,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_49_n_0));
+        .O(B[15]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_5
@@ -640,7 +550,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[27]),
         .I3(a_sel[1]),
-        .O(alu_i_5_n_0));
+        .O(A[27]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_50
@@ -650,7 +560,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_50_n_0));
+        .O(B[14]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_51
@@ -660,7 +570,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_51_n_0));
+        .O(B[13]));
   LUT6 #(
     .INIT(64'h00000000FFE200E2)) 
     alu_i_52
@@ -670,7 +580,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[31]),
         .I5(b_sel[2]),
-        .O(alu_i_52_n_0));
+        .O(B[12]));
   LUT5 #(
     .INIT(32'h0000F404)) 
     alu_i_53
@@ -679,7 +589,7 @@ module riscv_core
         .I2(b_sel[0]),
         .I3(instr_i[31]),
         .I4(b_sel[2]),
-        .O(alu_i_53_n_0));
+        .O(B[11]));
   LUT5 #(
     .INIT(32'h0000F404)) 
     alu_i_54
@@ -688,7 +598,7 @@ module riscv_core
         .I2(b_sel[0]),
         .I3(instr_i[30]),
         .I4(b_sel[2]),
-        .O(alu_i_54_n_0));
+        .O(B[10]));
   LUT5 #(
     .INIT(32'h0000F404)) 
     alu_i_55
@@ -697,7 +607,7 @@ module riscv_core
         .I2(b_sel[0]),
         .I3(instr_i[29]),
         .I4(b_sel[2]),
-        .O(alu_i_55_n_0));
+        .O(B[9]));
   LUT5 #(
     .INIT(32'h0000F404)) 
     alu_i_56
@@ -706,7 +616,7 @@ module riscv_core
         .I2(b_sel[0]),
         .I3(instr_i[28]),
         .I4(b_sel[2]),
-        .O(alu_i_56_n_0));
+        .O(B[8]));
   LUT5 #(
     .INIT(32'h0000F404)) 
     alu_i_57
@@ -715,7 +625,7 @@ module riscv_core
         .I2(b_sel[0]),
         .I3(instr_i[27]),
         .I4(b_sel[2]),
-        .O(alu_i_57_n_0));
+        .O(B[7]));
   LUT5 #(
     .INIT(32'h0000F404)) 
     alu_i_58
@@ -724,7 +634,7 @@ module riscv_core
         .I2(b_sel[0]),
         .I3(instr_i[26]),
         .I4(b_sel[2]),
-        .O(alu_i_58_n_0));
+        .O(B[6]));
   LUT5 #(
     .INIT(32'h0000F404)) 
     alu_i_59
@@ -733,7 +643,7 @@ module riscv_core
         .I2(b_sel[0]),
         .I3(instr_i[25]),
         .I4(b_sel[2]),
-        .O(alu_i_59_n_0));
+        .O(B[5]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_6
@@ -741,7 +651,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[26]),
         .I3(a_sel[1]),
-        .O(alu_i_6_n_0));
+        .O(A[26]));
   LUT6 #(
     .INIT(64'h00000000F4A45404)) 
     alu_i_60
@@ -751,7 +661,7 @@ module riscv_core
         .I3(instr_i[24]),
         .I4(instr_i[11]),
         .I5(b_sel[2]),
-        .O(alu_i_60_n_0));
+        .O(B[4]));
   LUT6 #(
     .INIT(64'h00000000F4A45404)) 
     alu_i_61
@@ -761,7 +671,7 @@ module riscv_core
         .I3(instr_i[23]),
         .I4(instr_i[10]),
         .I5(b_sel[2]),
-        .O(alu_i_61_n_0));
+        .O(B[3]));
   LUT6 #(
     .INIT(64'hFFBAEEBABBBAAABA)) 
     alu_i_62
@@ -771,7 +681,7 @@ module riscv_core
         .I3(b_sel[0]),
         .I4(instr_i[22]),
         .I5(instr_i[9]),
-        .O(alu_i_62_n_0));
+        .O(B[2]));
   LUT6 #(
     .INIT(64'h00000000F4A45404)) 
     alu_i_63
@@ -781,7 +691,7 @@ module riscv_core
         .I3(instr_i[21]),
         .I4(instr_i[8]),
         .I5(b_sel[2]),
-        .O(alu_i_63_n_0));
+        .O(B[1]));
   LUT6 #(
     .INIT(64'h00000000F4A45404)) 
     alu_i_64
@@ -791,7 +701,7 @@ module riscv_core
         .I3(instr_i[20]),
         .I4(instr_i[7]),
         .I5(b_sel[2]),
-        .O(alu_i_64_n_0));
+        .O(B[0]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_7
@@ -799,7 +709,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[25]),
         .I3(a_sel[1]),
-        .O(alu_i_7_n_0));
+        .O(A[25]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_8
@@ -807,7 +717,7 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[24]),
         .I3(a_sel[1]),
-        .O(alu_i_8_n_0));
+        .O(A[24]));
   LUT4 #(
     .INIT(16'h00E2)) 
     alu_i_9
@@ -815,12 +725,14 @@ module riscv_core
         .I1(a_sel[0]),
         .I2(instr_addr_o[23]),
         .I3(a_sel[1]),
-        .O(alu_i_9_n_0));
+        .O(A[23]));
+
   decoder_riscv decoder
        (.alu_op_o(aluop),
+        .branch_o(branch),
         .ex_op_a_sel_o(a_sel),
         .ex_op_b_sel_o(b_sel),
-        .fetched_instr_i({instr_i[31:25],\<const0> ,\<const0> ,\<const0> ,\<const0> ,\<const0> ,\<const0> ,\<const0> ,\<const0> ,\<const0> ,\<const0> ,instr_i[14:12],\<const0> ,\<const0> ,\<const0> ,\<const0> ,\<const0> ,instr_i[6:0]}),
+        .fetched_instr_i(instr_i),
         .gpr_we_a_o(we_rf),
         .jal_o(jal),
         .jalr_o(jalr),
@@ -831,7 +743,7 @@ module riscv_core
   LUT3 #(
     .INIT(8'hF8)) 
     \pc[11]_i_10 
-       (.I0(aluop[4]),
+       (.I0(branch),
         .I1(flag),
         .I2(jal),
         .O(\pc[11]_i_10_n_0 ));
@@ -842,7 +754,7 @@ module riscv_core
         .I1(jal),
         .I2(flag),
         .I3(instr_i[31]),
-        .I4(aluop[4]),
+        .I4(branch),
         .I5(instr_i[7]),
         .O(in[11]));
   LUT5 #(
@@ -851,7 +763,7 @@ module riscv_core
        (.I0(jalr),
         .I1(jal),
         .I2(flag),
-        .I3(aluop[4]),
+        .I3(branch),
         .I4(instr_i[30]),
         .O(in[10]));
   LUT5 #(
@@ -860,7 +772,7 @@ module riscv_core
        (.I0(jalr),
         .I1(jal),
         .I2(flag),
-        .I3(aluop[4]),
+        .I3(branch),
         .I4(instr_i[29]),
         .O(in[9]));
   LUT5 #(
@@ -869,7 +781,7 @@ module riscv_core
        (.I0(jalr),
         .I1(jal),
         .I2(flag),
-        .I3(aluop[4]),
+        .I3(branch),
         .I4(instr_i[28]),
         .O(in[8]));
   LUT4 #(
@@ -914,7 +826,7 @@ module riscv_core
         .I1(jal),
         .I2(flag),
         .I3(instr_i[14]),
-        .I4(aluop[4]),
+        .I4(branch),
         .I5(instr_i[31]),
         .O(in[15]));
   LUT6 #(
@@ -924,7 +836,7 @@ module riscv_core
         .I1(jal),
         .I2(flag),
         .I3(instr_i[13]),
-        .I4(aluop[4]),
+        .I4(branch),
         .I5(instr_i[31]),
         .O(in[14]));
   LUT6 #(
@@ -934,7 +846,7 @@ module riscv_core
         .I1(jal),
         .I2(flag),
         .I3(instr_i[12]),
-        .I4(aluop[4]),
+        .I4(branch),
         .I5(instr_i[31]),
         .O(in[13]));
   LUT6 #(
@@ -944,7 +856,7 @@ module riscv_core
         .I1(jal),
         .I2(flag),
         .I3(instr_i[20]),
-        .I4(aluop[4]),
+        .I4(branch),
         .I5(instr_i[31]),
         .O(in[12]));
   LUT4 #(
@@ -986,7 +898,7 @@ module riscv_core
         .I1(jal),
         .I2(flag),
         .I3(instr_i[18]),
-        .I4(aluop[4]),
+        .I4(branch),
         .I5(instr_i[31]),
         .O(in[19]));
   LUT6 #(
@@ -996,7 +908,7 @@ module riscv_core
         .I1(jal),
         .I2(flag),
         .I3(instr_i[17]),
-        .I4(aluop[4]),
+        .I4(branch),
         .I5(instr_i[31]),
         .O(in[18]));
   LUT6 #(
@@ -1006,7 +918,7 @@ module riscv_core
         .I1(jal),
         .I2(flag),
         .I3(instr_i[16]),
-        .I4(aluop[4]),
+        .I4(branch),
         .I5(instr_i[31]),
         .O(in[17]));
   LUT6 #(
@@ -1016,7 +928,7 @@ module riscv_core
         .I1(jal),
         .I2(flag),
         .I3(instr_i[15]),
-        .I4(aluop[4]),
+        .I4(branch),
         .I5(instr_i[31]),
         .O(in[16]));
   LUT4 #(
@@ -1058,13 +970,13 @@ module riscv_core
         .I1(jal),
         .I2(flag),
         .I3(instr_i[19]),
-        .I4(aluop[4]),
+        .I4(branch),
         .I5(instr_i[31]),
         .O(in[20]));
   LUT4 #(
     .INIT(16'h56A6)) 
     \pc[23]_i_3 
-       (.I0(in[31]),
+       (.I0(in[30]),
         .I1(instr_addr_o[23]),
         .I2(jalr),
         .I3(RD1[23]),
@@ -1072,7 +984,7 @@ module riscv_core
   LUT4 #(
     .INIT(16'h56A6)) 
     \pc[23]_i_4 
-       (.I0(in[31]),
+       (.I0(in[30]),
         .I1(instr_addr_o[22]),
         .I2(jalr),
         .I3(RD1[22]),
@@ -1080,7 +992,7 @@ module riscv_core
   LUT4 #(
     .INIT(16'h56A6)) 
     \pc[23]_i_5 
-       (.I0(in[31]),
+       (.I0(in[30]),
         .I1(instr_addr_o[21]),
         .I2(jalr),
         .I3(RD1[21]),
@@ -1096,7 +1008,7 @@ module riscv_core
   LUT4 #(
     .INIT(16'h56A6)) 
     \pc[27]_i_2 
-       (.I0(in[31]),
+       (.I0(in[30]),
         .I1(instr_addr_o[27]),
         .I2(jalr),
         .I3(RD1[27]),
@@ -1104,7 +1016,7 @@ module riscv_core
   LUT4 #(
     .INIT(16'h56A6)) 
     \pc[27]_i_3 
-       (.I0(in[31]),
+       (.I0(in[30]),
         .I1(instr_addr_o[26]),
         .I2(jalr),
         .I3(RD1[26]),
@@ -1112,7 +1024,7 @@ module riscv_core
   LUT4 #(
     .INIT(16'h56A6)) 
     \pc[27]_i_4 
-       (.I0(in[31]),
+       (.I0(in[30]),
         .I1(instr_addr_o[25]),
         .I2(jalr),
         .I3(RD1[25]),
@@ -1120,7 +1032,7 @@ module riscv_core
   LUT4 #(
     .INIT(16'h56A6)) 
     \pc[27]_i_5 
-       (.I0(in[31]),
+       (.I0(in[30]),
         .I1(instr_addr_o[24]),
         .I2(jalr),
         .I3(RD1[24]),
@@ -1131,13 +1043,13 @@ module riscv_core
        (.I0(jalr),
         .I1(jal),
         .I2(flag),
-        .I3(aluop[4]),
+        .I3(branch),
         .I4(instr_i[31]),
-        .O(in[31]));
+        .O(in[30]));
   LUT4 #(
     .INIT(16'h56A6)) 
     \pc[31]_i_3 
-       (.I0(in[31]),
+       (.I0(in[30]),
         .I1(instr_addr_o[31]),
         .I2(jalr),
         .I3(RD1[31]),
@@ -1145,7 +1057,7 @@ module riscv_core
   LUT4 #(
     .INIT(16'h56A6)) 
     \pc[31]_i_4 
-       (.I0(in[31]),
+       (.I0(in[30]),
         .I1(instr_addr_o[30]),
         .I2(jalr),
         .I3(RD1[30]),
@@ -1153,7 +1065,7 @@ module riscv_core
   LUT4 #(
     .INIT(16'h56A6)) 
     \pc[31]_i_5 
-       (.I0(in[31]),
+       (.I0(in[30]),
         .I1(instr_addr_o[29]),
         .I2(jalr),
         .I3(RD1[29]),
@@ -1161,7 +1073,7 @@ module riscv_core
   LUT4 #(
     .INIT(16'h56A6)) 
     \pc[31]_i_6 
-       (.I0(in[31]),
+       (.I0(in[30]),
         .I1(instr_addr_o[28]),
         .I2(jalr),
         .I3(RD1[28]),
@@ -1173,7 +1085,7 @@ module riscv_core
         .I1(jal),
         .I2(flag),
         .I3(instr_i[23]),
-        .I4(aluop[4]),
+        .I4(branch),
         .I5(instr_i[10]),
         .O(in[3]));
   LUT6 #(
@@ -1184,7 +1096,7 @@ module riscv_core
         .I2(instr_i[9]),
         .I3(jal),
         .I4(flag),
-        .I5(aluop[4]),
+        .I5(branch),
         .O(in[2]));
   LUT6 #(
     .INIT(64'hFE54EE00AA00EE00)) 
@@ -1193,7 +1105,7 @@ module riscv_core
         .I1(jal),
         .I2(flag),
         .I3(instr_i[21]),
-        .I4(aluop[4]),
+        .I4(branch),
         .I5(instr_i[8]),
         .O(in[1]));
   LUT2 #(
@@ -1240,7 +1152,7 @@ module riscv_core
        (.I0(jalr),
         .I1(jal),
         .I2(flag),
-        .I3(aluop[4]),
+        .I3(branch),
         .I4(instr_i[27]),
         .O(in[7]));
   LUT5 #(
@@ -1249,7 +1161,7 @@ module riscv_core
        (.I0(jalr),
         .I1(jal),
         .I2(flag),
-        .I3(aluop[4]),
+        .I3(branch),
         .I4(instr_i[26]),
         .O(in[6]));
   LUT5 #(
@@ -1258,7 +1170,7 @@ module riscv_core
        (.I0(jalr),
         .I1(jal),
         .I2(flag),
-        .I3(aluop[4]),
+        .I3(branch),
         .I4(instr_i[25]),
         .O(in[5]));
   LUT6 #(
@@ -1268,7 +1180,7 @@ module riscv_core
         .I1(jal),
         .I2(flag),
         .I3(instr_i[24]),
-        .I4(aluop[4]),
+        .I4(branch),
         .I5(instr_i[11]),
         .O(in[4]));
   LUT5 #(
@@ -1330,6 +1242,7 @@ module riscv_core
         .D(\pc_reg[11]_i_1_n_4 ),
         .Q(instr_addr_o[11]),
         .R(rst_i));
+  (* ADDER_THRESHOLD = "11" *) 
   CARRY4 \pc_reg[11]_i_1 
        (.CI(\pc_reg[7]_i_1_n_0 ),
         .CO({\pc_reg[11]_i_1_n_0 ,\pc_reg[11]_i_1_n_1 ,\pc_reg[11]_i_1_n_2 ,\pc_reg[11]_i_1_n_3 }),
@@ -1369,6 +1282,7 @@ module riscv_core
         .D(\pc_reg[15]_i_1_n_4 ),
         .Q(instr_addr_o[15]),
         .R(rst_i));
+  (* ADDER_THRESHOLD = "11" *) 
   CARRY4 \pc_reg[15]_i_1 
        (.CI(\pc_reg[11]_i_1_n_0 ),
         .CO({\pc_reg[15]_i_1_n_0 ,\pc_reg[15]_i_1_n_1 ,\pc_reg[15]_i_1_n_2 ,\pc_reg[15]_i_1_n_3 }),
@@ -1408,6 +1322,7 @@ module riscv_core
         .D(\pc_reg[19]_i_1_n_4 ),
         .Q(instr_addr_o[19]),
         .R(rst_i));
+  (* ADDER_THRESHOLD = "11" *) 
   CARRY4 \pc_reg[19]_i_1 
        (.CI(\pc_reg[15]_i_1_n_0 ),
         .CO({\pc_reg[19]_i_1_n_0 ,\pc_reg[19]_i_1_n_1 ,\pc_reg[19]_i_1_n_2 ,\pc_reg[19]_i_1_n_3 }),
@@ -1455,11 +1370,12 @@ module riscv_core
         .D(\pc_reg[23]_i_1_n_4 ),
         .Q(instr_addr_o[23]),
         .R(rst_i));
+  (* ADDER_THRESHOLD = "11" *) 
   CARRY4 \pc_reg[23]_i_1 
        (.CI(\pc_reg[19]_i_1_n_0 ),
         .CO({\pc_reg[23]_i_1_n_0 ,\pc_reg[23]_i_1_n_1 ,\pc_reg[23]_i_1_n_2 ,\pc_reg[23]_i_1_n_3 }),
         .CYINIT(\<const0> ),
-        .DI({in[31],in[31],in[31],in[20]}),
+        .DI({in[30],in[30],in[30],in[20]}),
         .O({\pc_reg[23]_i_1_n_4 ,\pc_reg[23]_i_1_n_5 ,\pc_reg[23]_i_1_n_6 ,\pc_reg[23]_i_1_n_7 }),
         .S({\pc[23]_i_3_n_0 ,\pc[23]_i_4_n_0 ,\pc[23]_i_5_n_0 ,\pc[23]_i_6_n_0 }));
   FDRE #(
@@ -1494,11 +1410,12 @@ module riscv_core
         .D(\pc_reg[27]_i_1_n_4 ),
         .Q(instr_addr_o[27]),
         .R(rst_i));
+  (* ADDER_THRESHOLD = "11" *) 
   CARRY4 \pc_reg[27]_i_1 
        (.CI(\pc_reg[23]_i_1_n_0 ),
         .CO({\pc_reg[27]_i_1_n_0 ,\pc_reg[27]_i_1_n_1 ,\pc_reg[27]_i_1_n_2 ,\pc_reg[27]_i_1_n_3 }),
         .CYINIT(\<const0> ),
-        .DI({in[31],in[31],in[31],in[31]}),
+        .DI({in[30],in[30],in[30],in[30]}),
         .O({\pc_reg[27]_i_1_n_4 ,\pc_reg[27]_i_1_n_5 ,\pc_reg[27]_i_1_n_6 ,\pc_reg[27]_i_1_n_7 }),
         .S({\pc[27]_i_2_n_0 ,\pc[27]_i_3_n_0 ,\pc[27]_i_4_n_0 ,\pc[27]_i_5_n_0 }));
   FDRE #(
@@ -1541,11 +1458,12 @@ module riscv_core
         .D(\pc_reg[31]_i_1_n_4 ),
         .Q(instr_addr_o[31]),
         .R(rst_i));
+  (* ADDER_THRESHOLD = "11" *) 
   CARRY4 \pc_reg[31]_i_1 
        (.CI(\pc_reg[27]_i_1_n_0 ),
         .CO({\pc_reg[31]_i_1_n_1 ,\pc_reg[31]_i_1_n_2 ,\pc_reg[31]_i_1_n_3 }),
         .CYINIT(\<const0> ),
-        .DI({\<const0> ,in[31],in[31],in[31]}),
+        .DI({\<const0> ,in[30],in[30],in[30]}),
         .O({\pc_reg[31]_i_1_n_4 ,\pc_reg[31]_i_1_n_5 ,\pc_reg[31]_i_1_n_6 ,\pc_reg[31]_i_1_n_7 }),
         .S({\pc[31]_i_3_n_0 ,\pc[31]_i_4_n_0 ,\pc[31]_i_5_n_0 ,\pc[31]_i_6_n_0 }));
   FDRE #(
@@ -1556,6 +1474,7 @@ module riscv_core
         .D(\pc_reg[3]_i_1_n_4 ),
         .Q(instr_addr_o[3]),
         .R(rst_i));
+  (* ADDER_THRESHOLD = "11" *) 
   CARRY4 \pc_reg[3]_i_1 
        (.CI(\<const0> ),
         .CO({\pc_reg[3]_i_1_n_0 ,\pc_reg[3]_i_1_n_1 ,\pc_reg[3]_i_1_n_2 ,\pc_reg[3]_i_1_n_3 }),
@@ -1595,6 +1514,7 @@ module riscv_core
         .D(\pc_reg[7]_i_1_n_4 ),
         .Q(instr_addr_o[7]),
         .R(rst_i));
+  (* ADDER_THRESHOLD = "11" *) 
   CARRY4 \pc_reg[7]_i_1 
        (.CI(\pc_reg[3]_i_1_n_0 ),
         .CO({\pc_reg[7]_i_1_n_0 ,\pc_reg[7]_i_1_n_1 ,\pc_reg[7]_i_1_n_2 ,\pc_reg[7]_i_1_n_3 }),
@@ -1618,232 +1538,232 @@ module riscv_core
         .D(\pc_reg[11]_i_1_n_6 ),
         .Q(instr_addr_o[9]),
         .R(rst_i));
-  (* STRUCTURAL_NETLIST = "yes" *) 
+
   rf_riscv rf
        (.A1(instr_i[19:15]),
         .A2(instr_i[24:20]),
         .A3(instr_i[11:7]),
-        .CLK(clk_i),
         .RD1(RD1),
         .RD2(WD_o),
-        .WD3({rf_i_1_n_0,rf_i_2_n_0,rf_i_3_n_0,rf_i_4_n_0,rf_i_5_n_0,rf_i_6_n_0,rf_i_7_n_0,rf_i_8_n_0,rf_i_9_n_0,rf_i_10_n_0,rf_i_11_n_0,rf_i_12_n_0,rf_i_13_n_0,rf_i_14_n_0,rf_i_15_n_0,rf_i_16_n_0,rf_i_17_n_0,rf_i_18_n_0,rf_i_19_n_0,rf_i_20_n_0,rf_i_21_n_0,rf_i_22_n_0,rf_i_23_n_0,rf_i_24_n_0,rf_i_25_n_0,rf_i_26_n_0,rf_i_27_n_0,rf_i_28_n_0,rf_i_29_n_0,rf_i_30_n_0,rf_i_31_n_0,rf_i_32_n_0}),
-        .WE3(we_rf));
-  (* SOFT_HLUTNM = "soft_lutpair9" *) 
+        .WD3(rf0),
+        .WE(we_rf),
+        .clk(clk_i));
+  (* SOFT_HLUTNM = "soft_lutpair15" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_1
        (.I0(RD_i[31]),
         .I1(data_addr_o[31]),
         .I2(wb_src),
-        .O(rf_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+        .O(rf0[31]));
+  (* SOFT_HLUTNM = "soft_lutpair11" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_10
        (.I0(RD_i[22]),
         .I1(data_addr_o[22]),
         .I2(wb_src),
-        .O(rf_i_10_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair19" *) 
+        .O(rf0[22]));
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_11
        (.I0(RD_i[21]),
         .I1(data_addr_o[21]),
         .I2(wb_src),
-        .O(rf_i_11_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+        .O(rf0[21]));
+  (* SOFT_HLUTNM = "soft_lutpair10" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_12
        (.I0(RD_i[20]),
         .I1(data_addr_o[20]),
         .I2(wb_src),
-        .O(rf_i_12_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+        .O(rf0[20]));
+  (* SOFT_HLUTNM = "soft_lutpair9" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_13
        (.I0(RD_i[19]),
         .I1(data_addr_o[19]),
         .I2(wb_src),
-        .O(rf_i_13_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair22" *) 
+        .O(rf0[19]));
+  (* SOFT_HLUTNM = "soft_lutpair9" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_14
        (.I0(RD_i[18]),
         .I1(data_addr_o[18]),
         .I2(wb_src),
-        .O(rf_i_14_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair23" *) 
+        .O(rf0[18]));
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_15
        (.I0(RD_i[17]),
         .I1(data_addr_o[17]),
         .I2(wb_src),
-        .O(rf_i_15_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair24" *) 
+        .O(rf0[17]));
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_16
        (.I0(RD_i[16]),
         .I1(data_addr_o[16]),
         .I2(wb_src),
-        .O(rf_i_16_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair24" *) 
+        .O(rf0[16]));
+  (* SOFT_HLUTNM = "soft_lutpair7" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_17
        (.I0(RD_i[15]),
         .I1(data_addr_o[15]),
         .I2(wb_src),
-        .O(rf_i_17_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair23" *) 
+        .O(rf0[15]));
+  (* SOFT_HLUTNM = "soft_lutpair7" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_18
        (.I0(RD_i[14]),
         .I1(data_addr_o[14]),
         .I2(wb_src),
-        .O(rf_i_18_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair22" *) 
+        .O(rf0[14]));
+  (* SOFT_HLUTNM = "soft_lutpair6" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_19
        (.I0(RD_i[13]),
         .I1(data_addr_o[13]),
         .I2(wb_src),
-        .O(rf_i_19_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+        .O(rf0[13]));
+  (* SOFT_HLUTNM = "soft_lutpair15" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_2
        (.I0(RD_i[30]),
         .I1(data_addr_o[30]),
         .I2(wb_src),
-        .O(rf_i_2_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair21" *) 
+        .O(rf0[30]));
+  (* SOFT_HLUTNM = "soft_lutpair6" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_20
        (.I0(RD_i[12]),
         .I1(data_addr_o[12]),
         .I2(wb_src),
-        .O(rf_i_20_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair20" *) 
+        .O(rf0[12]));
+  (* SOFT_HLUTNM = "soft_lutpair5" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_21
        (.I0(RD_i[11]),
         .I1(data_addr_o[11]),
         .I2(wb_src),
-        .O(rf_i_21_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair19" *) 
+        .O(rf0[11]));
+  (* SOFT_HLUTNM = "soft_lutpair5" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_22
        (.I0(RD_i[10]),
         .I1(data_addr_o[10]),
         .I2(wb_src),
-        .O(rf_i_22_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair18" *) 
+        .O(rf0[10]));
+  (* SOFT_HLUTNM = "soft_lutpair4" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_23
        (.I0(RD_i[9]),
         .I1(data_addr_o[9]),
         .I2(wb_src),
-        .O(rf_i_23_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair17" *) 
+        .O(rf0[9]));
+  (* SOFT_HLUTNM = "soft_lutpair4" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_24
        (.I0(RD_i[8]),
         .I1(data_addr_o[8]),
         .I2(wb_src),
-        .O(rf_i_24_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair16" *) 
+        .O(rf0[8]));
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_25
        (.I0(RD_i[7]),
         .I1(data_addr_o[7]),
         .I2(wb_src),
-        .O(rf_i_25_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair15" *) 
+        .O(rf0[7]));
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_26
        (.I0(RD_i[6]),
         .I1(data_addr_o[6]),
         .I2(wb_src),
-        .O(rf_i_26_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair14" *) 
+        .O(rf0[6]));
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_27
        (.I0(RD_i[5]),
         .I1(data_addr_o[5]),
         .I2(wb_src),
-        .O(rf_i_27_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair13" *) 
+        .O(rf0[5]));
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_28
        (.I0(RD_i[4]),
         .I1(data_addr_o[4]),
         .I2(wb_src),
-        .O(rf_i_28_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+        .O(rf0[4]));
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_29
        (.I0(RD_i[3]),
         .I1(data_addr_o[3]),
         .I2(wb_src),
-        .O(rf_i_29_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+        .O(rf0[3]));
+  (* SOFT_HLUTNM = "soft_lutpair14" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_3
        (.I0(RD_i[29]),
         .I1(data_addr_o[29]),
         .I2(wb_src),
-        .O(rf_i_3_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair11" *) 
+        .O(rf0[29]));
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_30
        (.I0(RD_i[2]),
         .I1(data_addr_o[2]),
         .I2(wb_src),
-        .O(rf_i_30_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair10" *) 
+        .O(rf0[2]));
+  (* SOFT_HLUTNM = "soft_lutpair0" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_31
        (.I0(RD_i[1]),
         .I1(data_addr_o[1]),
         .I2(wb_src),
-        .O(rf_i_31_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair9" *) 
+        .O(rf0[1]));
+  (* SOFT_HLUTNM = "soft_lutpair0" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_32
        (.I0(RD_i[0]),
         .I1(data_addr_o[0]),
         .I2(wb_src),
-        .O(rf_i_32_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair12" *) 
+        .O(rf0[0]));
+  (* SOFT_HLUTNM = "soft_lutpair14" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_4
        (.I0(RD_i[28]),
         .I1(data_addr_o[28]),
         .I2(wb_src),
-        .O(rf_i_4_n_0));
+        .O(rf0[28]));
   (* SOFT_HLUTNM = "soft_lutpair13" *) 
   LUT3 #(
     .INIT(8'hAC)) 
@@ -1851,37 +1771,37 @@ module riscv_core
        (.I0(RD_i[27]),
         .I1(data_addr_o[27]),
         .I2(wb_src),
-        .O(rf_i_5_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair14" *) 
+        .O(rf0[27]));
+  (* SOFT_HLUTNM = "soft_lutpair13" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_6
        (.I0(RD_i[26]),
         .I1(data_addr_o[26]),
         .I2(wb_src),
-        .O(rf_i_6_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair15" *) 
+        .O(rf0[26]));
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_7
        (.I0(RD_i[25]),
         .I1(data_addr_o[25]),
         .I2(wb_src),
-        .O(rf_i_7_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair16" *) 
+        .O(rf0[25]));
+  (* SOFT_HLUTNM = "soft_lutpair12" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_8
        (.I0(RD_i[24]),
         .I1(data_addr_o[24]),
         .I2(wb_src),
-        .O(rf_i_8_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair17" *) 
+        .O(rf0[24]));
+  (* SOFT_HLUTNM = "soft_lutpair11" *) 
   LUT3 #(
     .INIT(8'hAC)) 
     rf_i_9
        (.I0(RD_i[23]),
         .I1(data_addr_o[23]),
         .I2(wb_src),
-        .O(rf_i_9_n_0));
+        .O(rf0[23]));
 endmodule
