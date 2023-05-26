@@ -1,11 +1,14 @@
-module ps_2tb();
+`timescale 1ns / 1ps
+module tb_riscv_unit();
 
 reg clk;
 reg ps2_clk;
-reg ps2_dat;
+wire ps2_dat;
 reg resetn;
+reg btnc;
+reg [15:0] sw_i;
 //reg [7:0] key;
-reg parity;
+reg parity;reg starter;
 initial begin clk = 0; ps2_clk = 0; end
 
 always #50 clk = ~clk;
@@ -19,7 +22,7 @@ initial begin
 resetn = 1;
 //key = button;
 parity = !(^button);
-@(posedge clk);
+repeat(2)@(posedge clk);
 resetn = 0;
 data = {2'b11, parity, button, 1'b0};
 repeat(2) @(posedge clk);
@@ -27,14 +30,16 @@ resetn = 1;
 end
 
 riscv_unit dut(
-    .CLK100(clk),
+    .clk_i(clk),
     .resetn(resetn),
-    .PS2_DATA(ps2_dat),
-    .PS2_CLK(ps2_clk)
+    .kclk(ps2_dat),
+    .kdata(ps2_clk),
+    .sw_i(sw_i),
+    .led_o(led_0)
 );
 
 reg [3:0] cntr;
-reg starter;
+
 
 always @(negedge ps2_clk) begin
     if(starter || (cntr > 0))
@@ -44,8 +49,29 @@ always @(negedge ps2_clk) begin
             cntr <= cntr + 1;        
 end
 
-assign ps2_dat = cntr>0? data[cntr-1] : 1;
+initial begin
 
+    btnc = 0;
+    #10000;
+    sw_i = 16'h01AA;
+    #20000;
+    sw_i = 16'hFF00;
+    
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+assign ps2_dat = cntr>0? data[cntr-1] : 1;
 
 initial begin 
 cntr = 0;
