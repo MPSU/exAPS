@@ -24,7 +24,7 @@ module hex_digits(
   assign hex_sel = ANreg;
   assign hex_led = hex_ledr;
   
-  always @(posedge clk) begin
+  always @(posedge clk_i) begin
     if (rst_i) begin
       counter <= 'b0;
       ANreg[7:0] <= 8'b11111111;
