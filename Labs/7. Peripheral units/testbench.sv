@@ -7,6 +7,7 @@ wire ps2_dat;
 reg resetn;
 reg btnc;
 reg [15:0] sw_i;
+wire [15:0] led_o;
 //reg [7:0] key;
 reg parity;reg starter;
 initial begin clk = 0; ps2_clk = 0; end
@@ -35,7 +36,7 @@ riscv_unit dut(
     .kclk(ps2_dat),
     .kdata(ps2_clk),
     .sw_i(sw_i),
-    .led_o(led_0)
+    .led_o(led_o)
 );
 
 reg [3:0] cntr;
