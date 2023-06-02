@@ -51,7 +51,7 @@ always @(negedge ps2_clk) begin
 end
 
 initial begin
-
+    sw_i = 16'h0;
     btnc = 0;
     #10000;
     sw_i = 16'h01AA;
