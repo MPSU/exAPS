@@ -89,12 +89,12 @@ endmodule
 
 Для этого необходимо:
 
-1. Подключить файл `sys_clk_rst_gen.v` в ваш проект.
+1. Подключить файл `[sys_clk_rst_gen.v](sys_clk_rst_gen.v)` в ваш проект.
 2. Подключить этот модуль внутри `riscv_unit` следующим образом:
 
 ```verilog
 wire sysclk, rst;
-sys_clk_rst_gen divider(.ex_clk_i(clk_i),.ex_areset_n_i(resetn),.div_i(10),.sys_clk_o(clk10), .sys_reset_o(rst));
+sys_clk_rst_gen divider(.ex_clk_i(clk_i),.ex_areset_n_i(resetn),.div_i(10),.sys_clk_o(sysclk), .sys_reset_o(rst));
 ```
 
 3. После вставки данных строк в начало описания модуля `riscv_unit` вы получите тактовый сигнал `sysclk` с частотой в 10 МГц и сигнал сброса `rst` с активным уровнем `1` (как и в предыдущих лабораторных). Все ваши внутренние модули (`riscv_core`, `data_mem` и `контроллеры периферии`) должны работать от тактового сигнала `sysclk`. На модули, имеющие входной сигнал сброса (`rst_i`) необходимо подать ваш сигнал `rst`.
