@@ -89,7 +89,7 @@ endmodule
 
 Для этого необходимо:
 
-1. Подключить файл `[sys_clk_rst_gen.v](sys_clk_rst_gen.v)` в ваш проект.
+1. Подключить файл [`sys_clk_rst_gen.v`](sys_clk_rst_gen.v) в ваш проект.
 2. Подключить этот модуль внутри `riscv_unit` следующим образом:
 
 ```verilog
