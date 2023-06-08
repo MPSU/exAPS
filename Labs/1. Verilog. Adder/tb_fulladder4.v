@@ -8,28 +8,28 @@ module tb_fulladder4();
     wire [3:0] A;
     wire [3:0] B;
     wire [3:0] S;
-    wire       Pin;
-    wire       Pout;
+    wire       Cin;
+    wire       Cout;
 
     fulladder4 DUT (
-        .A(A),
-        .B(B),
-        .S(S),
-        .Pin(Pin),
-        .Pout(Pout)
+        .a_i(A),
+        .b_i(B),
+        .sum_o(S),
+        .carry_i(Cin),
+        .carry_o(Cout)
     );
 
     integer     i, err_count = 0;
     reg [13:0] running_line;
-    
+
     wire [3:0] result_dump;
-    wire       Pout_dump;
+    wire       Cout_dump;
 
     assign A = running_line[13:10];
     assign B = running_line[9:6];
-    assign Pin = running_line[5];
+    assign Cin = running_line[5];
     assign result_dump = running_line[4:1];
-    assign Pout_dump = running_line[0];
+    assign Cout_dump = running_line[0];
 
 
     initial begin
@@ -38,8 +38,8 @@ module tb_fulladder4();
             begin
                 running_line = line_dump[i*14+:14];
                 #TIME_OPERATION;
-                if( {Pout, S} !== {Pout_dump, result_dump} ) begin
-                    $display("ERROR! %h + %h = ", A, B, "%h", {Pout, S}, " result_dump: %h", {Pout_dump, result_dump});
+                if( {Cout, S} !== {Cout_dump, result_dump} ) begin
+                    $display("ERROR! %h + %h = ", A, B, "%h", {Cout, S}, " result_dump: %h", {Cout_dump, result_dump});
                     err_count = err_count + 1'b1;
                 end
             end
