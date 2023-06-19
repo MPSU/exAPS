@@ -24,7 +24,7 @@
 
 Давайте начнем с примера и сложим в столбик какую-нибудь пару чисел, например 42 и 79:
 
-![../../../technical/Labs/Pic/lab_01_adder/column_add_dec_transparent.drawio.png](../../../technical/Labs/Pic/lab_01_adder/column_add_dec_transparent.drawio.png)
+![../../../technical/Labs/Pic/lab_01_adder/column_add_dec.drawio.png](../../../technical/Labs/Pic/lab_01_adder/column_add_dec.drawio.png)
 
 ```text
 2 + 9             = 11 ➨ 1 пишем, 1 "в уме"
@@ -38,7 +38,7 @@
 
 Теперь попробуем сделать то же самое, только в двоичной системе исчисления. К примеру, над числами 3 и 5. Три в двоичной системе записывается как 011. Пять записывается как 101.
 
-![../../../technical/Labs/Pic/lab_01_adder/column_add_bin_transparent.drawio.png](../../../technical/Labs/Pic/lab_01_adder/column_add_bin_transparent.drawio.png)
+![../../../technical/Labs/Pic/lab_01_adder/column_add_bin.drawio.png](../../../technical/Labs/Pic/lab_01_adder/column_add_bin.drawio.png)
 
 Поскольку в двоичной системе всего две цифры: 0 и 1, один разряд не может превысить 1. Складывая числа 1 и 1, вы получаете 2, что не умещается в один разряд, поэтому мы пишем 0 и держим 1 "в уме". Это снова перенос разряда. Поскольку в двоичной арифметике разряд называют битом, перенос разряда называют переносом бита, а сам разряд, который перенесли — битом переноса.
 
@@ -76,7 +76,7 @@
 
 Давайте нарисуем цифровую схему, связывающую входные и выходные сигналы с помощью логических элементов, соответствующих ожидаемому поведению:
 
-![../../../technical/Labs/Pic/lab_01_adder/fig_01_transparent.drawio.png](../../../technical/Labs/Pic/lab_01_adder/fig_01_transparent.drawio.png)
+![../../../technical/Labs/Pic/lab_01_adder/fig_01.drawio.png](../../../technical/Labs/Pic/lab_01_adder/fig_01.drawio.png)
 
 *Рисунок 1. Цифровая схема устройства, складывающего два операнда с сохранением переноса (полусумматора)*
 
@@ -100,7 +100,7 @@
 
 Цифровая схема устройства с описанным поведением выглядит следующим образом:
 
-![../../../technical/Labs/Pic/lab_01_adder/fig_02_transparent.drawio.png](../../../technical/Labs/Pic/lab_01_adder/fig_02_transparent.drawio.png)
+![../../../technical/Labs/Pic/lab_01_adder/fig_02.drawio.png](../../../technical/Labs/Pic/lab_01_adder/fig_02.drawio.png)
 
 *Рисунок 2. Цифровая схема полного однобитного сумматора*
 
@@ -210,7 +210,7 @@ endmodule
 
 Давайте посмотрим, как это будет выглядеть на схеме (для простоты, внутренняя логика однобитного сумматора скрыта, но вы должны помнить, что каждый прямоугольник — это та же самая схема, что была представлена выше).
 
-![../../../technical/Labs/Pic/lab_01_adder/fig_05_transparent.drawio.png](../../../technical/Labs/Pic/lab_01_adder/fig_05_transparent.drawio.png)
+![../../../technical/Labs/Pic/lab_01_adder/fig_05.drawio.png](../../../technical/Labs/Pic/lab_01_adder/fig_05.drawio.png)
 *Рисунок 5. Схема четырехбитного сумматора*
 
 Фиолетовой линией на схеме показаны провода, соединяющие выходной бит переноса сумматора предыдущего разряда, с входным битом переноса сумматора следующего разряда.
@@ -250,7 +250,7 @@ endmodule
 
 Теперь мы можем описать четырёхбитный сумматор, подключив четыре однобитных подобно тому, как было описано в [`документе`](../../Other/Basic%20Verilog%20structures/Modules.md#иерархия-модулей), который вы изучали перед лабораторной работой.
 
-![../../../technical/Labs/Pic/lab_01_adder/fig_06_transparent.drawio.png](../../../technical/Labs/Pic/lab_01_adder/fig_06_transparent.drawio.png)
+![../../../technical/Labs/Pic/lab_01_adder/fig_06.drawio.png](../../../technical/Labs/Pic/lab_01_adder/fig_06.drawio.png)
 
 *Рисунок 6. Схема четырехбитного сумматора, сгенерированная САПР Vivado*
 
@@ -274,7 +274,7 @@ module fulladder4(
 
 Либо же можно воспользоваться конструкцией `generate for`, пример использования которой вы можете увидеть на изображении ниже (так же существуют конструкции `generate if`, `generate case`).
 
-![../../../technical/Labs/Pic/1_listing-4.png](../../../technical/Labs/Pic/1_listing-4.png)
+![../../../technical/Labs/Pic/lab_01_adder/fig_07.png](../../../technical/Labs/Pic/lab_01_adder/fig_07.png)
 
 *Рисунок 7. Пример использования конструкции generate for*
 
