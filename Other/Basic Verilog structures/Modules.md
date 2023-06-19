@@ -2,7 +2,7 @@
 
 Основой цифровых схем в Verilog является модуль. Модуль — это блок Verilog-кода описывающий цифровую схему какого-то устройства, например пульта телевизора:
 
-![../../../technical/Other/Pic/modules/fig_00.drawio.jpg](../../../technical/Other/Pic/modules/fig_00.jpg)
+![../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_00.drawio.jpg](../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_00.jpg)
 
 У пульта есть входные сигналы: кнопки, нажатие на которые сообщает о нашем намерении изменить громкость или переключить канал. Кроме того, есть выходной сигнал ИК-светодиода, по которому пульт отправляет информацию телевизору.
 
@@ -10,7 +10,7 @@
 
 Определим наш модуль:
 
-![../../../technical/Other/Pic/modules/fig_01.drawio.png](../../../technical/Other/Pic/modules/fig_01.drawio.png)
+![../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_01.drawio.png](../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_01.drawio.png)
 
 ```verilog
 module
@@ -21,7 +21,7 @@ endmodule
 
 У всякого модуля должно быть название. Назовём его box. В круглых скобках пишутся имена портов, их направление и типы. Если модуль не имеет ни входов, ни выходов, внутри скобок ничего не пишется. После них всегда ставится точка с запятой.
 
-![../../../technical/Other/Pic/modules/fig_02.drawio.png](../../../technical/Other/Pic/modules/fig_02.drawio.png)
+![../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_02.drawio.png](../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_02.drawio.png)
 
 ```verilog
 module box();
@@ -32,7 +32,7 @@ endmodule
 
 Модуль без входов и выходов — это просто коробка, которая никак не взаимодействует с внешним миром. Подключим к нему два входных сигнала `a, b`  и один выходной `q`.
 
-![../../../technical/Other/Pic/modules/fig_03.drawio.png](../../../technical/Other/Pic/modules/fig_03.drawio.png)
+![../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_03.drawio.png](../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_03.drawio.png)
 
 ```verilog
 module box(
@@ -47,7 +47,7 @@ endmodule
 
 Внутри модуля могут быть объявления сигналов, параметров, констант и т.п., о которых другой модуль не узнает. Объявим внутри модуля `box` провод `c`.
 
-![../../../technical/Other/Pic/modules/fig_04.drawio.png](../../../technical/Other/Pic/modules/fig_04.drawio.png)
+![../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_04.drawio.png](../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_04.drawio.png)
 
 ```verilog
 module box(
@@ -64,7 +64,7 @@ endmodule
 
 Подключим провод `c` ко входу `a`. Для этого используется конструкция `assign c = a;`. Такая конструкция называется непрерывным присваиванием. Если очень сильно упростить, то непрерывное присваивание схоже со спайкой двух проводов. После подобного присваивания, провод `c` всегда будет иметь то же значение, что и `a` — как только входной сигнал `a` изменит свое значение, внутренний провод `c` также изменит свое значение (проводу `c` будет **непрерывно присваиваться** значение входа `a`).
 
-![../../../technical/Other/Pic/modules/fig_05.drawio.png](../../../technical/Other/Pic/modules/fig_05.drawio.png)
+![../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_05.drawio.png](../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_05.drawio.png)
 
 ```verilog
 module box(
@@ -89,7 +89,7 @@ endmodule
 
 К примеру, мы можем присвоить проводу `с` значение выхода логического вентиля. Пусть нам нужно выполнить операцию `a ИЛИ b`, а её результат присвоить `c`.
 
-![../../../technical/Other/Pic/modules/fig_06.drawio.png](../../../technical/Other/Pic/modules/fig_06.drawio.png)
+![../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_06.drawio.png](../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_06.drawio.png)
 
 Такую схему можно реализовать следующим описанием:
 
@@ -110,7 +110,7 @@ endmodule
 
 Пусть в схеме имеется ещё один логический вентиль - Исключающее ИЛИ. На него подаётся результат операции `a ИЛИ b`, то есть `c`, а также входной сигнал `b`. Результат операции `c ИСКЛЮЧАЮЩЕЕ ИЛИ b` подаётся на выход `q` нашего модуля.
 
-![../../../technical/Other/Pic/modules/fig_07.drawio.png](../../../technical/Other/Pic/modules/fig_07.drawio.png)
+![../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_07.drawio.png](../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_07.drawio.png)
 
 ```verilog
 module box(
@@ -136,7 +136,7 @@ endmodule
 
 Допустим, у нас есть модуль `inv`, который подает на выход инверсию входа и мы хотим реализовать модуль `top`, который хочет использовать функционал модуля `inv` следующим образом:
 
-![../../../technical/Other/Pic/modules/fig_08.drawio.png](../../../technical/Other/Pic/modules/fig_08.drawio.png)
+![../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_08.drawio.png](../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_08.drawio.png)
 
 Опишем `inv`:
 
@@ -177,7 +177,7 @@ endmodule
 
 Мы можем подключить сколько угодно экземпляров одного модуля, поэтому у каждого из экземпляра должно быть свое уникальное имя. Пусть `c` подаётся на логический вентиль И вместе со входом `b`. Результат операции И тоже пойдет на инвертор, а затем на выход `q` модуля top.
 
-![../../../technical/Other/Pic/modules/fig_09.drawio.png](../../../technical/Other/Pic/modules/fig_09.drawio.png)
+![../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_09.drawio.png](../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_09.drawio.png)
 
 Тогда в нашем описании добавится подключение второго модуля `inv` и провод `c`.
 
@@ -232,4 +232,4 @@ ___
 
 Как по-вашему описать нижеприведенную схему на языке Verilog?
 
-![../../../technical/Other/Pic/modules/fig_10.drawio.png](../../../technical/Other/Pic/modules/fig_10.drawio.png)
+![../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_10.drawio.png](../../../technical/Other/Basic%20Verilog%20structures/Pic/modules/fig_10.drawio.png)
