@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 
-`include "defines_riscv.v"
-
 module tb_miriscv_alu();
+
+import alu_opcodes_pkg::*;
 
 parameter TEST_VALUES     = 10000;
 parameter TIME_OPERATION  = 100;
@@ -11,7 +11,7 @@ parameter TIME_OPERATION  = 100;
 wire [4:0]  operator_i;
 wire [31:0] operand_a_i;
 wire [31:0] operand_b_i;
-            
+
 wire [31:0] result_o;
 wire        comparison_result_o;
 
@@ -59,22 +59,22 @@ initial
   
 always @(*) begin
  case(operator_i)
-   `ALU_ADD  : operator_type = "ALU_ADD  ";
-   `ALU_SUB  : operator_type = "ALU_SUB  ";
-   `ALU_XOR  : operator_type = "ALU_XOR  ";
-   `ALU_OR   : operator_type = "ALU_OR   ";
-   `ALU_AND  : operator_type = "ALU_AND  ";
-   `ALU_SRA  : operator_type = "ALU_SRA  ";
-   `ALU_SRL  : operator_type = "ALU_SRL  ";
-   `ALU_SLL  : operator_type = "ALU_SLL  ";
-   `ALU_LTS  : operator_type = "ALU_LTS  ";
-   `ALU_LTU  : operator_type = "ALU_LTU  ";
-   `ALU_GES  : operator_type = "ALU_GES  ";
-   `ALU_GEU  : operator_type = "ALU_GEU  ";
-   `ALU_EQ   : operator_type = "ALU_EQ   ";
-   `ALU_NE   : operator_type = "ALU_NE   ";
-   `ALU_SLTS : operator_type = "ALU_SLTS ";
-   `ALU_SLTU : operator_type = "ALU_SLTU ";
+   ALU_ADD  : operator_type = "ALU_ADD  ";
+   ALU_SUB  : operator_type = "ALU_SUB  ";
+   ALU_XOR  : operator_type = "ALU_XOR  ";
+   ALU_OR   : operator_type = "ALU_OR   ";
+   ALU_AND  : operator_type = "ALU_AND  ";
+   ALU_SRA  : operator_type = "ALU_SRA  ";
+   ALU_SRL  : operator_type = "ALU_SRL  ";
+   ALU_SLL  : operator_type = "ALU_SLL  ";
+   ALU_LTS  : operator_type = "ALU_LTS  ";
+   ALU_LTU  : operator_type = "ALU_LTU  ";
+   ALU_GES  : operator_type = "ALU_GES  ";
+   ALU_GEU  : operator_type = "ALU_GEU  ";
+   ALU_EQ   : operator_type = "ALU_EQ   ";
+   ALU_NE   : operator_type = "ALU_NE   ";
+   ALU_SLTS : operator_type = "ALU_SLTS ";
+   ALU_SLTU : operator_type = "ALU_SLTU ";
    default   : operator_type = "NOP      ";
  endcase
 end
