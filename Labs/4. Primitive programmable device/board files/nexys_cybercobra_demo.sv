@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module nexus_CYBERcobra(
+module nexys_CYBERcobra(
     input CLK100,
     input resetn,
     input BTND,
