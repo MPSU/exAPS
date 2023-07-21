@@ -17,12 +17,12 @@ wire        comparison_result_o;
 
 alu_riscv DUT
 (
-  .ALUOp  (operator_i   ),
-  .A      (operand_a_i  ),
-  .B      (operand_b_i  ),
+  .alu_op_i  (operator_i   ),
+  .a_i      (operand_a_i  ),
+  .b_i      (operand_b_i  ),
 
-  .Result (result_o     ),
-  .Flag   (comparison_result_o)
+  .result_o (result_o     ),
+  .flag_o   (comparison_result_o)
 );
 
 integer     i, err_count = 0;
@@ -56,7 +56,7 @@ initial
     if( !err_count )  $display("\nALU SUCCESS!!!\n");
     $finish();
   end
-  
+
 always @(*) begin
  case(operator_i)
    ALU_ADD  : operator_type = "ALU_ADD  ";
@@ -78,7 +78,7 @@ always @(*) begin
    default   : operator_type = "NOP      ";
  endcase
 end
-  
+
 reg [103*10000:0] line_dump = {
 103'h1e88592d984c690cac00000000,
 103'h18f51e266e7dff015e00000000,

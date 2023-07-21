@@ -5,18 +5,18 @@ module tb_fulladder4();
     parameter TIME_OPERATION  = 100;
     parameter TEST_VALUES = 400;
 
-    wire [3:0] A;
-    wire [3:0] B;
-    wire [3:0] S;
-    wire       Cin;
-    wire       Cout;
+    wire [3:0] tb_a_i;
+    wire [3:0] tb_b_i;
+    wire       tb_carry_i;
+    wire       tb_carry_o;
+    wire [3:0] tb_sum_o;
 
     fulladder4 DUT (
-        .a_i(A),
-        .b_i(B),
-        .sum_o(S),
-        .carry_i(Cin),
-        .carry_o(Cout)
+        .a_i(tb_a_i),
+        .b_i(tb_b_i),
+        .sum_o(tb_sum_o),
+        .carry_i(tb_carry_i),
+        .carry_o(tb_carry_o)
     );
 
     integer     i, err_count = 0;
@@ -25,21 +25,21 @@ module tb_fulladder4();
     wire [3:0] result_dump;
     wire       Cout_dump;
 
-    assign A = running_line[13:10];
-    assign B = running_line[9:6];
-    assign Cin = running_line[5];
+    assign tb_a_i = running_line[13:10];
+    assign tb_b_i = running_line[9:6];
+    assign tb_carry_i = running_line[5];
     assign result_dump = running_line[4:1];
     assign Cout_dump = running_line[0];
 
-
+`ifdef __debug__
     initial begin
         $display( "Start test: ");
         for ( i = 0; i < TEST_VALUES; i = i + 1 )
             begin
                 running_line = line_dump[i*14+:14];
                 #TIME_OPERATION;
-                if( {Cout, S} !== {Cout_dump, result_dump} ) begin
-                    $display("ERROR! %h + %h = ", A, B, "%h", {Cout, S}, " result_dump: %h", {Cout_dump, result_dump});
+                if( {tb_carry_o, tb_sum_o} !== {Cout_dump, result_dump} ) begin
+                    $display("ERROR! %h + %h = ", tb_a_i, tb_b_i, "%h", {tb_carry_o, tb_sum_o}, " result_dump: %h", {Cout_dump, result_dump});
                     err_count = err_count + 1'b1;
                 end
             end
@@ -47,6 +47,16 @@ module tb_fulladder4();
         if( !err_count )  $display("fulladder4 SUCCESS!!!");
         $finish();
     end
+`else
+    initial begin
+        for ( i = TEST_VALUES-1; i >=0 ; i = i - 1 )
+            begin
+                running_line = line_dump[i*14+:14];
+                #TIME_OPERATION;
+            end
+        $finish();
+    end
+`endif
 
     reg [14*400:0] line_dump = {
     14'h1787,

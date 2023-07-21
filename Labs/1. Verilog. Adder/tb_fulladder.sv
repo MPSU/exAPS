@@ -5,18 +5,19 @@ module tb_fulladder();
 parameter TIME_OPERATION  = 100;
 parameter TEST_VALUES = 8;
 
-    wire A;
-    wire B;
-    wire S;
-    wire Cin;
-    wire Cout;
+    wire tb_a_i;
+    wire tb_b_i;
+    wire tb_carry_i;
+    wire tb_carry_o;
+    wire tb_sum_o;
+
 
     fulladder DUT (
-        .a_i(A),
-        .b_i(B),
-        .sum_o(S),
-        .carry_i(Cin),
-        .carry_o(Cout)
+        .a_i(tb_a_i),
+        .b_i(tb_b_i),
+        .sum_o(tb_sum_o),
+        .carry_i(tb_carry_i),
+        .carry_o(tb_carry_o)
     );
 
     integer     i, err_count = 0;
@@ -25,9 +26,9 @@ parameter TEST_VALUES = 8;
     wire S_dump;
     wire Cout_dump;
 
-    assign A = running_line[4];
-    assign B = running_line[3];
-    assign Cin = running_line[2];
+    assign tb_a_i = running_line[4];
+    assign tb_b_i = running_line[3];
+    assign tb_carry_i = running_line[2];
     assign S_dump = running_line[1];
     assign Cout_dump = running_line[0];
 
@@ -37,8 +38,8 @@ parameter TEST_VALUES = 8;
             begin
                 running_line = line_dump[i*5+:5];
                 #TIME_OPERATION;
-                if( (Cout !== Cout_dump) || (S !== S_dump) ) begin
-                    $display("ERROR! Cin = %b; (a)%b + (b)%b = ", Cin, A, B, "(Cout)%b (S)%b;", Cout, S, " Cout_dump: %b, S_dump: %b", Cout_dump, S_dump);
+                if( (tb_carry_o !== Cout_dump) || (tb_sum_o !== S_dump) ) begin
+                    $display("ERROR! tb_carry_i = %b; (a)%b + (b)%b = ", tb_carry_i, tb_a_i, tb_b_i, "(tb_carry_o)%b (tb_sum_o)%b;", tb_carry_o, tb_sum_o, " Cout_dump: %b, S_dump: %b", Cout_dump, S_dump);
                     err_count = err_count + 1'b1;
                 end
             end
