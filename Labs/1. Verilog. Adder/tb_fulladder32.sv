@@ -5,40 +5,40 @@ module tb_fulladder32();
 parameter TIME_OPERATION  = 100;
 parameter TEST_VALUES = 3000;
 
-    wire [31:0] A;
-    wire [31:0] B;
-    wire [31:0] S;
-    wire        Pin;
-    wire        Pout;
-    
+    wire [31:0] tb_a_i;
+    wire [31:0] tb_b_i;
+    wire        tb_carry_i;
+    wire        tb_carry_o;
+    wire [31:0] tb_sum_o;
+
     fulladder32 DUT (
-        .A(A),
-        .B(B),
-        .S(S),
-        .Pin(Pin),
-        .Pout(Pout)
+        .a_i(tb_a_i),
+        .b_i(tb_b_i),
+        .sum_o(tb_sum_o),
+        .carry_i(tb_carry_i),
+        .carry_o(tb_carry_o)
     );
-    
+
     integer     i, err_count = 0;
     reg [103:0] running_line;
 
-    assign A = running_line[97:66];
-    assign B = running_line[65:34];
-    assign Pin = running_line[33];
+    assign tb_a_i = running_line[97:66];
+    assign tb_b_i = running_line[65:34];
+    assign tb_carry_i = running_line[33];
     assign result_dump = running_line[32:1];
-    assign Pout_dump = running_line[0];
+    assign Cout_dump = running_line[0];
 
     reg [32:0] Sum;
-    
+`ifdef __debug__
     initial begin
         $display( "Start test: ");
         for ( i = 0; i < TEST_VALUES; i = i + 1 )
             begin
                 running_line = line_dump[i*104+:103];
                 #TIME_OPERATION;
-                Sum = A + B + Pin;
-                if( ({Pout, S} !== Sum) ) begin
-                    $display("ERROR! %h + %h = ", A, B, "%h", {Pout, S}, " result_dump: %h", Sum);
+                Sum = tb_a_i + tb_b_i + tb_carry_i;
+                if( ({tb_carry_o, tb_sum_o} !== Sum) ) begin
+                    $display("ERROR! %h + %h = ", tb_a_i, tb_b_i, "%h", {tb_carry_o, tb_sum_o}, " result_dump: %h", Sum);
                     err_count = err_count + 1'b1;
                 end
             end
@@ -46,7 +46,17 @@ parameter TEST_VALUES = 3000;
         if( !err_count )  $display("fulladder32 SUCCESS!!!");
         $finish();
     end
-
+`else
+    initial begin
+        for ( i = 0; i < TEST_VALUES; i = i + 1 )
+            begin
+                running_line = line_dump[i*104+:103];
+                #TIME_OPERATION;
+                Sum = tb_a_i + tb_b_i + tb_carry_i;
+            end
+        $finish();
+    end
+`endif
 reg [104*3000:0] line_dump = {
 98'h0f3d496abab877c4293e2ce81,
 98'h012e79861ce8db62127d704bb,

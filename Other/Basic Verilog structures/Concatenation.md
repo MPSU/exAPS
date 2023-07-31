@@ -2,39 +2,40 @@
 
 Конкатенация позволяет присвоить какому-то многоразрядному сигналу "склейку" из нескольких сигналов меньшей разрядности, либо наоборот: присвоить сигнал большей разрядности группе сигналов меньшей разрядности.
 
-Оператор конкатенациии выглядит следующим образом: `{sig1, sig2, ..., sign}`.
+Оператор конкатенации выглядит следующим образом: `{sig1, sig2, ..., sign}`.
 
 Предположим, у нас есть следующий набор сигналов:
 
-![concatenation_empty](../../../technical/Labs/Pic/concatenation_empty.drawio.png)
+![../../../technical/Other/Basic%20Verilog%20structures/Pic/concatenation/fig_01.drawio.png](../../../technical/Other/Basic%20Verilog%20structures/Pic/concatenation/fig_01.drawio.png)
 
-```verilog
+```SystemVerilog
 
-wire a;
-wire b;
-wire [7:0] c;
-wire [1:0] d;
+logic a;
+logic b;
+logic [7:0] c;
+logic [1:0] d;
 
-wire [5:0] e;
+logic [5:0] e;
 ```
 
 И мы хотим, чтобы на провод `e` подавались следующие сигналы:
+
 - на старший бит сигнала `e` подавался сигнал `a`
 - на его следующий бит подавался сигнал `b`
 - на его следующие 2 бита подавались биты `[4:3]` сигнала `c`
 - на младшие 2 бита подавался сигнал `d`
 
-![concatenation_direct](../../../technical/Labs/Pic/concatenation_direct.drawio.png)
+![../../../technical/Other/Basic%20Verilog%20structures/Pic/concatenation/fig_02.drawio.png](../../../technical/Other/Basic%20Verilog%20structures/Pic/concatenation/fig_02.drawio.png)
 
 Это можно сделать путем 4 непрерывных присваиваний:
 
-```verilog
-wire a;
-wire b;
-wire [7:0] c;
-wire [1:0] d;
+```SystemVerilog
+logic a;
+logic b;
+logic [7:0] c;
+logic [1:0] d;
 
-wire [5:0] e;
+logic [5:0] e;
 
 assign e[5]   = a;
 assign e[4]   = b;
@@ -44,28 +45,28 @@ assign e[1:0] = d;
 
 либо через одно присваивание, использующее конкатенацию:
 
-```verilog
-wire a;
-wire b;
-wire [7:0] c;
-wire [1:0] d;
+```SystemVerilog
+logic a;
+logic b;
+logic [7:0] c;
+logic [1:0] d;
 
-wire [5:0] e;
+logic [5:0] e;
 
 assign e = {a, b, c[4:3], d};
 ```
 
 Кроме того, возможна и обратная ситуация. Предположим, мы хотим подать отдельные биты сигнала `e` на различные провода:
 
-![concatenation_inverted](../../../technical/Labs/Pic/concatenation_inverted.drawio.png)
+![../../../technical/Other/Basic%20Verilog%20structures/Pic/concatenation/fig_02.drawio.png](../../../technical/Other/Basic%20Verilog%20structures/Pic/concatenation/fig_02.drawio.png)
 
-```verilog
-wire a;
-wire b;
-wire [7:0] c;
-wire [1:0] d;
+```SystemVerilog
+logic a;
+logic b;
+logic [7:0] c;
+logic [1:0] d;
 
-wire [5:0] e;
+logic [5:0] e;
 
 assign a      = e[5];
 assign b      = e[4];
@@ -75,32 +76,32 @@ assign d      = e[1:0];
 
 Подобную операцию можно так же выполнить в одно выражение через конкатенацию:
 
-```verilog
-wire a;
-wire b;
-wire [7:0] c;
-wire [1:0] d;
+```SystemVerilog
+logic a;
+logic b;
+logic [7:0] c;
+logic [1:0] d;
 
-wire [5:0] e;
+logic [5:0] e;
 
 assign {a, b, c[4:3], d} = e;
 ```
 
 Кроме того, конкатенация может использоваться при **множественном дублировании** сигналов. Дублирование выполняется выражением:
 
-```verilog
-{siga, {число_повторений{повторяемый_сигнал}} ,sigb}
+```SystemVerilog
+{a, {число_повторений{повторяемый_сигнал}} ,b}
 ```
 
 Допустим, мы хотим присвоить какому-то сигналу три копии `[4:3]` битов сигнала `c`, после которых идут сигналы `a` и `b`.
 Это можно сделать выражением:
 
-```verilog
-wire a;
-wire b;
-wire [7:0] c;
+```SystemVerilog
+logic a;
+logic b;
+logic [7:0] c;
 
-wire [7:0] e;
+logic [7:0] e;
 
 assign e = { {3{c[4:3]}}, a, b};
 ```

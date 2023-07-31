@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module nexus_riscv_unit(
+module nexys_riscv_unit(
     input CLK100,
     input resetn,
     input BTND,

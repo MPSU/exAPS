@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 
-`include "defines_riscv.v"
-
 module tb_miriscv_alu();
+
+import alu_opcodes_pkg::*;
 
 parameter TEST_VALUES     = 10000;
 parameter TIME_OPERATION  = 100;
@@ -11,18 +11,18 @@ parameter TIME_OPERATION  = 100;
 wire [4:0]  operator_i;
 wire [31:0] operand_a_i;
 wire [31:0] operand_b_i;
-            
+
 wire [31:0] result_o;
 wire        comparison_result_o;
 
 alu_riscv DUT
 (
-  .ALUOp  (operator_i   ),
-  .A      (operand_a_i  ),
-  .B      (operand_b_i  ),
+  .alu_op_i  (operator_i   ),
+  .a_i      (operand_a_i  ),
+  .b_i      (operand_b_i  ),
 
-  .Result (result_o     ),
-  .Flag   (comparison_result_o)
+  .result_o (result_o     ),
+  .flag_o   (comparison_result_o)
 );
 
 integer     i, err_count = 0;
@@ -56,29 +56,29 @@ initial
     if( !err_count )  $display("\nALU SUCCESS!!!\n");
     $finish();
   end
-  
+
 always @(*) begin
  case(operator_i)
-   `ALU_ADD  : operator_type = "ALU_ADD  ";
-   `ALU_SUB  : operator_type = "ALU_SUB  ";
-   `ALU_XOR  : operator_type = "ALU_XOR  ";
-   `ALU_OR   : operator_type = "ALU_OR   ";
-   `ALU_AND  : operator_type = "ALU_AND  ";
-   `ALU_SRA  : operator_type = "ALU_SRA  ";
-   `ALU_SRL  : operator_type = "ALU_SRL  ";
-   `ALU_SLL  : operator_type = "ALU_SLL  ";
-   `ALU_LTS  : operator_type = "ALU_LTS  ";
-   `ALU_LTU  : operator_type = "ALU_LTU  ";
-   `ALU_GES  : operator_type = "ALU_GES  ";
-   `ALU_GEU  : operator_type = "ALU_GEU  ";
-   `ALU_EQ   : operator_type = "ALU_EQ   ";
-   `ALU_NE   : operator_type = "ALU_NE   ";
-   `ALU_SLTS : operator_type = "ALU_SLTS ";
-   `ALU_SLTU : operator_type = "ALU_SLTU ";
+   ALU_ADD  : operator_type = "ALU_ADD  ";
+   ALU_SUB  : operator_type = "ALU_SUB  ";
+   ALU_XOR  : operator_type = "ALU_XOR  ";
+   ALU_OR   : operator_type = "ALU_OR   ";
+   ALU_AND  : operator_type = "ALU_AND  ";
+   ALU_SRA  : operator_type = "ALU_SRA  ";
+   ALU_SRL  : operator_type = "ALU_SRL  ";
+   ALU_SLL  : operator_type = "ALU_SLL  ";
+   ALU_LTS  : operator_type = "ALU_LTS  ";
+   ALU_LTU  : operator_type = "ALU_LTU  ";
+   ALU_GES  : operator_type = "ALU_GES  ";
+   ALU_GEU  : operator_type = "ALU_GEU  ";
+   ALU_EQ   : operator_type = "ALU_EQ   ";
+   ALU_NE   : operator_type = "ALU_NE   ";
+   ALU_SLTS : operator_type = "ALU_SLTS ";
+   ALU_SLTU : operator_type = "ALU_SLTU ";
    default   : operator_type = "NOP      ";
  endcase
 end
-  
+
 reg [103*10000:0] line_dump = {
 103'h1e88592d984c690cac00000000,
 103'h18f51e266e7dff015e00000000,
