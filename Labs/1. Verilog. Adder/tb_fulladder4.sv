@@ -1,4 +1,25 @@
 `timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: MIET
+// Engineer: Nikita Bulavin
+// 
+// Create Date:    
+// Design Name: 
+// Module Name:    tb_fulladder4
+// Project Name:   RISCV_Core
+// Target Devices: Nexys A7-100T
+// Tool Versions: 
+// Description: tb for 1-bit fulladder
+// 
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+
+//`define __debug__
 
 module tb_fulladder4();
 
@@ -33,18 +54,18 @@ module tb_fulladder4();
 
 `ifdef __debug__
     initial begin
-        $display( "Start test: ");
+        $display( "\nStart test: \n\n==========================\nCLICK THE BUTTON 'Run All'\n==========================\n"); $stop();
         for ( i = 0; i < TEST_VALUES; i = i + 1 )
             begin
                 running_line = line_dump[i*14+:14];
                 #TIME_OPERATION;
-                if( {tb_carry_o, tb_sum_o} !== {Cout_dump, result_dump} ) begin
-                    $display("ERROR! %h + %h = ", tb_a_i, tb_b_i, "%h", {tb_carry_o, tb_sum_o}, " result_dump: %h", {Cout_dump, result_dump});
+                if( (tb_carry_o !== Cout_dump) || (tb_sum_o !== S_dump) ) begin
+                    $display("ERROR! tb_carry_i = %b; (a)%h + (b)%h = ", tb_carry_i, tb_a_i, tb_b_i, "(tb_carry_o)%b (tb_sum_o)%h;", tb_carry_o, tb_sum_o, " Cout_dump: %b, S_dump: %h", Cout_dump, S_dump);
                     err_count = err_count + 1'b1;
                 end
             end
         $display("Number of errors: %d", err_count);
-        if( !err_count )  $display("fulladder4 SUCCESS!!!");
+        if( !err_count )  $display("\nfulladder4 SUCCESS!!!\n");
         $finish();
     end
 `else

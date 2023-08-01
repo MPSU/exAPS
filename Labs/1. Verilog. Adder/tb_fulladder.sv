@@ -1,4 +1,23 @@
 `timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: MIET
+// Engineer: Nikita Bulavin
+// 
+// Create Date:    
+// Design Name: 
+// Module Name:    tb_fulladder4
+// Project Name:   RISCV_Core
+// Target Devices: Nexys A7-100T
+// Tool Versions: 
+// Description: tb for 1-bit fulladder
+// 
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
 
 module tb_fulladder();
 
@@ -23,14 +42,14 @@ parameter TEST_VALUES = 8;
     integer     i, err_count = 0;
     reg [4:0] running_line;
 
-    wire S_dump;
-    wire Cout_dump;
+    wire sum_dump;
+    wire carry_o_dump;
 
     assign tb_a_i = running_line[4];
     assign tb_b_i = running_line[3];
     assign tb_carry_i = running_line[2];
-    assign S_dump = running_line[1];
-    assign Cout_dump = running_line[0];
+    assign sum_dump = running_line[1];
+    assign carry_o_dump = running_line[0];
 
     initial begin
         $display( "Start test: ");
