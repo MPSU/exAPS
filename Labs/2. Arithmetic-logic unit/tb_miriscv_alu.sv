@@ -1,4 +1,23 @@
 `timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: MIET
+// Engineer: Nikita Bulavin
+// 
+// Create Date:    
+// Design Name: 
+// Module Name:    tb_miriscv_alu
+// Project Name:   RISCV_practicum
+// Target Devices: Nexys A7-100T
+// Tool Versions: 
+// Description: tb for miriscv alu
+// 
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
 
 module tb_miriscv_alu();
 
@@ -17,7 +36,7 @@ wire        comparison_result_o;
 
 alu_riscv DUT
 (
-  .alu_op_i  (operator_i   ),
+  .alu_op_i (operator_i   ),
   .a_i      (operand_a_i  ),
   .b_i      (operand_b_i  ),
 
@@ -41,7 +60,7 @@ reg [102:0] running_line;
 
 initial
   begin
-    $display( "\nStart test: \n\n========================\nНАЖМИ НА КНОПКУ 'Run All'\n========================\n"); $stop();
+    $display( "\nStart test: \n\n==========================\nCLICK THE BUTTON 'Run All'\n==========================\n"); $stop();
     for ( i = 0; i < TEST_VALUES; i = i + 1 )
       begin
         running_line = line_dump[i*103+:103];
