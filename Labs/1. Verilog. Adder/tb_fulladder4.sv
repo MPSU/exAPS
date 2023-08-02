@@ -9,7 +9,7 @@
 // Project Name:   RISCV_practicum
 // Target Devices: Nexys A7-100T
 // Tool Versions: 
-// Description: tb for 1-bit fulladder
+// Description: tb for 4-bit fulladder
 // 
 // Dependencies: 
 //
