@@ -6,7 +6,7 @@
 // Create Date:    
 // Design Name: 
 // Module Name:    tb_fulladder4
-// Project Name:   RISCV_Core
+// Project Name:   RISCV_practicum
 // Target Devices: Nexys A7-100T
 // Tool Versions: 
 // Description: tb for 1-bit fulladder
