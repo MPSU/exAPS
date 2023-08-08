@@ -1,4 +1,23 @@
 `timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: MIET
+// Engineer: Nikita Bulavin
+// 
+// Create Date:    
+// Design Name: 
+// Module Name:    tb_instr_mem
+// Project Name:   RISCV_practicum
+// Target Devices: Nexys A7-100T
+// Tool Versions: 
+// Description: tb for instruction memory
+// 
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
 
 module tb_instr_mem();
 
@@ -24,18 +43,19 @@ parameter TIME_OPERATION  = 100;
     assign A = i;
     
     initial begin
+        $timeformat (-9, 2, "ns");
         $display( "\nStart test: \n\n==========================\nCLICK THE BUTTON 'Run All'\n==========================\n"); $stop();
         for (i = 0; i < ADDR_SIZE; i = i + 1) begin
             #TIME_OPERATION;
             if ( RD !== RDref) begin
-                $display("По адресу %d получены данные %h, а должно быть %h", A, RD, RDref);
+                $display("time = %0t, address %h. Invalid data %h, correct data %h", $time, A, RD, RDref);
                 err_count = err_count + 1;
             end
         end
         for (i = 1021; i < 1024; i = i + 1) begin
             #TIME_OPERATION;
             if ( RD !== 32'b0) begin
-                $display("ERROR! Addr = %d", A, " %h != 0", RD);
+                $display("time = %0t, ERROR! Addr = %d", $time, A, " %h != 0", RD);
                 err_count = err_count + 1;
             end
         end
