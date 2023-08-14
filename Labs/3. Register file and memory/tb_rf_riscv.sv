@@ -1,146 +1,152 @@
 `timescale 1ns/1ps  
+//////////////////////////////////////////////////////////////////////////////////
+// Company: MIET
+// Engineer: Nikita Bulavin
+// 
+// Create Date:    
+// Design Name: 
+// Module Name:    tb_rf_riscv
+// Project Name:   RISCV_practicum
+// Target Devices: Nexys A7-100T
+// Tool Versions: 
+// Description: tb for RISC-V register file
+// 
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
 
 module tb_rf_riscv();
 
-    wire        CLK;
-    wire [4:0]  A1;
-    wire [4:0]  A2;
-    wire [4:0]  A3;
-    wire [31:0] WD3;
-    wire        WE3;
+    logic        CLK;
+    logic [ 4:0] RA1;
+    logic [ 4:0] RA2;
+    logic [ 4:0] WA;
+    logic [31:0] WD;
+    logic        WE;
     
-    wire [31:0] RD1;
-    wire [31:0] RD2;
-    wire [31:0] RD1ref;
-    wire [31:0] RD2ref;
+    logic [31:0] RD1;
+    logic [31:0] RD2;
+    logic [31:0] RD1ref;
+    logic [31:0] RD2ref;
     
     rf_riscv DUT(
-        .clk(CLK),
-        .A1 (A1 ),
-        .A2 (A2 ),
-        .A3 (A3 ),
-        .WD3(WD3),
-        .WE (WE3),
-        .RD1(RD1),
-        .RD2(RD2)
+        .clk_i         (CLK),
+        .read_addr1_i  (RA1),
+        .read_addr2_i  (RA2),
+        .write_addr_i  (WA ),
+        .write_data_i  (WD ),
+        .write_enable_i(WE ),
+        .read_data1_o  (RD1),
+        .read_data2_o  (RD2)
     );
     
     rf_riscv_ref DUTref(
         .clk(CLK   ),
-        .A1 (A1    ),
-        .A2 (A2    ),
-        .A3 (A3    ),
-        .WD3(WD3   ),
-        .WE (WE3   ),
+        .A1 (RA1   ),
+        .A2 (RA2   ),
+        .A3 (WA    ),
+        .WD3(WD    ),
+        .WE (WE    ),
         .RD1(RD1ref),
         .RD2(RD2ref)
     );
     
-    reg        clk;
-    reg [4:0] a1;
-    reg [4:0] a2;
-    reg [4:0] a3;
-    reg [31:0] WDr;
-    reg        WEr;
-    
     integer i, err_count = 0;
-    
-    assign CLK = clk;
-    assign A1  = a1;
-    assign A2  = a2;
-    assign A3  = a3;
-    assign WD3 = WDr;
-    assign WE3 = WEr;
     
     parameter CLK_FREQ_MHz   = 100;
     parameter CLK_SEMI_PERIOD= 1e3/CLK_FREQ_MHz/2;
     
     parameter address_length = 32;
 
-    initial clk <= 0;
+    initial CLK <= 0;
     always begin
-        #CLK_SEMI_PERIOD clk = ~clk;
+        #CLK_SEMI_PERIOD CLK = ~CLK;
         if (err_count >= 10) begin
-            $display("\n\nТест остановлен из-за ошибок"); $stop();
+            $display("\n\nThe test was stopped due to errors"); $stop();
         end
     end
     
     initial begin
-    $timeformat (-9, 2, "ns");
-      $display( "\nStart test: \n\n========================\nНАЖМИ НА КНОПКУ 'Run All'\n========================\n"); $stop();
-      a1 = 'b1;
-      @(posedge clk);
+      $timeformat (-9, 2, "ns");
+      $display( "\nStart test: \n\n==========================\nCLICK THE BUTTON 'Run All'\n==========================\n"); $stop();
+      RA1 = 'b1;
+      @(posedge CLK);
         if (32'hx !== RD1) begin
-        $display("Память не должна быть инициализирована функцией $readmemh");
+        $display("The register file should not be initialized by the $readmemh function");
         err_count = err_count + 1;
       end
-      @(posedge clk);
-      DUT.RAM[32] = 32'd1;
-      if(DUT.RAM[32]=== 32'd1) begin
-        $display("Неверный размер памяти");
+      @(posedge CLK);
+      DUT.rf_mem[32] = 32'd1;
+      if(DUT.rf_mem[32]=== 32'd1) begin
+        $display("invalid memory size");
         err_count = err_count + 1;
       end
-      @(posedge clk);
-      WEr <= 'b0;
-      a1  <= 'b0;
-      @(posedge clk);
+      @(posedge CLK);
+      DUT.rf_mem[0] = 32'd1;
+      @(posedge CLK);
+      WE  <= 'b0;
+      RA1 <= 'b0;
+      @(posedge CLK);
       if( RD1 !== 'b0 ) begin 
-        $display("time = %0t. Неверные данные по адресу 0: RD1 = %h", $time, RD1);
+        $display("time = %0t. invalid data when reading at address 0: RD1 = %h", $time, RD1);
         err_count = err_count + 1;
       end
-      @(posedge clk);
+      @(posedge CLK);
       //------initial
-      clk  <= 'b0;
-      a1   <= 'b0;
-      a2   <= 'b0;
-      a3   <= 'b0;
-      WDr  <= 'b0;
-      WEr  <= 'b0;
-      @(posedge clk);
+      CLK <= 'b0;
+      RA1 <= 'b0;
+      RA2 <= 'b0;
+      WA  <= 'b0;
+      WD  <= 'b0;
+      WE  <= 'b0;
+      @(posedge CLK);
       //----- reset
       for( i = 1; i < address_length; i = i + 1) begin
-        @(posedge clk);
-        a3  <= i;
-        WDr <= 'b0;
-        WEr <= 'b1;
+        @(posedge CLK);
+        WA <= i;
+        WD <= 'b0;
+        WE <= 'b1;
       end
-      @(posedge clk);
-      a3  <= 'b0;
-      WDr <= 'b1;
-      WEr <= 'b1;
-      @(posedge clk);
-      WEr <= 'b0;
-      a2  <= 'b0;
-      @(posedge clk);
+      @(posedge CLK);
+      WA  <= 'b0;
+      WD  <= 'b1;
+      WE <= 'b1;
+      @(posedge CLK);
+      WE <= 'b0;
+      RA2  <= 'b0;
+      @(posedge CLK);
       if( RD2 !== 'b0 )begin
-        $display("time = %0t. Неверные данные по адресу 0: RD2 = %h", $time, RD2);
+        $display("time = %0t. invalid data when reading at address 0: RD1 = %h", $time, RD2);
         err_count = err_count + 1;
       end
-      @(posedge clk);
+      @(posedge CLK);
       for( i = 1; i < address_length; i = i + 1) begin
-        @(posedge clk);
-        a3  <= i;
-        WDr <= $urandom;
-        WEr <= $urandom % 2;
+        @(posedge CLK);
+        WA <= i;
+        WD <= $urandom;
+        WE <= $urandom % 2;
       end
-      @(posedge clk);
-      WEr <= 'b0;
+      @(posedge CLK);
+      WE <= 'b0;
       for( i = 0; i < address_length; i = i + 1) begin
-        @(posedge clk);
-        a1  <= i;
-        a2  <= address_length - (i + 1);
-        @(posedge clk);
+        @(posedge CLK);
+        RA1  <= i;
+        RA2  <= address_length - (i + 1);
+        @(posedge CLK);
         if(RD1ref !== RD1) begin 
-            $display("time = %0t, адрес %h, RD1. Неверные данные %h, должно быть %h", $time, a1, RD1, RD1ref);
+            $display("time = %0t, address %h, RD1. Invalid data %h, correct data %h", $time, RA1, RD1, RD1ref);
             err_count = err_count + 1;
         end
         if(RD2ref !== RD2) begin 
-            $display("time = %0t, адрес %h, RD2. Неверные данные %h, должно быть %h", $time, a2, RD2, RD2ref);
+            $display("time = %0t, address %h, RD2. Invalid data %h, correct data %h", $time, RA2, RD2, RD2ref);
             err_count = err_count + 1;
         end
       end
-      if( !err_count )  $display("\n rf_riscv SUCCESS!!!\n");
-      else $display("\nТест завершен с ошибками\n");
+      if( !err_count ) $display("\nregister file SUCCESS!!!\n");
       $finish();
     end
 endmodule

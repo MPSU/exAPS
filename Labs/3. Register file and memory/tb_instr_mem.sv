@@ -1,4 +1,23 @@
 `timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: MIET
+// Engineer: Nikita Bulavin
+// 
+// Create Date:    
+// Design Name: 
+// Module Name:    tb_instr_mem
+// Project Name:   RISCV_practicum
+// Target Devices: Nexys A7-100T
+// Tool Versions: 
+// Description: tb for instruction memory
+// 
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
 
 module tb_instr_mem();
 
@@ -15,8 +34,8 @@ parameter TIME_OPERATION  = 100;
     );
     
     instr_mem DUT (
-    .addr(A),
-    .read_data(RD)
+    .addr_i(A),
+    .read_data_o(RD)
     );
     
     integer i, err_count = 0;
@@ -24,16 +43,24 @@ parameter TIME_OPERATION  = 100;
     assign A = i;
     
     initial begin
-        $display( "\nStart test: \n\n========================\nНАЖМИ НА КНОПКУ 'Run All'\n========================\n"); $stop();
+        $timeformat (-9, 2, "ns");
+        $display( "\nStart test: \n\n==========================\nCLICK THE BUTTON 'Run All'\n==========================\n"); $stop();
         for (i = 0; i < ADDR_SIZE; i = i + 1) begin
             #TIME_OPERATION;
             if ( RD !== RDref) begin
-                $display("По адресу %d получены данные %h, а должно быть %h", A, RD, RDref);
+                $display("time = %0t, address %h. Invalid data %h, correct data %h", $time, A, RD, RDref);
                 err_count = err_count + 1;
             end
-        end    
+        end
+        for (i = 1021; i < 1024; i = i + 1) begin
+            #TIME_OPERATION;
+            if ( RD !== 32'b0) begin
+                $display("time = %0t, ERROR! Addr = %d", $time, A, " %h != 0", RD);
+                err_count = err_count + 1;
+            end
+        end
+        $display("Number of errors: %d", err_count);
         if( !err_count )  $display("\n instr_mem SUCCESS!!!\n");
-        else $display("\nТест завершен с ошибками\n");
         $finish();
     end
     
