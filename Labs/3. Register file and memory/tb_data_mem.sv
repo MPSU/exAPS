@@ -111,8 +111,9 @@ parameter TIME_OPERATION  = 50;
             $display("data is being written to the cell incorrectly. RAM [0:7] must be 0x0123456789abcdef, time: %t", $time);
             err_count = err_count + 1;
         end
+        @(posedge CLK)
+        i = 0; 
         @(negedge CLK);
-        i = 0;
         if (RD !== 32'hba98_7654) begin
             $display("reading from data memory must be synchronous, time: %t", $time);
             err_count = err_count + 1;
