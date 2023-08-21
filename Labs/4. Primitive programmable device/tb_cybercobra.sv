@@ -45,7 +45,7 @@ module tb_CYBERcobra();
     //#260;
     //sw_i = 15'b0;
     #10000;
-    $display("\n The test is over \n See the internal signals of the CYBERcobra on the time diagram \n");
+    $display("\n The test is over \n See the internal signals of the CYBERcobra on the waveform \n");
     $finish;
     end
     
