@@ -1,4 +1,23 @@
 `timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: MIET
+// Engineer: Nikita Bulavin
+// 
+// Create Date:    
+// Design Name: 
+// Module Name:    tb_riscv_unit
+// Project Name:   RISCV_practicum
+// Target Devices: Nexys A7-100T
+// Tool Versions: 
+// Description: tb for datapath
+// 
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
 
 module tb_riscv_unit();
 
@@ -13,11 +32,12 @@ module tb_riscv_unit();
     initial clk = 0;
     always #10 clk = ~clk;
     initial begin
+        $display( "\nStart test: \n\n==========================\nCLICK THE BUTTON 'Run All'\n==========================\n"); $stop();
         rst = 1;
         #20;
         rst = 0;
         #500;
-        $display("\n ТЕСТ ОКОНЧЕН \n Смотри внутренние сигналы тракта данных на времянке \n");
+        $display("\n The test is over \n See the internal signals of the CYBERcobra on the waveform \n");
         $finish;
     end
 
