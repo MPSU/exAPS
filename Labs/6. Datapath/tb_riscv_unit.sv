@@ -41,4 +41,11 @@ module tb_riscv_unit();
         $finish;
     end
 
+stall: assert property (
+  @(posedge clk)
+  disable iff ( rst )
+  (top.mem_req) |-> (top.stall) |-> ##1 (!top.stall & top.mem_req)
+  
+)else $error("\n================================================\nThe realisation of the STALL signal is INCORRECT\n================================================\n");
+
 endmodule
