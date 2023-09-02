@@ -19,8 +19,6 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
-//`define __debug__
-
 module tb_fulladder4();
 
     parameter TIME_OPERATION  = 100;
@@ -43,14 +41,14 @@ module tb_fulladder4();
     integer     i, err_count = 0;
     reg [13:0] running_line;
 
-    wire [3:0] result_dump;
-    wire       Cout_dump;
+    wire [3:0] sum_dump;
+    wire       carry_o_dump;
 
     assign tb_a_i = running_line[13:10];
     assign tb_b_i = running_line[9:6];
     assign tb_carry_i = running_line[5];
-    assign result_dump = running_line[4:1];
-    assign Cout_dump = running_line[0];
+    assign sum_dump = running_line[4:1];
+    assign carry_o_dump = running_line[0];
 
 `ifdef __debug__
     initial begin
@@ -59,8 +57,8 @@ module tb_fulladder4();
             begin
                 running_line = line_dump[i*14+:14];
                 #TIME_OPERATION;
-                if( (tb_carry_o !== Cout_dump) || (tb_sum_o !== S_dump) ) begin
-                    $display("ERROR! tb_carry_i = %b; (a)%h + (b)%h = ", tb_carry_i, tb_a_i, tb_b_i, "(tb_carry_o)%b (tb_sum_o)%h;", tb_carry_o, tb_sum_o, " Cout_dump: %b, S_dump: %h", Cout_dump, S_dump);
+                 if( (tb_carry_o !== carry_o_dump) || (tb_sum_o !== sum_dump) ) begin
+                    $display("ERROR! carry_i = %b; (a)%h + (b)%h = ", tb_carry_i, tb_a_i, tb_b_i, "(carry_o)%b (sum_o)%h;", tb_carry_o, tb_sum_o, " carry_o_dump: %b, sum_dump: %h", carry_o_dump, sum_dump);
                     err_count = err_count + 1'b1;
                 end
             end
