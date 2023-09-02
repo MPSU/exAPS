@@ -37,7 +37,7 @@ module tb_riscv_unit();
         #20;
         rst = 0;
         #500;
-        $display("\n The test is over \n See the internal signals of the CYBERcobra on the waveform \n");
+        $display("\n The test is over \n See the internal signals of the module on the waveform \n");
         $finish;
     end
 
