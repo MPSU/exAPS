@@ -302,12 +302,12 @@
 
 Кроме того, необходимо описать регистр счетчика команд и логику его работы, в соответствии с ранее представленной микроархитектурой.
 
-``` verilog
+```SystemVerilog
 module CYВЕRcоbrа (
-  inрut           clk_i,
-  inрut           rst_i,
-  inрut   [15:0]  sw_i,
-  оutрut  [31:0]  out_o
+  inрut  logic         clk_i,
+  inрut  logic         rst_i,
+  inрut  logic [15:0]  sw_i,
+  оutрut logic [31:0]  out_o
 );
 
  // тут твой код, о котором говорится чуть выше
