@@ -1,95 +1,108 @@
 `timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: MIET
+// Engineer: Nikita Bulavin
+// 
+// Create Date:    
+// Design Name: 
+// Module Name:    tb_riscv_unit
+// Project Name:   RISCV_practicum
+// Target Devices: Nexys A7-100T
+// Tool Versions: 
+// Description: tb for peripheral units
+// 
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+
 module tb_riscv_unit();
 
-reg clk;
-reg ps2_clk;
-wire ps2_dat;
-reg resetn;
-reg btnc;
-reg [15:0] sw_i;
-wire [15:0] led_o;
-//reg [7:0] key;
-reg parity;reg starter;
+localparam variant = 'd1; //1-SW_LED; 2-PS2_HEXLED; 3-UART;
+localparam button = 8'h16; //keyboard key code
+
+logic clk;
+logic ps2_clk;
+logic ps2_dat;
+logic resetn;
+logic [15:0] sw_i;
+logic [15:0] led_o;
+logic parity; 
+logic starter;
+
+logic [ 6:0] hex_led_o;  
+logic [ 7:0] hex_sel_o;
+logic        rx_i;
+logic        tx_o;
+  
 initial begin clk = 0; ps2_clk = 0; end
 
 always #50 clk = ~clk;
-always #50000 if(starter || (cntr > 0)) ps2_clk = ~ps2_clk; else ps2_clk = 1;
+always #50000 if (variant == 2) if(starter || (cntr > 0)) ps2_clk = ~ps2_clk; else ps2_clk = 1;
 
-localparam button = 8'h16;
-
-reg [12:0] data;
+logic [11:0] data;
 
 initial begin
-resetn = 1;
-//key = button;
-parity = !(^button);
-repeat(2)@(posedge clk);
-resetn = 0;
-data = {2'b11, parity, button, 1'b0};
-repeat(2) @(posedge clk);
-resetn = 1;
+  resetn = 1;
+  repeat(2)@(posedge clk);
+  resetn = 0;
+  repeat(2) @(posedge clk);
+  resetn = 1;
 end
 
 riscv_unit dut(
-    .clk_i(clk),
-    .resetn(resetn),
-    .kclk(ps2_dat),
-    .kdata(ps2_clk),
-    .sw_i(sw_i),
-    .led_o(led_o)
+  .clk_i    (clk      ),
+  .resetn_i (resetn   ),
+  .sw_i     (sw_i     ),
+  .led_o    (led_o    ),
+  .kclk_i   (ps2_clk  ),
+  .kdata_i  (ps2_dat  ),
+  .hex_led_o(hex_led_o),
+  .hex_sel_o(hex_sel_o),
+  .rx_i     (rx_i     ),
+  .tx_o     (tx_o     )
 );
 
-reg [3:0] cntr;
-
+logic [3:0] cntr;
 
 always @(negedge ps2_clk) begin
-    if(starter || (cntr > 0))
-        if(cntr == 10)
-            cntr <= 0;
-        else
-            cntr <= cntr + 1;        
+  if(starter || (cntr > 0))
+    if(cntr == 10)
+      cntr <= 0;
+    else
+      cntr <= cntr + 1;        
 end
+assign ps2_dat = cntr>0? data[cntr-1] : 1;
 
 initial begin
-    sw_i = 16'h0;
-    btnc = 0;
+  sw_i = 16'h0;
+  cntr = 0;
+  starter = 0;
+  parity = !(^button);
+  data = 0;
+  case (variant)
+  1: begin
     #10000;
     sw_i = 16'h01AA;
     #20000;
     sw_i = 16'hFF00;
+  end
+  2: begin
+    data = {2'b11, parity, button, 1'b0};
+    #100000;
+    starter = 1;
+    @(posedge ps2_clk)
+    starter = 0;
+  end
+  3: begin
     
+  end
+  endcase
+
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-assign ps2_dat = cntr>0? data[cntr-1] : 1;
-
-initial begin 
-cntr = 0;
-starter = 0;
-//data = 13'b1_1_0_0001_0110_0;
-end
-
-initial begin
-
-#100000;
-starter = 1;
-@(posedge ps2_clk)
-starter = 0;
-end
-
-
-
 
 
 endmodule

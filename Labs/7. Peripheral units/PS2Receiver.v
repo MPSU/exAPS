@@ -8,15 +8,20 @@ module PS2Receiver(
     output keycode_valid
     );
 
-  assign keycode_valid = flag_shift[0] && !flag_shift[2];
-  
     reg flag;
     reg [3:0] flag_shift;
     wire kclkf, kdataf;
     reg [3:0]cnt;
-    initial cnt = 0;
-    initial keycodeout = 0;
-    initial flag_shift = 0;
+
+    assign keycode_valid = flag_shift[0] && !flag_shift[2];
+
+    initial begin //for tb
+      cnt = 0;
+      keycodeout = 0;
+      flag_shift = 0;
+      flag = 0;
+    end
+
 debouncer debounce(
     .clk(clk),
     .I0(kclk),
