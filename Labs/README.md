@@ -9,12 +9,12 @@
 4. [PPD](./4.%20Primitive%20programmable%20device/README.md) (Primitive Programmable Device)
 
 Полезное:
-- [Как установить Vivado](../Other/Install%20Vivado.md)
-- [Создание базового проекта с прошивкой ПЛИС в Vivado](../Other/Vivado-trainer.md)
+- [Как установить Vivado](../Other/Vivado%20Basics/Install%20Vivado.md)
+- [Создание базового проекта с прошивкой ПЛИС в Vivado](../Other/Vivado%20Basics/Vivado-trainer.md)
 - [Что такое язык описания аппаратуры HDL](../Other/What%20is%20HDL.md)
 - [Конструкции языка Verilog](../Other/Verilog%20syntax.md)
 - [Тестовое окружение](../Other/Testbench.md)
-- [Как добавить файл с содержимым памяти в проект](../Other/How%20to%20add%20a%20mem-file.md)
+- [Как добавить файл с содержимым памяти в проект](../Other/Vivado%20Basics/How%20to%20add%20a%20mem-file.md)
 
 # Обзор лабораторных работ
 
