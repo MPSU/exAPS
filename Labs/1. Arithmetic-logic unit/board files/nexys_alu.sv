@@ -29,10 +29,10 @@ alu_riscv DUT
 (
   .alu_op_i  (operator_i),
   .a_i       (operand_a_i),
-  .b_i.      (operand_b_i),
+  .b_i       (operand_b_i),
 
   .result_o  (result_o),
-  .flag_o.   (comparison_result_o)
+  .flag_o    (comparison_result_o)
 );
 
 assign operator_i  = SW[4:0];
