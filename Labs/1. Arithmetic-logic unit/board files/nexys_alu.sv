@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-`include "defines_riscv.v"
+import alu_opcodes_pkg::*;
 
 module nexys_alu(
     input CLK100,
@@ -78,7 +78,7 @@ always @(posedge CLK100) begin
             ANreg[6]: semseg <= operand_a_i[31] ? ( ~operand_a_i + 1        ) % 4'd10: (operand_a_i       ) % 4'd10;
             ANreg[7]: semseg <= operand_a_i[31] ? ((~operand_a_i + 1) / 'd10) % 4'd10: (operand_a_i / 'd10) % 4'd10;
         endcase
-        minus <= (operator_i == `ALU_ADD || operator_i == `ALU_SUB || operator_i == `ALU_SLTS || operator_i == `ALU_SRA || operator_i == `ALU_LTS || operator_i == `ALU_GES);
+        minus <= (operator_i == ALU_ADD || operator_i == ALU_SUB || operator_i == ALU_SLTS || operator_i == ALU_SRA || operator_i == ALU_LTS || operator_i == ALU_GES);
         case (semseg)
             4'd0: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= (((!ANreg[5] & operand_b_i[31]) || (!ANreg[7] & operand_a_i[31]) || (!ANreg[3] & result_o[31])) && minus) ? 7'b1111110: 7'b0000001;
             4'd1: {CAr, CBr, CCr, CDr, CEr, CFr, CGr} <= (((!ANreg[5] & operand_b_i[31]) || (!ANreg[7] & operand_a_i[31]) || (!ANreg[3] & result_o[31])) && minus) ? 7'b1001110: 7'b1001111;
