@@ -3,14 +3,10 @@
 [[СОДЕРЖАНИЕ]](../README.md)
 
 Ссылки на подробные методические материалы по каждой работе:
-1. [Verilog](./1.%20Verilog.%20FPGA/README.md)
-2. [Adder](./2.%20Adder/README.md)
-3. [ALU](./3.%20Arithmetic-logic%20unit/README.md) (Arithmetic Logic Unit)
-4. [TB](./4.%20Testbenches/README.md) (Testbenches)
-5. [RF](./5.%20Register%20file%20and%20memory/README.md) (Register File & Memory)
-6. [PPD](./6.%20Primitive%20programmable%20device/README.md) (Primitive Programmable Device)
-7. [PU](./7.%20Peripheral%20units/README.md) (Peripheral units)
-8. [Programming](./8.%20Programming/README.md)
+1. [Adder](./1.%20Verilog.%20Adder/README.md)
+2. [ALU](./2.%20Arithmetic-logic%20unit/README.md) (Arithmetic Logic Unit)
+3. [RF](./3.%20Register%20file%20and%20memory/README.md) (Register File & Memory)
+4. [PPD](./4.%20Primitive%20programmable%20device/README.md) (Primitive Programmable Device)
 
 Полезное:
 - [Как установить Vivado](../Other/Vivado%20Basics/Install%20Vivado.md)

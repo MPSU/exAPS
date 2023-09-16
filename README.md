@@ -60,23 +60,19 @@
 Курс *Архитектур процессорных систем* включает в себя цикл из 4 лабораторных работ, в течение которых используя язык описания аппаратуры **Verilog HDL** на основе **FPGA** (ПЛИС, программируемая логическая интегральная схема), с нуля, последовательно, создается программируемое устройство – процессор. [Подробнее](Labs/README.md) о лабораторных работах.
 
 Список работ направления подготовки РТ [в квадратных скобках указаны номера лекций, в которых поднимаются соответствующие темы]:
-1. [Verilog](Labs/1.%20Verilog.%20FPGA/README.md) (Язык Verilog HDL) – [Лекция 2]
-2. [Adder](Labs/2.%20Adder/README.md) (Сумматор) – [Лекция 3]
-3. [ALU](Labs/3.%20Arithmetic-logic%20unit/README.md) (Арифметико-логическое устройство) – [Лекция 3]
-4. [TB](Labs/4.%20Testbenches/README.md) (Тестовое окружение)
-5. [RF](Labs/5.%20Register%20file%20and%20memory/README.md) (Регистровый файл и память) – [Лекция 4]
-6. [PPD](Labs/6.%20Primitive%20programmable%20device/README.md) (Простейшее программируемое устройство) – [Лекция 4]
-7. [PU](Labs/7.%20Peripheral%20units/README.md) (Периферийные устройства) – [Лекция 15]
-8. [Programming](Labs/8.%20Programming/README.md) (Программирование)
+1. [Adder](Labs/1.%20Verilog.%20Adder/README.md) (Сумматор) – [Лекция 3]
+2. [ALU](Labs/2.%20Arithmetic-logic%20unit/README.md) (Арифметико-логическое устройство) – [Лекция 3]
+3. [RF](Labs/3.%20Register%20file%20and%20memory/README.md) (Регистровый файл и память) – [Лекция 4]
+4. [PPD](Labs/4.%20Primitive%20programmable%20device/README.md) (Простейшее программируемое устройство) – [Лекция 4]
 
 Полезное дополнение к лабораторным:
-- [Как установить Vivado](Other/Install%20Vivado.md)
-- [Создание базового проекта с прошивкой ПЛИС в Vivado](Other/Vivado-trainer.md)
+- [Как установить Vivado](Other/Vivado%20Basics/Install%20Vivado.md)
+- [Создание базового проекта с прошивкой ПЛИС в Vivado](Other/Vivado%20Basics/Vivado-trainer.md)
 - [Что такое язык описания аппаратуры HDL](Other/What%20is%20HDL.md)
 - [Конструкции языка Verilog](Other/Verilog%20syntax.md)
 - [Список типичных ошибок при работе с Vivado и Verilog](https://github.com/MPSU/APS/blob/technical/Other/FAQ.md)
 - [Тестовое окружение](Other/Testbench.md)
-- [Как добавить файл с содержимым памяти в проект](Other/How%20to%20add%20a%20mem-file.md)
+- [Как добавить файл с содержимым памяти в проект](Other/Vivado%20Basics/How%20to%20add%20a%20mem-file.md)
 
 
 ## Дополнительные материалы
